@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'license_key' => env('mmcKOg2I6s6mFh1f8jcTiREyvDChnnmkT9jWe1dzfplw8hZAby', ''),
+    'charset' => 'utf-8',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -44,6 +44,7 @@ class News extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Text::make('Title Extra'),
+            Text::make('Text')->hideFromIndex(),
             Text::make('Tags'),
             Text::make('Cat'),
             Text::make('Country'),

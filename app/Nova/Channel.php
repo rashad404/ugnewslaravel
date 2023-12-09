@@ -44,10 +44,10 @@ class Channel extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name'),
-            Text::make('Name Code'),
             Text::make('Name URL'),
+            Text::make('Name Code')->hideFromIndex(),
             Trix::make('Text')->hideFromIndex(),
-            Text::make('Tags'),
+            Text::make('Tags')->hideFromIndex(),
             Text::make('Position'),
             Text::make('Cat'),
             Text::make('Country'),

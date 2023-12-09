@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class News extends Resource
@@ -45,7 +46,7 @@ class News extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Text::make('Title Extra'),
-            Textarea::make('Text')->hideFromIndex(),
+            Trix::make('Text')->hideFromIndex(),
             Text::make('Tags'),
             Text::make('Cat'),
             Text::make('Country'),

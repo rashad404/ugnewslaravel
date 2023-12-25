@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
@@ -13,96 +14,92 @@ class ApiController extends Controller
             $date = now()->format('d.m.Y');
         }
 
-        // Önbellek anahtarını oluştur
-        $cacheKey = 'cbar_data_' . $date;
+        $currentCacheKey = 'cbar_data_' . $date;
+        $previousDate = date('d.m.Y', strtotime('-1 day', strtotime($date)));
+        $previousCacheKey = 'cbar_data_' . $previousDate;
 
-        // Eğer önbellekte varsa, önbellekten verileri al
-        if (Cache::has($cacheKey)) {
-            $cachedData = Cache::get($cacheKey);
-            return Response::json($cachedData);
-        }
+        $currentData = $this->fetchAndCacheData($currentCacheKey, $date);
+        $previousData = $this->fetchAndCacheData($previousCacheKey, $previousDate);
 
-        // Eğer önbellekte yoksa, API'den verileri çek
-        $response = Http::get("http://cbar.az/currencies/{$date}.xml");
+        $convertedData = $this->convertData($currentData, $previousData, $date);
 
-        // Parse XML response
-        $xmlData = simplexml_load_string($response->body(), 'SimpleXMLElement', LIBXML_NOCDATA);
-
-        // Convert XML to JSON
-        $jsonData = json_encode($xmlData);
-        $dataArray = json_decode($jsonData, true);
-
-        // Initialize converted data array
-        $convertedData = [
-            'body' => [
-                'metal' => [],
-                'bankNote' => [],
-            ],
-            'date' => $dataArray['@attributes']['Date'],
-            'name' => $dataArray['@attributes']['Name'],
-            'description' => $dataArray['@attributes']['Description'],
-        ];
-
-        // Loop through ValType and Valute elements
-        foreach ($dataArray['ValType'] as $valType) {
-            $type = $valType['@attributes']['Type'];
-
-            foreach ($valType['Valute'] as $valute) {
-                $code = $valute['@attributes']['Code'];
-                $value = $valute['Value'];
-                $nominal = $valute['Nominal'];
-
-                // Check inflation and determine change
-                $change = $this->checkChange($code, $value, $date);
-
-                $convertedValute = [
-                    'code' => $code,
-                    'name' => $valute['Name'],
-                    'value' => $value,
-                    'nominal' => $nominal,
-                    'change' => $change,
-                ];
-
-                // Add converted value to the appropriate array
-                $convertedData['body'][$type === 'Bank metalları' ? 'metal' : 'bankNote'][] = $convertedValute;
-            }
-        }
-
-        // Cache the data for the day
-        Cache::put($cacheKey, $convertedData, now()->addDay());
-
-        // Return the final JSON response
         return Response::json($convertedData);
     }
 
-    // Function to check change
-    private function checkChange($code, $value, $date)
+    private function fetchAndCacheData($cacheKey, $date)
     {
-        // Get the previous day's data
-        $previousDate = date('d.m.Y', strtotime('-1 day', strtotime($date)));
-        $previousResponse = Http::get("http://cbar.az/currencies/{$previousDate}.xml");
-        $previousXmlData = simplexml_load_string($previousResponse->body(), 'SimpleXMLElement', LIBXML_NOCDATA);
-        $previousJsonData = json_decode(json_encode($previousXmlData), true);
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
 
-        // Find the value for the previous day
+        $response = Http::get("http://cbar.az/currencies/{$date}.xml");
+        $xmlData = simplexml_load_string($response->body(), 'SimpleXMLElement', LIBXML_NOCDATA);
+        $jsonData = json_decode(json_encode($xmlData), true);
+
+        Cache::put($cacheKey, $jsonData, now()->addDay());
+
+        return $jsonData;
+    }
+
+    private function convertData($currentData, $previousData, $date)
+    {
+        return Cache::remember('converted_data_' . $date, now()->addDay(), function () use ($currentData, $previousData, $date) {
+            $convertedData = [
+                'body' => [
+                    'metal' => [],
+                    'bankNote' => [],
+                ],
+                'date' => $currentData['@attributes']['Date'],
+                'name' => $currentData['@attributes']['Name'],
+                'description' => $currentData['@attributes']['Description'],
+            ];
+
+            foreach ($currentData['ValType'] as $valType) {
+                $type = $valType['@attributes']['Type'];
+
+                foreach ($valType['Valute'] as $valute) {
+                    $code = $valute['@attributes']['Code'];
+                    $value = $valute['Value'];
+                    $nominal = $valute['Nominal'];
+
+                    $previousValue = $this->getPreviousValue($code, $previousData);
+
+                    $change = $this->checkChange($value, $previousValue);
+
+                    $convertedValute = [
+                        'code' => $code,
+                        'name' => $valute['Name'],
+                        'value' => $value,
+                        'nominal' => $nominal,
+                        'change' => $change,
+                    ];
+
+                    $convertedData['body'][$type === 'Bank metalları' ? 'metal' : 'bankNote'][] = $convertedValute;
+                }
+            }
+
+            return $convertedData;
+        });
+    }
+
+    private function checkChange($currentValue, $previousValue)
+    {
+        return $previousValue !== null ? ($currentValue > $previousValue ? 'increased' : ($currentValue < $previousValue ? 'decreased' : 'constant')) : 'constant';
+    }
+
+    private function getPreviousValue($code, $previousData)
+    {
         $previousValue = null;
-        foreach ($previousJsonData['ValType'] as $valType) {
+
+        foreach ($previousData['ValType'] as $valType) {
             foreach ($valType['Valute'] as $valute) {
                 if ($valute['@attributes']['Code'] === $code) {
                     $previousValue = $valute['Value'];
-                    break 2; // Exit both loops when the value is found
+                    break 2;
                 }
             }
         }
 
-        // Check for change
-        if ($previousValue !== null) {
-            $change = $value > $previousValue ? 'increased' : ($value < $previousValue ? 'decreased' : 'constant');
-        } else {
-            // If there is no previous value, set change as 'constant'
-            $change = 'constant';
-        }
-
-        return $change;
+        return $previousValue;
     }
 }

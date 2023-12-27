@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/valuta/{date}',[ApiController::class,"fetchAndConvertData"]);
+Route::get('/valyuta/{date}',[ApiController::class,"fetchAndConvertData"]);
 

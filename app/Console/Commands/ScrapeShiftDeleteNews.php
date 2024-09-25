@@ -4,17 +4,17 @@ namespace App\Console\Commands;
 
 use App\Helpers\Url;
 use App\Models\Channel;
+use App\Models\News;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
-use App\Models\News;
 use Carbon\Carbon;
-use Illuminate\Support\Str; // Import Str class
+use Illuminate\Support\Str;
 
 class ScrapeShiftDeleteNews extends Command
 {
     protected $signature = 'scrape:shiftdelete-news';
-    protected $description = 'Scrapes news from ShiftDelete.Net and inserts into the database';
+    protected $description = 'Scrapes one news from ShiftDelete.Net and inserts into the database if not already added';
 
     public function __construct()
     {
@@ -25,57 +25,63 @@ class ScrapeShiftDeleteNews extends Command
     {
         $client = new Client();
         $url = 'https://en.shiftdelete.net/news/';
-        
-        // Make the HTTP request using Guzzle
+
+        // Step 1: Make the HTTP request to fetch news list
         $response = $client->request('GET', $url);
-        
-        // Get the HTML content of the response
         $htmlContent = $response->getBody()->getContents();
-        
-        // Create a new DomCrawler instance
         $crawler = new Crawler($htmlContent);
 
-        // Use the DomCrawler to filter and iterate over news posts
-        $crawler->filter('.post.style1.format-standard')->each(function (Crawler $node) {
-            // Extract data
-            $title = $node->filter('.post-title a')->text();
-            $url = $node->filter('.post-title a')->attr('href');
-            $excerpt = $node->filter('.post-excerpt p')->text();
-            $image = $node->filter('img')->attr('src');
-            $category = $node->filter('.post-category a')->text();
-            $date = $node->filter('.thb-date')->text();
+        // Step 2: Use the DomCrawler to filter and get the first news post that is not already in the database
+        $newsNode = $crawler->filter('.post.style1.format-standard')->first();
+        $title = $newsNode->filter('.post-title a')->text();
+        $newsUrl = $newsNode->filter('.post-title a')->attr('href');
+        $excerpt = $newsNode->filter('.post-excerpt p')->text();
+        $image = $newsNode->filter('img')->attr('src');
+        $category = $newsNode->filter('.post-category a')->text();
 
-            $channelId = 1;
-            // Prepare the data for insertion into the `news` table
+        // Step 3: Check if the news is already in the database by checking the slug or title
+        $channelId = 1; // Assuming a default channel for now
+        $slug = $this->generateSlug($title, $channelId);
+
+        if (!News::where('slug', $slug)->exists()) {
+            // Step 4: If the news doesn't exist, fetch full news details by visiting the news URL
+            $newsDetailsResponse = $client->request('GET', $newsUrl);
+            $newsDetailsContent = $newsDetailsResponse->getBody()->getContents();
+            $newsDetailsCrawler = new Crawler($newsDetailsContent);
+
+            // Extract full news text (assuming it's inside a <div> with a specific class or ID, adjust this as needed)
+            $fullText = $newsDetailsCrawler->filter('.post-content')->text();
+
+            // Step 5: Prepare and insert the news data into the database
             $newsData = [
                 'title' => $title,
-                'title_extra' => $category, // Assuming the category as title extra
-                'text' => $excerpt,
-                'tags' => $category, // Using category as tags, you can customize this
+                'title_extra' => $category,
+                'text' => $fullText,
+                'tags' => $category,
                 'image' => $image,
-                'thumb' => $image, // Assuming the same image as thumbnail, you can customize this
-                'position' => 0, // Default value
-                'cat' => 1, // Assuming category ID 1, customize according to your needs
-                'channel' => $channelId, // Assuming channel ID 1, customize according to your needs
+                'thumb' => $image,
+                'position' => 0,
+                'cat' => 1,
+                'channel' => $channelId,
                 'source' => 'ShiftDelete.Net',
-                'country' => 16, // Assuming country ID 1, customize as needed
-                'city' => 0, // Assuming city ID 1, customize as needed
-                'language' => 1, // Assuming language ID 1, customize as needed
-                'status' => 1, // Published status
+                'country' => 16,
+                'city' => 0,
+                'language' => 1,
+                'status' => 1,
                 'time' => Carbon::now()->timestamp,
                 'publish_time' => Carbon::now()->timestamp,
                 'view' => 1,
                 'likes' => 0,
                 'dislikes' => 0,
-                'partner_id' => 1, // Assuming partner ID 1, customize as needed
-                'slug' => $this->generateSlug($title, $channelId),
+                'partner_id' => 1,
+                'slug' => $slug,
             ];
 
-            // Insert into the database
             News::create($newsData);
-        });
-
-        $this->info('News scraping and insertion completed successfully!');
+            $this->info("Inserted news: {$title}");
+        } else {
+            $this->info("No new news to insert.");
+        }
     }
 
     /**
@@ -83,15 +89,8 @@ class ScrapeShiftDeleteNews extends Command
      */
     private function getChannelNameUrl($channelId)
     {
-        // Fetch the channel by its ID and return its name_url
         $channel = Channel::find($channelId);
-        
-        if ($channel) {
-            return $channel->name_url;
-        }
-
-        // Fallback to a default name if not found
-        return 'default-channel';
+        return $channel ? $channel->name_url : 'default-channel';
     }
 
     /**
@@ -99,11 +98,7 @@ class ScrapeShiftDeleteNews extends Command
      */
     private function generateSlug($title, $channelId)
     {
-        // Fetch the channel name_url from the channels table
         $channelNameUrl = $this->getChannelNameUrl($channelId);
-
-
         return $channelNameUrl . '/' . Url::generateSafeSlug($title);
-    
     }
 }

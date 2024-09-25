@@ -41,10 +41,10 @@ class ScrapeShiftDeleteNews extends Command
         $category = $newsNode->filter('.post-category a')->text();
 
         $channelId = 1; // Assuming a default channel for now
-        $slug = $this->generateSlug($title, $channelId);
+        $uniqueness = md5($title.date("Y-m"));
 
         // Step 3: Check if the news is already in the database
-        if (!News::where('slug', $slug)->exists()) {
+        if (!News::where('slug', $uniqueness)->exists()) {
             // Step 4: Fetch full news details by visiting the news URL
             $newsDetailsResponse = $client->request('GET', $newsUrl);
             $newsDetailsContent = $newsDetailsResponse->getBody()->getContents();
@@ -56,6 +56,7 @@ class ScrapeShiftDeleteNews extends Command
             $title = $generatedData['title'];
             $fullText = $generatedData['text'];
             $tags = $generatedData['tags'];
+            $slug = $this->generateSlug($title, $channelId);
 
             // Step 6: Prepare and insert the news data into the database
             $newsData = [

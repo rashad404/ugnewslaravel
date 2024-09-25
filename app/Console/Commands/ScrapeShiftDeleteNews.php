@@ -123,6 +123,7 @@ class ScrapeShiftDeleteNews extends Command
                     'parts' => [
                         [
                             'text' => "Translate the title and text to Azerbaijani. Rewrite to avoid duplication but keep the original meaning. Format with HTML tags (<p>, <b>, <strong>, etc.) for readability and SEO. Add <br/> after each </p>. Provide SEO-friendly tags in Azerbaijani at the end.
+                            There should be no unrelated content in the translation, such as add your comment etc.
 Return in this format:
 newTitle: [plain text]
 newText: [HTML formatted]

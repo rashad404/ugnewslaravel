@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 class ScrapeShiftDeleteNews extends Command
 {
     protected $signature = 'scrape:shiftdelete-news';
-    protected $description = 'Scrapes one news from ShiftDelete.Net and inserts into the database if not already added';
+    protected $description = 'Scrapes one news from ShiftDelete.Net, translates and rewrites using Google Gemini API, and inserts into the database if not already added';
 
     public function __construct()
     {
@@ -31,7 +31,7 @@ class ScrapeShiftDeleteNews extends Command
         $htmlContent = $response->getBody()->getContents();
         $crawler = new Crawler($htmlContent);
 
-        // Step 2: Use the DomCrawler to filter and get the first news post that is not already in the database
+        // Step 2: Get the first news post
         $newsNode = $crawler->filter('.post.style1.format-standard')->first();
         $title = $newsNode->filter('.post-title a')->text();
         $newsUrl = $newsNode->filter('.post-title a')->attr('href');
@@ -39,25 +39,29 @@ class ScrapeShiftDeleteNews extends Command
         $image = $newsNode->filter('img')->attr('src');
         $category = $newsNode->filter('.post-category a')->text();
 
-        // Step 3: Check if the news is already in the database by checking the slug or title
         $channelId = 1; // Assuming a default channel for now
         $slug = $this->generateSlug($title, $channelId);
 
+        // Step 3: Check if the news is already in the database
         if (!News::where('slug', $slug)->exists()) {
-            // Step 4: If the news doesn't exist, fetch full news details by visiting the news URL
+            // Step 4: Fetch full news details by visiting the news URL
             $newsDetailsResponse = $client->request('GET', $newsUrl);
             $newsDetailsContent = $newsDetailsResponse->getBody()->getContents();
             $newsDetailsCrawler = new Crawler($newsDetailsContent);
-
-            // Extract full news text (assuming it's inside a <div> with a specific class or ID, adjust this as needed)
             $fullText = $newsDetailsCrawler->filter('.post-content')->text();
 
-            // Step 5: Prepare and insert the news data into the database
+            // Step 5: Translate and rewrite using Google Gemini API
+            $generatedData = $this->getDataFromGemini($title, $fullText);
+            $title = $generatedData['title'];
+            $fullText = $generatedData['text'];
+            $tags = $generatedData['tags'];
+
+            // Step 6: Prepare and insert the news data into the database
             $newsData = [
                 'title' => $title,
-                'title_extra' => $category,
+                'title_extra' => '',
                 'text' => $fullText,
-                'tags' => $category,
+                'tags' => $tags,
                 'image' => $image,
                 'thumb' => $image,
                 'position' => 0,
@@ -78,7 +82,7 @@ class ScrapeShiftDeleteNews extends Command
             ];
 
             News::create($newsData);
-            $this->info("Inserted news: {$title}");
+            $this->info("Inserted translated and rewritten news: {$title}");
         } else {
             $this->info("No new news to insert.");
         }
@@ -101,4 +105,102 @@ class ScrapeShiftDeleteNews extends Command
         $channelNameUrl = $this->getChannelNameUrl($channelId);
         return $channelNameUrl . '/' . Url::generateSafeSlug($title);
     }
+
+    /**
+     * Sends data to Google Gemini API and retrieves rewritten and translated text with HTML formatting and related tags.
+     */
+    private function getDataFromGemini($title, $fullText)
+    {
+        $client = new \GuzzleHttp\Client();
+        $geminiApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'; // Google Gemini API endpoint
+        $apiKey = 'AIzaSyAlabvTPjW-cjXdBTBTBE7pae_whJoiFtM'; // Replace with your actual API key
+
+        // Prepare the request payload with a custom prompt
+        $payload = [
+            'contents' => [
+                [
+                    'parts' => [
+                        [
+                            'text' => "Translate the title and text to Azerbaijani. Rewrite to avoid duplication but keep the original meaning. Format with HTML tags (<p>, <b>, <strong>, etc.) for readability and SEO. Add <br/> after each </p>. Provide SEO-friendly tags in Azerbaijani at the end.
+Return in this format:
+newTitle: [plain text]
+newText: [HTML formatted]
+newTags: [comma-separated list]
+Here is the original content:
+Title: {$title}
+Text: {$fullText}
+"
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        try {
+            // Send the request to Google Gemini API
+            $response = $client->post($geminiApiUrl, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'query' => [
+                    'key' => $apiKey,
+                ],
+                'json' => $payload,
+            ]);
+
+            // Parse the response
+            $responseBody = json_decode($response->getBody(), true);
+            // dd($responseBody); // Debugging: See what the API returned
+            
+            // Assuming the response returns a single string with "newTitle:...", "newText:...", and "newTags:..."
+            if (isset($responseBody['candidates'][0]['content']['parts'][0]['text'])) {
+                $responseText = $responseBody['candidates'][0]['content']['parts'][0]['text'];
+
+                // Use regex to extract newTitle, newText, and newTags from the response
+                $newTitlePattern = '/newTitle:(.*?)newText:/s';
+                $newTextPattern = '/newText:(.*?)newTags:/s';
+                $newTagsPattern = '/newTags:(.*)/s';
+
+                // Extract title
+                preg_match($newTitlePattern, $responseText, $titleMatches);
+                $newTitle = isset($titleMatches[1]) ? trim($titleMatches[1]) : $title;
+
+                // Extract text
+                preg_match($newTextPattern, $responseText, $textMatches);
+                $newFullText = isset($textMatches[1]) ? trim($textMatches[1]) : $fullText;
+
+                // Extract tags
+                preg_match($newTagsPattern, $responseText, $tagsMatches);
+                $newTags = isset($tagsMatches[1]) ? trim($tagsMatches[1]) : '';
+
+                // Return the rewritten and translated data
+                return [
+                    'title' => $newTitle,
+                    'text' => $newFullText,
+                    'tags' => $newTags,
+                ];
+            }
+
+            // Fallback in case the API returns unexpected content
+            return [
+                'title' => $title,
+                'text' => $fullText,
+                'tags' => '',
+            ];
+
+        } catch (\Exception $e) {
+            $this->error('Error communicating with Google Gemini API: ' . $e->getMessage());
+
+            // Fallback: return original title and fullText in case of error
+            return [
+                'title' => $title,
+                'text' => $fullText,
+                'tags' => '',
+            ];
+        }
+    }
+
+
+
+
 }

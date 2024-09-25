@@ -40,11 +40,16 @@ class ScrapeShiftDeleteNews extends Command
         $image = 'defaults/news.jpg';
         $category = $newsNode->filter('.post-category a')->text();
 
-        $channelId = 1; // Assuming a default channel for now
-        $uniqueness = md5($title.date("Y-m"));
+        $channelId = 1;
+        
+        $source = 'ShiftDelete.Net';
+        
+        // We will use to check news uniqueness
+        $uniqueness = substr(md5($title . $source. date("Y-m")), 0, 15);
+
 
         // Step 3: Check if the news is already in the database
-        if (!News::where('slug', $uniqueness)->exists()) {
+        if (!News::where('uniqueness', $uniqueness)->exists()) {
             // Step 4: Fetch full news details by visiting the news URL
             $newsDetailsResponse = $client->request('GET', $newsUrl);
             $newsDetailsContent = $newsDetailsResponse->getBody()->getContents();
@@ -69,7 +74,7 @@ class ScrapeShiftDeleteNews extends Command
                 'position' => 0,
                 'cat' => 8,
                 'channel' => $channelId,
-                'source' => 'ShiftDelete.Net',
+                'source' => $source,
                 'country' => 16,
                 'city' => 0,
                 'language' => 1,
@@ -81,6 +86,7 @@ class ScrapeShiftDeleteNews extends Command
                 'dislikes' => 0,
                 'partner_id' => 1,
                 'slug' => $slug,
+                'uniqueness' => $uniqueness,
             ];
 
             News::create($newsData);

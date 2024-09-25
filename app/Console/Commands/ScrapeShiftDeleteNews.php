@@ -36,7 +36,8 @@ class ScrapeShiftDeleteNews extends Command
         $title = $newsNode->filter('.post-title a')->text();
         $newsUrl = $newsNode->filter('.post-title a')->attr('href');
         $excerpt = $newsNode->filter('.post-excerpt p')->text();
-        $image = $newsNode->filter('img')->attr('src');
+        // $image = $newsNode->filter('img')->attr('src');
+        $image = 'defaults/news.jpg';
         $category = $newsNode->filter('.post-category a')->text();
 
         $channelId = 1; // Assuming a default channel for now

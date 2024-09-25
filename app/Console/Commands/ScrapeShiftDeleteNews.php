@@ -54,7 +54,6 @@ class ScrapeShiftDeleteNews extends Command
                 'position' => 0, // Default value
                 'cat' => 1, // Assuming category ID 1, customize according to your needs
                 'channel' => 38, // Assuming channel ID 1, customize according to your needs
-                'channel_name' => 'Texnologiya xəbərləri',
                 'source' => 'ShiftDelete.Net',
                 'country' => 16, // Assuming country ID 1, customize as needed
                 'city' => 0, // Assuming city ID 1, customize as needed

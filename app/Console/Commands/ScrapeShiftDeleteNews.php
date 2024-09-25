@@ -66,7 +66,7 @@ class ScrapeShiftDeleteNews extends Command
                 'image' => $image,
                 'thumb' => $image,
                 'position' => 0,
-                'cat' => 1,
+                'cat' => 8,
                 'channel' => $channelId,
                 'source' => 'ShiftDelete.Net',
                 'country' => 16,

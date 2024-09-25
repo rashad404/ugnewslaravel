@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\Url;
+use App\Models\Channel;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
@@ -43,6 +45,7 @@ class ScrapeShiftDeleteNews extends Command
             $category = $node->filter('.post-category a')->text();
             $date = $node->filter('.thb-date')->text();
 
+            $channelId = 1;
             // Prepare the data for insertion into the `news` table
             $newsData = [
                 'title' => $title,
@@ -53,7 +56,7 @@ class ScrapeShiftDeleteNews extends Command
                 'thumb' => $image, // Assuming the same image as thumbnail, you can customize this
                 'position' => 0, // Default value
                 'cat' => 1, // Assuming category ID 1, customize according to your needs
-                'channel' => 38, // Assuming channel ID 1, customize according to your needs
+                'channel' => $channelId, // Assuming channel ID 1, customize according to your needs
                 'source' => 'ShiftDelete.Net',
                 'country' => 16, // Assuming country ID 1, customize as needed
                 'city' => 0, // Assuming city ID 1, customize as needed
@@ -65,7 +68,7 @@ class ScrapeShiftDeleteNews extends Command
                 'likes' => 0,
                 'dislikes' => 0,
                 'partner_id' => 1, // Assuming partner ID 1, customize as needed
-                'slug' => $this->generateSlug($title),
+                'slug' => $this->generateSlug($title, $channelId),
             ];
 
             // Insert into the database
@@ -76,10 +79,31 @@ class ScrapeShiftDeleteNews extends Command
     }
 
     /**
+     * Get the channel's name_url from the channels table
+     */
+    private function getChannelNameUrl($channelId)
+    {
+        // Fetch the channel by its ID and return its name_url
+        $channel = Channel::find($channelId);
+        
+        if ($channel) {
+            return $channel->name_url;
+        }
+
+        // Fallback to a default name if not found
+        return 'default-channel';
+    }
+
+    /**
      * Generate a slug from the title using Str::slug()
      */
-    private function generateSlug($title)
+    private function generateSlug($title, $channelId)
     {
-        return Str::slug($title, '-');
+        // Fetch the channel name_url from the channels table
+        $channelNameUrl = $this->getChannelNameUrl($channelId);
+
+
+        return $channelNameUrl . '/' . Url::generateSafeSlug($title);
+    
     }
 }

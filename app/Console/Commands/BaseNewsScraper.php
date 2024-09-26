@@ -41,7 +41,7 @@ abstract class BaseNewsScraper extends Command
         $image = 'defaults/news.jpg';
         $category = $newsData['category'];
 
-        $channelId = 1;
+        $channelId = 17;
         $source = $this->sourceName;
 
         // We will use to check news uniqueness

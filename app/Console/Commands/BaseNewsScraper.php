@@ -148,14 +148,14 @@ abstract class BaseNewsScraper extends Command
 - Use Azerbaijani-specific language and cultural references
 - Avoid confusion with Turkish
 - Format with HTML tags (<p>, <b>, <strong>)
-- Add <br/> after each </p>
+- After each closing </p> tag, add two line breaks: </p><br/>
 - No unrelated content or comments
 - No reference to other websites, or comments section etc, this should be pure news text, nothing else.
 
 Return:
 newTitle: [plain text]
 newText: [HTML formatted]
-newTags: [comma-separated list in Azerbaijani]
+newTags: [comma-separated list in Azerbaijani, letters, space, dash, and numbers only]
 
 Original:
 Title: {$title}

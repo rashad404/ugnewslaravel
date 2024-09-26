@@ -37,7 +37,8 @@ abstract class BaseNewsScraper extends Command
         $title = $newsData['title'];
         $newsUrl = $newsData['newsUrl'];
         $excerpt = $newsData['excerpt'];
-        $image = $newsData['image'] ?? 'defaults/news.jpg';
+        // $image = $newsData['image'] ?? 'defaults/news.jpg';
+        $image = 'defaults/news.jpg';
         $category = $newsData['category'];
 
         $channelId = 1;

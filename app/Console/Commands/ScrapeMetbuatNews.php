@@ -48,7 +48,7 @@ class ScrapeMetbuatNews extends BaseNewsScraper
         // Ensure full image URL
         $image = $this->sourceUrl . $imageSrc;
 
-        $category = ''; // Not specified in the given HTML
+        $category = 1; // Not specified in the given HTML
 
         // Excerpt is not explicitly provided; you may choose to extract a short part of the content
         $excerpt = $newsLink->filter('h4.news_box_ttl')->text();

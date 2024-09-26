@@ -60,7 +60,10 @@ abstract class BaseNewsScraper extends Command
             $generatedData = $this->getDataFromGemini($title, $fullText);
             $title = $generatedData['title'];
             $fullText = $generatedData['text'];
-            $tags = $generatedData['tags'];
+
+            $tags = trim(preg_replace('/[^\p{L}0-9 .-]/u', '', $generatedData['tags']));
+            
+
             $slug = $this->generateSlug($title, $channelId);
 
             // Step 6: Prepare and insert the news data into the database

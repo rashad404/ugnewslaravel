@@ -61,8 +61,8 @@ abstract class BaseNewsScraper extends Command
             $title = $generatedData['title'];
             $fullText = $generatedData['text'];
 
-            $tags = trim(preg_replace('/[^\p{L}0-9 .-]/u', '', $generatedData['tags']));
-            
+            $tags = $generatedData['tags'];
+
 
             $slug = $this->generateSlug($title, $channelId);
 
@@ -205,6 +205,9 @@ Text: {$fullText}"
                 // Extract tags
                 preg_match($newTagsPattern, $responseText, $tagsMatches);
                 $newTags = isset($tagsMatches[1]) ? trim($tagsMatches[1]) : '';
+
+                $newTags = trim(preg_replace('/[^\p{L}0-9 .-]/u', '', $newTags));
+                $newTags = preg_replace('/,\s+/', ',', $newTags);
 
                 // Return the rewritten and translated data
                 return [

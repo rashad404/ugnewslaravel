@@ -206,7 +206,7 @@ Text: {$fullText}"
                 preg_match($newTagsPattern, $responseText, $tagsMatches);
                 $newTags = isset($tagsMatches[1]) ? trim($tagsMatches[1]) : '';
 
-                $newTags = trim(preg_replace('/[^\p{L}0-9 .-]/u', '', $newTags));
+                $newTags = trim(preg_replace('/[^\p{L}0-9 .,.-]/u', '', $newTags));
                 $newTags = preg_replace('/,\s+/', ',', $newTags);
 
                 // Return the rewritten and translated data

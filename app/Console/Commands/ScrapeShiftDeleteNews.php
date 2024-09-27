@@ -34,7 +34,8 @@ class ScrapeShiftDeleteNews extends BaseNewsScraper
         $newsUrl = $newsNode->filter('.post-title a')->attr('href');
         $excerpt = $newsNode->filter('.post-excerpt p')->text();
         $image = 'defaults/news.jpg'; // Adjust if needed
-        $category = $newsNode->filter('.post-category a')->text();
+        // $category = $newsNode->filter('.post-category a')->text();
+        $category = 8;
 
         return [
             'title'   => $title,

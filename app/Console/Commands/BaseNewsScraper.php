@@ -75,7 +75,7 @@ abstract class BaseNewsScraper extends Command
                 'image'         => $image,
                 'thumb'         => $image,
                 'position'      => 0,
-                'cat'           => 8,
+                'cat'           => $category,
                 'channel'       => $channelId,
                 'source'        => $source,
                 'country'       => 16,

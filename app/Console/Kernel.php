@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
 
         // New scheduled command to fetch currencies
         $schedule->command('currencies:fetch')->dailyAt('6:00');
+        $schedule->command('weather:fetch')->dailyAt('5:00');
     }
 
     /**

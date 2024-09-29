@@ -15,9 +15,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Existing scheduled command
         $schedule->command('scrape:shiftdelete-news')->daily();
+
+        // New scheduled command to fetch currencies
+        $schedule->command('currencies:fetch')->dailyAt('6:00');
     }
-    
 
     /**
      * Register the commands for the application.

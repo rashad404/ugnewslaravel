@@ -1,20 +1,25 @@
 <?php
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Weather extends Model
+class CreateWeatherTable extends Migration
 {
-    use HasFactory;
+    public function up()
+    {
+        Schema::create('weather', function (Blueprint $table) {
+            $table->id();
+            $table->string('city_name');
+            $table->string('day');
+            $table->string('night_temperature');
+            $table->string('day_temperature');
+            $table->string('wind_condition');
+            $table->timestamps();
+        });
+    }
 
-    protected $table = 'weather';
-
-    protected $fillable = [
-        'city_name',
-        'day',
-        'night_temperature',
-        'day_temperature',
-        'wind_condition',
-    ];
+    public function down()
+    {
+        Schema::dropIfExists('weather');
+    }
 }

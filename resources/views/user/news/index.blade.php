@@ -58,7 +58,7 @@
                 @foreach($news as $article)
                 <tr class="hover:bg-gray-50">
                     <td class="py-4 pl-4">
-                        <img src="{{Storage::url($article->image ?? "default_images/news.jpg")}}" alt="{{ $article->title }}"
+                        <img src="{{Storage::url($article->image ?? "defaults/news.jpg")}}" alt="{{ $article->title }}"
                             class="w-16 h-16 object-cover rounded">
                     </td>
                     <td class="py-4 px-4">

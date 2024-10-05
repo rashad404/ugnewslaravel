@@ -59,7 +59,7 @@ class ScrapeHaberlerNews extends BaseNewsScraper
             'newsUrl' => $newsUrl,
             'excerpt' => $excerpt,
             'image'   => $image,
-            'category'=> 2,
+            'category_id'=> 2,
         ];
     }
 

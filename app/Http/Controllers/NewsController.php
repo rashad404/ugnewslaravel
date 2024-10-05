@@ -73,7 +73,6 @@ class NewsController extends Controller
 
         $data = $request->all();
 
-        $data['slug'] = $this->generateSafeSlug($request->title);
         $data['user_id'] = auth()->id();
         $data['time'] = time();
         
@@ -100,7 +99,8 @@ class NewsController extends Controller
         }
 
         $data['status'] = 1;
-        
+        $data['slug'] = $channelInfo->name_url . '/' . $this->generateSafeSlug($request->title);
+
         News::create($data);
 
         return redirect()->route('user.news.index')->with('success', __('News item has been added successfully'));
@@ -187,6 +187,8 @@ class NewsController extends Controller
             $data['tags'] = implode(',', $data['tags']);
         }
     
+        $data['slug'] = $channelInfo->name_url . '/' . $this->generateSafeSlug($request->title);
+        
         $news->update($data);
     
         return redirect()->route('user.news.index')->with('success', __('News item has been updated successfully'));

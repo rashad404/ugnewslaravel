@@ -39,7 +39,7 @@ abstract class BaseNewsScraper extends Command
         $excerpt = $newsData['excerpt'];
         // $image = $newsData['image'] ?? 'defaults/news.jpg';
         $image = 'defaults/news.jpg';
-        $category = $newsData['category'];
+        $category_id = $newsData['category_id'];
 
         $channelId = 17;
         $source = $this->sourceName;
@@ -75,8 +75,8 @@ abstract class BaseNewsScraper extends Command
                 'image'         => $image,
                 'thumb'         => $image,
                 'position'      => 0,
-                'category_id'           => $category_id,
-                'channel_id'       => $channelId,
+                'category_id'   => $category_id,
+                'channel_id'    => $channelId,
                 'source'        => $source,
                 'country_id'       => 16,
                 'city_id'          => 0,

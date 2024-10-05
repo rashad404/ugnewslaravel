@@ -40,5 +40,29 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birthday' => 'date',
+        'time' => 'datetime',
+        'reg_time' => 'datetime',
+        'gender' => 'boolean',
+        'status' => 'boolean',
+        'block' => 'boolean',
+        'score' => 'integer',
+        'balance' => 'decimal:2',
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+        $this->attributes['password_hash'] = bcrypt($value);
+    }
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
+
+    public function channels()
+    {
+        return $this->hasMany(Channel::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\LanguageService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,8 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(LanguageService::class, function ($app) {
+            return new LanguageService();
+        });
     }
+
 
     /**
      * Bootstrap any application services.

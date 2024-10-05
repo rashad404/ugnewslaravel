@@ -99,6 +99,8 @@ class NewsController extends Controller
             $data['tags'] = implode(',', $data['tags']);
         }
 
+        $data['status'] = 1;
+        
         News::create($data);
 
         return redirect()->route('user.news.index')->with('success', __('News item has been added successfully'));

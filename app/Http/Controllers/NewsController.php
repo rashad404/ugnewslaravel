@@ -85,8 +85,8 @@ class NewsController extends Controller
 
         if ($request->channel_id > 0) {
             $channelInfo = Channel::find($request->channel_id);
-            $data['country_id'] = $channelInfo->country;
-            $data['language_id'] = $channelInfo->language;
+            $data['country_id'] = $channelInfo->country_id;
+            $data['language_id'] = $channelInfo->language_id;
         }
 
         // Convert publish_time to Unix timestamp if provided
@@ -172,8 +172,8 @@ class NewsController extends Controller
     
         if ($request->channel_id > 0) {
             $channelInfo = Channel::find($request->channel_id);
-            $data['country_id'] = $channelInfo->country;
-            $data['language_id'] = $channelInfo->language;
+            $data['country_id'] = $channelInfo->country_id;
+            $data['language_id'] = $channelInfo->language_id;
         }
     
         // Convert publish_time to Unix timestamp if provided

@@ -43,6 +43,7 @@ class ScrapeShiftDeleteNews extends BaseNewsScraper
             'excerpt' => $excerpt,
             'image'   => $image,
             'category_id'=> $category_id,
+            'channel_id'=> 38,
         ];
     }
 

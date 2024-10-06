@@ -24,7 +24,7 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        dd(Session::get('user_session_pass'));
+        dd(session()->all());
         $query = News::query();
 
         if ($request->has('search')) {

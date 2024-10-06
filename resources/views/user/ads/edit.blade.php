@@ -18,7 +18,7 @@
             @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Image Field -->
-                <div class="col-span-1">
+                <div class="col-span-1 max-w-96">
                     <input type="file" name="image" ref="fileInput" class="hidden">
                     <image-upload-component
                         :remove-label="{{ json_encode(__('Remove Image')) }}"

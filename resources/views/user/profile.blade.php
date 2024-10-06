@@ -18,7 +18,7 @@ $breadcrumbs = [
             
             <div class="p-6 space-y-6">
                 <!-- Profile Picture -->
-                <div id="app" class="w-96">
+                <div id="app" class="max-w-96">
                     <input type="file" name="image" ref="fileInput" class="hidden">
                     <image-upload-component
                         :remove-label="{{ json_encode(('Remove Image')) }}"

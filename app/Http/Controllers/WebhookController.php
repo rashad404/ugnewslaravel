@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\ApiKey;
+use App\Models\Channel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -38,6 +39,10 @@ class WebhookController extends Controller
             Log::warning('Invalid API key used in webhook');
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        $channelInfo = Channel::find($request->channel);
+        $data['country_id'] = $channelInfo->country_id;
+        $data['language_id'] = $channelInfo->language_id;
 
         try {
             // Create a new news article from the webhook data

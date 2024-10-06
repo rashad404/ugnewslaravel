@@ -25,7 +25,7 @@ class UserController extends Controller
 
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'birthday' => 'required|date|before_or_equal:' . now()->subYears(16)->format('Y-m-d'),
             'gender' => 'required|in:0,1,2',
             'country_code' => 'required|string',
@@ -33,7 +33,13 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user->fill($validatedData);
+        // Manually update fields instead of using fill()
+        $user->first_name = $validatedData['first_name'];
+        $user->last_name = $validatedData['last_name'];
+        $user->birthday = $validatedData['birthday'];
+        $user->gender = $validatedData['gender'];
+        $user->country_code = $validatedData['country_code'];
+        $user->phone = $validatedData['country_code'] . $validatedData['phone'];
 
         if ($request->hasFile('profile_photo')) {
             if ($user->profile_photo_path) {
@@ -42,7 +48,6 @@ class UserController extends Controller
             $user->profile_photo_path = $request->file('profile_photo')->store('users', 'public');
         }
 
-        $user->phone = $validatedData['country_code'] . $validatedData['phone'];
         $user->save();
 
         return redirect()->route('user.profile')->with('success', __('Your profile information has been updated successfully'));

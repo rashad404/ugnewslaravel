@@ -4,7 +4,7 @@ use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
-use App\Http\Controllers\defaultSettingController;
+use App\Http\Controllers\DefaultSettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
@@ -50,8 +50,8 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('ads', AdController::class);
 
-        Route::get('/default-settings/index', [defaultSettingController::class, 'edit'])->name('default-settings.index');
-        Route::put('/default-settings', [defaultSettingController::class, 'update'])->name('default-settings.update');
+        Route::get('/default-settings/index', [DefaultSettingController::class, 'edit'])->name('default-settings.index');
+        Route::put('/default-settings', [DefaultSettingController::class, 'update'])->name('default-settings.update');
    
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');

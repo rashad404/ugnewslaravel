@@ -99,6 +99,8 @@ class NewsController extends Controller
         // Convert publish_time to Unix timestamp if provided
         if (!empty($request->publish_time)) {
             $data['publish_time'] = strtotime($request->publish_time); // Convert to timestamp
+        } else {
+            $data['publish_time'] = time();
         }
 
         // Handle tags
@@ -189,7 +191,10 @@ class NewsController extends Controller
         // Convert publish_time to Unix timestamp if provided
         if (!empty($request->publish_time)) {
             $data['publish_time'] = strtotime($request->publish_time);
+        } else {
+            $data['publish_time'] = time();
         }
+
         // Handle tags
         if (isset($data['tags'])) {
             $data['tags'] = implode(',', $data['tags']);

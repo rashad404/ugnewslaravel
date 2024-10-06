@@ -56,7 +56,7 @@ class WebhookController extends Controller
             $news->city_id = $request->city;
             $news->status = 1; // Assuming 1 means published
             $news->time = time();
-            $news->publish_time = $request->publish_time;
+            $news->publish_time = $request->publish_time ?? time();
             $news->view = 1; // Default value
             $news->likes = 0;
             $news->dislikes = 0;

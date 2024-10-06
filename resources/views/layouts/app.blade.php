@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css')  .'?'. rand(11111,99999) }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') .'?'. rand(11111,99999) }}" defer></script>

@@ -23,7 +23,7 @@ class WebhookController extends Controller
             'image' => 'string|max:255',
             'category' => 'required|integer',
             'channel' => 'required|integer',
-            'city' => 'required|integer',
+            'city' => 'nullable|integer',
             'publish_time' => 'nullable|integer',
             'api_key' => 'required|string'
         ]);

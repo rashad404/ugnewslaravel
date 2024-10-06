@@ -24,7 +24,7 @@ class WebhookController extends Controller
             'category' => 'required|integer',
             'channel' => 'required|integer',
             'city' => 'required|integer',
-            'publish_time' => 'required|integer',
+            'publish_time' => 'nullable|integer',
             'api_key' => 'required|string'
         ]);
 

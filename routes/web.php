@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\DefaultSettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 
@@ -57,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
    
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/documentations/webhooks/news', [DocumentationController::class, 'webhookNews'])->name('documentations.webhooks.news');
 
     });
 

@@ -8,6 +8,7 @@ $breadcrumbs = [
 ];
 @endphp
 
+@section('content')
 <main class="bg-gray-100 py-10">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ __('Account info') }}</h1>
@@ -55,11 +56,10 @@ $breadcrumbs = [
                 <!-- Gender Field -->
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700">{{ __('Gender') }}</label>
-                    <?=$user->gender?>
                     <select id="gender" name="gender" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="0" {{ old('gender', $user->gender) === 0 ? 'selected' : '' }}>{{ __('Not selected') }}</option>
-                        <option value="1" {{ old('gender', $user->gender) === 1 ? 'selected' : '' }}>{{ __('Male') }}</option>
-                        <option value="2" {{ old('gender', $user->gender) === 2 ? 'selected' : '' }}>{{ __('Female') }}</option>
+                        <option value="0" {{ old('gender', $user->gender) == 0 ? 'selected' : '' }}>{{ __('Not selected') }}</option>
+                        <option value="1" {{ old('gender', $user->gender) == 1 ? 'selected' : '' }}>{{ __('Male') }}</option>
+                        <option value="2" {{ old('gender', $user->gender) == 2 ? 'selected' : '' }}>{{ __('Female') }}</option>
                     </select>
                 </div>
 

@@ -65,7 +65,7 @@ class WebhookController extends Controller
             $news->country_id = $channelInfo->country_id;
             $news->language_id = $channelInfo->language_id;
             $news->slug = $channelInfo->name_url . '/' . $this->generateSafeSlug($request->title);
-            
+
             $news->save();
 
             Log::info('New article created via webhook: ' . $news->id);
@@ -92,5 +92,16 @@ class WebhookController extends Controller
     private function generateUniqueness()
     {
         return Str::random(15);
+    }
+
+    protected function generateSafeSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = 2;
+        while (News::where('slug', $slug)->exists()) {
+            $slug = Str::slug($title) . '-' . $count;
+            $count++;
+        }
+        return $slug;
     }
 }

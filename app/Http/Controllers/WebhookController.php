@@ -23,7 +23,6 @@ class WebhookController extends Controller
             'category' => 'required|integer',
             'channel' => 'required|integer',
             'city' => 'required|integer',
-            'language' => 'required|integer',
             'publish_time' => 'required|integer',
             'api_key' => 'required|string'
         ]);
@@ -52,7 +51,6 @@ class WebhookController extends Controller
             $news->category_id = $request->category;
             $news->channel_id = $request->channel;
             $news->city_id = $request->city;
-            $news->language_id = $request->language;
             $news->status = 1; // Assuming 1 means published
             $news->time = time();
             $news->publish_time = $request->publish_time;

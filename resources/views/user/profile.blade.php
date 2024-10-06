@@ -1,6 +1,13 @@
 @extends('user.layouts.app')
 
 @section('content')
+@php
+$breadcrumbs = [
+    ['title' => 'Dashboard', 'url' => route('user.dashboard')],
+    ['title' => 'Ads', 'url' => '#']
+];
+@endphp
+
 <main class="bg-gray-100 py-10">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ __('Account info') }}</h1>

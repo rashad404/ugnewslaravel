@@ -61,11 +61,11 @@ class WebhookController extends Controller
             $news->likes = 0;
             $news->dislikes = 0;
             $news->user_id = $userId;
-            $news->slug = Str::slug($request->title);
             $news->uniqueness = $this->generateUniqueness();
             $news->country_id = $channelInfo->country_id;
             $news->language_id = $channelInfo->language_id;
-
+            $news->slug = $channelInfo->name_url . '/' . $this->generateSafeSlug($request->title);
+            
             $news->save();
 
             Log::info('New article created via webhook: ' . $news->id);

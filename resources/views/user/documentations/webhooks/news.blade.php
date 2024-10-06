@@ -63,7 +63,7 @@
         <h2 class="text-2xl font-semibold mb-4">Example Request</h2>
         <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
             <pre><code class="language-bash">
-curl -X POST https://new.ug.news/webhook \
+curl -X POST https://new.ug.news/api/webhook \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Breaking News",

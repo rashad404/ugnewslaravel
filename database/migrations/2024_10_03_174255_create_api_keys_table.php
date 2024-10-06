@@ -10,6 +10,7 @@ class CreateApiKeysTable extends Migration
     {
         Schema::create('api_keys', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 64);
             $table->unsignedBigInteger('user_id');
             $table->string('api_key', 64)->unique();
             $table->boolean('is_active')->default(true);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\ApiKeyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('upload-image', [ChannelController::class, 'uploadImage'])->name('upload-image');
         });
         Route::resource('ads', AdController::class);
+        Route::resource('api-keys', ApiKeyController::class);
 
         Route::get('/default-settings/index', [DefaultSettingController::class, 'edit'])->name('default-settings.index');
         Route::put('/default-settings', [DefaultSettingController::class, 'update'])->name('default-settings.update');

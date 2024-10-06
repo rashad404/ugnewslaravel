@@ -64,7 +64,7 @@ class WebhookController extends Controller
             $news->view = 1; // Default value
             $news->likes = 0;
             $news->dislikes = 0;
-            $news->user_id = $user_id;
+            $news->user_id = $userId;
             $news->slug = Str::slug($request->title);
             $news->source = $request->source ?? '';
             $news->uniqueness = $this->generateUniqueness();

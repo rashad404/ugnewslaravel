@@ -63,6 +63,14 @@ md:translate-x-0
                 <h3 class="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     Settings
                 </h3>
+                <a href="{{ route('user.api-keys.index') }}"
+                    class="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('user.api_keys.*') ? 'bg-gray-100 text-gray-900' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a4 4 0 00-7.9 1H3v3h4v4h3v4h3v-4h2a4 4 0 00-.4-8.9z" />
+                      </svg>                      
+                    API Keys
+                </a>
+
                 <a href="{{ route('user.default-settings.index') }}"
                     class="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('settings.*') ? 'bg-gray-100 text-gray-900' : '' }}">
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"

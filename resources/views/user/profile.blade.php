@@ -2,6 +2,8 @@
 
 @section('content')
 @php
+use Carbon\Carbon;
+
 $breadcrumbs = [
     ['title' => 'Dashboard', 'url' => route('user.dashboard')],
     ['title' => 'Profile', 'url' => '#']
@@ -42,7 +44,7 @@ $breadcrumbs = [
                 <!-- Birthday Field -->
                 <div>
                     <label for="birthday" class="block text-sm font-medium text-gray-700">{{ __('Birthday') }}</label>
-                    <input type="date" id="birthday" name="birthday" value="{{ old('birthday', $user->birthday?->format('Y-m-d')) }}" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="date" id="birthday" name="birthday" value="{{ old('birthday', Carbon::parse($user->birthday)->format('Y-m-d')) }}" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
 
                 <!-- Gender Field -->

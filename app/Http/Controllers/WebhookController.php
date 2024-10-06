@@ -37,8 +37,8 @@ class WebhookController extends Controller
         }
 
         // Verify the API key
-        $partnerId = $this->verifyApiKey($request->api_key);
-        if (!$partnerId) {
+        $userId = $this->verifyApiKey($request->api_key);
+        if (!$userId) {
             Log::warning('Invalid API key used in webhook');
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -64,7 +64,7 @@ class WebhookController extends Controller
             $news->view = 1; // Default value
             $news->likes = 0;
             $news->dislikes = 0;
-            $news->partner_id = $partnerId;
+            $news->user_id = $user_id;
             $news->slug = Str::slug($request->title);
             $news->source = $request->source ?? '';
             $news->uniqueness = $this->generateUniqueness();

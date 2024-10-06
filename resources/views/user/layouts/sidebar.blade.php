@@ -110,9 +110,8 @@ md:translate-x-0
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
-                    class="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('user.profile') ? 'bg-gray-100 text-gray-900' : '' }}">
-                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
+                        class="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 w-full appearance-none focus:outline-none">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                             </path>
@@ -120,6 +119,7 @@ md:translate-x-0
                         Sign out
                     </button>
                 </form>
+                
             </div>
         </nav>
 

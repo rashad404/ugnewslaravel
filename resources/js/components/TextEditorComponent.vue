@@ -3,64 +3,75 @@
     <div v-if="editor" class="tiptap-control-group">
       <!-- Essential Buttons -->
       <div class="tiptap-button-group">
-        <button @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+        <button type="button" 
+          @click="editor.chain().focus().toggleBold().run()" 
+          :disabled="!editor.can().chain().focus().toggleBold().run()" 
+          :class="{ 'is-active': editor.isActive('bold') }">
           Bold
         </button>
-        <button @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+        <button type="button" 
+          @click="editor.chain().focus().toggleItalic().run()" 
+          :disabled="!editor.can().chain().focus().toggleItalic().run()" 
+          :class="{ 'is-active': editor.isActive('italic') }">
           Italic
         </button>
-        <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+        <button type="button" 
+          @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" 
+          :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
           H1
         </button>
 
         <!-- More Button -->
-        <button @click="showMore = !showMore">
+        <button type="button" @click="showMore = !showMore">
           {{ showMore ? 'Less' : 'More' }}
         </button>
       </div>
 
       <!-- Hidden buttons: Toggle with More -->
       <div v-if="showMore" class="tiptap-button-group mt-2">
-        <button @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
+        <button type="button" @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
           Strike
         </button>
-        <button @click="editor.chain().focus().toggleCode().run()" :disabled="!editor.can().chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">
+        <button type="button" @click="editor.chain().focus().toggleCode().run()" :disabled="!editor.can().chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">
           Code
         </button>
-        <button @click="editor.chain().focus().unsetAllMarks().run()">
+        <button type="button" @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
+          Code Block
+        </button> 
+        <button type="button" @click="editor.chain().focus().unsetAllMarks().run()">
           Clear marks
         </button>
-        <button @click="editor.chain().focus().clearNodes().run()">
+        <button type="button" @click="editor.chain().focus().clearNodes().run()">
           Clear nodes
         </button>
-        <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
+        <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
           H2
         </button>
-        <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
+        <button type="button" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
           H3
         </button>
-        <button @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
+        <button type="button" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
           Bullet list
         </button>
-        <button @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
+        <button type="button" @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
           Ordered list
         </button>
-        <button @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
+        <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
           Blockquote
         </button>
-        <button @click="editor.chain().focus().setHorizontalRule().run()">
+        <button type="button" @click="editor.chain().focus().setHorizontalRule().run()">
           Horizontal rule
         </button>
-        <button @click="editor.chain().focus().setHardBreak().run()">
+        <button type="button" @click="editor.chain().focus().setHardBreak().run()">
           Hard break
         </button>
-        <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
+        <button type="button" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
           Undo
         </button>
-        <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
+        <button type="button" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
           Redo
         </button>
-        <button @click="editor.chain().focus().setColor('#958DF1').run()" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' }) }">
+        <button type="button" @click="editor.chain().focus().setColor('#958DF1').run()" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' }) }">
           Purple
         </button>
       </div>

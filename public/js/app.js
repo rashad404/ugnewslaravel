@@ -25141,6 +25141,7 @@ var _hoisted_10 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_editor_content = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("editor-content");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$data.editor ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Essential Buttons "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $data.editor.chain().focus().toggleBold().run();
     }),
@@ -25149,6 +25150,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'is-active': $data.editor.isActive('bold')
     })
   }, " Bold ", 10 /* CLASS, PROPS */, _hoisted_4), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $data.editor.chain().focus().toggleItalic().run();
     }),
@@ -25157,6 +25159,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'is-active': $data.editor.isActive('italic')
     })
   }, " Italic ", 10 /* CLASS, PROPS */, _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $data.editor.chain().focus().toggleHeading({
         level: 1
@@ -25168,10 +25171,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     })
   }, " H1 ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" More Button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return $data.showMore = !$data.showMore;
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.showMore ? 'Less' : 'More'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Hidden buttons: Toggle with More "), $data.showMore ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $data.editor.chain().focus().toggleStrike().run();
     }),
@@ -25180,6 +25185,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'is-active': $data.editor.isActive('strike')
     })
   }, " Strike ", 10 /* CLASS, PROPS */, _hoisted_7), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $data.editor.chain().focus().toggleCode().run();
     }),
@@ -25188,15 +25194,26 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'is-active': $data.editor.isActive('code')
     })
   }, " Code ", 10 /* CLASS, PROPS */, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
     onClick: _cache[6] || (_cache[6] = function ($event) {
+      return $data.editor.chain().focus().toggleCodeBlock().run();
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      'is-active': $data.editor.isActive('codeBlock')
+    })
+  }, " Code Block ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    onClick: _cache[7] || (_cache[7] = function ($event) {
       return $data.editor.chain().focus().unsetAllMarks().run();
     })
   }, " Clear marks "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[7] || (_cache[7] = function ($event) {
+    type: "button",
+    onClick: _cache[8] || (_cache[8] = function ($event) {
       return $data.editor.chain().focus().clearNodes().run();
     })
   }, " Clear nodes "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[8] || (_cache[8] = function ($event) {
+    type: "button",
+    onClick: _cache[9] || (_cache[9] = function ($event) {
       return $data.editor.chain().focus().toggleHeading({
         level: 2
       }).run();
@@ -25207,7 +25224,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     })
   }, " H2 ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[9] || (_cache[9] = function ($event) {
+    type: "button",
+    onClick: _cache[10] || (_cache[10] = function ($event) {
       return $data.editor.chain().focus().toggleHeading({
         level: 3
       }).run();
@@ -25218,46 +25236,54 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     })
   }, " H3 ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[10] || (_cache[10] = function ($event) {
+    type: "button",
+    onClick: _cache[11] || (_cache[11] = function ($event) {
       return $data.editor.chain().focus().toggleBulletList().run();
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       'is-active': $data.editor.isActive('bulletList')
     })
   }, " Bullet list ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[11] || (_cache[11] = function ($event) {
+    type: "button",
+    onClick: _cache[12] || (_cache[12] = function ($event) {
       return $data.editor.chain().focus().toggleOrderedList().run();
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       'is-active': $data.editor.isActive('orderedList')
     })
   }, " Ordered list ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[12] || (_cache[12] = function ($event) {
+    type: "button",
+    onClick: _cache[13] || (_cache[13] = function ($event) {
       return $data.editor.chain().focus().toggleBlockquote().run();
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       'is-active': $data.editor.isActive('blockquote')
     })
   }, " Blockquote ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[13] || (_cache[13] = function ($event) {
+    type: "button",
+    onClick: _cache[14] || (_cache[14] = function ($event) {
       return $data.editor.chain().focus().setHorizontalRule().run();
     })
   }, " Horizontal rule "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[14] || (_cache[14] = function ($event) {
+    type: "button",
+    onClick: _cache[15] || (_cache[15] = function ($event) {
       return $data.editor.chain().focus().setHardBreak().run();
     })
   }, " Hard break "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[15] || (_cache[15] = function ($event) {
+    type: "button",
+    onClick: _cache[16] || (_cache[16] = function ($event) {
       return $data.editor.chain().focus().undo().run();
     }),
     disabled: !$data.editor.can().chain().focus().undo().run()
   }, " Undo ", 8 /* PROPS */, _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[16] || (_cache[16] = function ($event) {
+    type: "button",
+    onClick: _cache[17] || (_cache[17] = function ($event) {
       return $data.editor.chain().focus().redo().run();
     }),
     disabled: !$data.editor.can().chain().focus().redo().run()
   }, " Redo ", 8 /* PROPS */, _hoisted_10), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[17] || (_cache[17] = function ($event) {
+    type: "button",
+    onClick: _cache[18] || (_cache[18] = function ($event) {
       return $data.editor.chain().focus().setColor('#958DF1').run();
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({

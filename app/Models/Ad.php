@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Ad extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
-    protected $fillable = ['title', 'content', 'status', 'user_id'];
+    protected $guarded = [];
+
+    protected $casts = [
+        'status' => 'boolean',
+        'publish_time' => 'datetime',
+    ];
 
     public function user()
     {

@@ -8,6 +8,7 @@ use App\Models\Channel;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\DefaultSetting;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Services\LanguageService;
@@ -41,8 +42,9 @@ class NewsController extends Controller
 
     public function create()
     {
+        $user = auth()->user();
         $categories = Category::all();
-        $channels = Channel::where('user_id', auth()->id())->get();
+        $channels = Channel::where('user_id', $user->id)->get();
         
         // Check if the user has any channels
         if ($channels->isEmpty()) {
@@ -54,7 +56,13 @@ class NewsController extends Controller
         $countries = Country::all();
         $cities = City::all();
         
-        return view('user.news.create', compact('categories', 'channels', 'countries', 'cities'));
+        // Get default settings
+        $defaultSetting = DefaultSetting::where('user_id', $user->id)->first();
+
+        $defaultChannelId = $defaultSetting ? $defaultSetting->channel_id : null;
+
+        return view('user.news.create', compact('categories', 'channels', 'countries', 'cities', 'defaultChannelId'));
+
     }
 
     public function store(Request $request)

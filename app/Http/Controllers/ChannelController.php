@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\DefaultSetting;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -32,11 +33,18 @@ class ChannelController extends Controller
 
     public function create()
     {
+        $user = auth()->user();
         $categories = Category::all();
         $countries = Country::all();
         $languages = Language::where('status', 1)->get();
         
-        return view('user.channels.create', compact('categories', 'countries', 'languages'));
+        // Get default settings
+        $defaultSetting = DefaultSetting::where('user_id', $user->id)->first();
+
+        $defaultCountryId = $defaultSetting ? $defaultSetting->country_id : null;
+        $defaultLanguageId = $defaultSetting ? $defaultSetting->language_id : null;
+        
+        return view('user.channels.create', compact('categories', 'countries', 'languages', 'defaultCountryId', 'defaultLanguageId'));
     }
 
     public function store(Request $request)
@@ -48,7 +56,7 @@ class ChannelController extends Controller
             'country_id' => 'required|exists:countries,id',
             'language_id' => 'required|exists:languages,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'tags' => 'nullable|string',
+            'tags' => 'nullable|array',
         ]);
 
         $data = $request->all();
@@ -59,6 +67,11 @@ class ChannelController extends Controller
         
         $data['status'] = $request->has('status') ? 1 : 0;
 
+        // Handle tags
+        if (isset($data['tags'])) {
+            $data['tags'] = implode(',', $data['tags']);
+        }
+        
         $channel = Channel::create($data);
 
         if ($request->hasFile('image')) {
@@ -95,7 +108,7 @@ class ChannelController extends Controller
             'country_id' => 'required|exists:countries,id',
             'language_id' => 'required|exists:languages,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'tags' => 'nullable|string',
+            'tags' => 'nullable|array',
         ]);
 
         $data = $request->all();
@@ -103,6 +116,12 @@ class ChannelController extends Controller
         $data['name_url'] = Str::slug($data['name']);
         $data['status'] = $request->has('status') ? 1 : 0;
 
+        // Handle tags
+        if (isset($data['tags'])) {
+            $data['tags'] = implode(',', $data['tags']);
+        }
+
+        
         $channel->update($data);
 
         if ($request->hasFile('image')) {

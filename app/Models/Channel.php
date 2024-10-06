@@ -41,4 +41,5 @@ class Channel extends Model
     {
         return $this->hasMany(Subscriber::class);
     }
+    
 }

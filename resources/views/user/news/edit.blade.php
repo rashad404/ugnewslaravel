@@ -38,7 +38,8 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="category_id">
                         {{ __('Category') }}
                     </label>
-                    <select name="category_id" id="category_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <select name="category_id" id="category_id" class="select2 form-control w-full" required>
+                        <option value="">{{ __('Select a category') }}</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ $news->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
@@ -50,8 +51,8 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="city_id">
                         {{ __('City') }}
                     </label>
-                    <select name="city_id" id="city_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="" disabled>{{ __('Please select a city') }}</option>
+                    <select name="city_id" id="city_id" class="select2 form-control w-full">
+                        <option value="">{{ __('Select a city') }}</option>
                         @foreach($cities as $city)
                             <option value="{{ $city->id }}" {{ $news->city_id == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
                         @endforeach
@@ -59,11 +60,20 @@
                 </div>
         
                 <!-- Publish Time Field -->
-                <div class="col-span-1">
+                <div class="col-span-1 relative">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="publish_time">
                         {{ __('Publish Time') }}
                     </label>
-                    <input type="datetime-local" name="publish_time" id="publish_time" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ date('Y-m-d\TH:i', $news->publish_time) }}">
+                    <div class="relative">
+                        <input type="datetime-local" name="publish_time" id="publish_time"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
+                            value="{{ $news->publish_time ? date('Y-m-d\TH:i', $news->publish_time) : '' }}">
+                        <button type="button" id="clear-date" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
         
                 <!-- Title Extra Field -->
@@ -79,7 +89,8 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="channel_id">
                         {{ __('Channel') }}
                     </label>
-                    <select name="channel_id" id="channel_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <select name="channel_id" id="channel_id" class="select2 form-control w-full" required>
+                        <option value="">{{ __('Select a channel') }}</option>
                         @foreach($channels as $channel)
                             <option value="{{ $channel->id }}" {{ $news->channel_id == $channel->id ? 'selected' : '' }}>{{ $channel->name }}</option>
                         @endforeach
@@ -95,7 +106,7 @@
                         @if ($news->tags != null)
                             @foreach(explode(',', $news->tags) as $tag)
                             <option value="{{ $tag }}" selected>{{ $tag }}</option>
-                        @endforeach
+                            @endforeach
                         @endif
                     </select>
                 </div>
@@ -126,23 +137,34 @@
 @endpush
 
 @push('scripts')
-    <!-- jQuery and Select2 initialization -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
     $(document).ready(function() {
+        $('#category_id, #city_id, #channel_id').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
+
         $('#tags').select2({
             tags: true,
             tokenSeparators: [',', ' '],
             createTag: function (params) {
                 return {
-                id: params.term,
-                text: params.term,
-                newOption: true
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
                 };
             }
+        });
+
+        // Clear date button
+        const dateInput = document.getElementById('publish_time');
+        const clearButton = document.getElementById('clear-date');
+
+        clearButton.addEventListener('click', function() {
+            dateInput.value = '';
         });
     });
     </script>

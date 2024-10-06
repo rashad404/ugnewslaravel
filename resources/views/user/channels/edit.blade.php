@@ -69,12 +69,19 @@
                     </select>
                 </div>
 
+
                 <!-- Tags Field -->
                 <div class="col-span-1">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
                         {{ __('Tags') }}
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tags" type="text" name="tags" value="{{ $channel->tags }}">
+                    <select id="tags" name="tags[]" class="select2 form-control w-full" multiple="multiple">
+                        @if ($channel->tags != null)
+                            @foreach(explode(',', $channel->tags) as $tag)
+                            <option value="{{ $tag }}" selected>{{ $tag }}</option>
+                        @endforeach
+                        @endif
+                    </select>
                 </div>
             </div>
 
@@ -106,10 +113,25 @@
 @endsection
 
 @push('scripts')
+<!-- jQuery and Select2 initialization -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#category_id, #country_id, #language_id').select2();
+
+        $('#tags').select2({
+            tags: true,
+            tokenSeparators: [',', ' '],
+            createTag: function (params) {
+                return {
+                id: params.term,
+                text: params.term,
+                newOption: true
+                };
+            }
+        });
     });
 </script>
 @endpush
@@ -117,3 +139,4 @@
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
+

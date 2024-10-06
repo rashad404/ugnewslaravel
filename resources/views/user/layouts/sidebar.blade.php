@@ -49,7 +49,7 @@ md:translate-x-0
                 </svg>
                 Your Channels
             </a>
-            <a href="{{ route('settings.index') }}"
+            <a href="{{ route('user.default-settings.index') }}"
                 class="flex items-center px-6 py-2 mt-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('settings.*') ? 'bg-gray-100 text-gray-900' : '' }}">
                 <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +59,15 @@ md:translate-x-0
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                Channel Settings
+                Default Settings
+            </a>
+            <a href="{{ route('user.ads.index') }}"
+                class="flex items-center px-6 py-2 mt-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('user.ads.*') ? 'bg-gray-100 text-gray-900' : '' }}">
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                </svg>
+                Your Ads
             </a>
         </nav>
     </div>

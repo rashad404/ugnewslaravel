@@ -50,7 +50,7 @@
                     </label>
                     <select name="country_id" id="country_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                         @foreach($countries as $country)
-                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            <option value="{{ $country->id }}" {{ $defaultCountryId == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -62,7 +62,7 @@
                     </label>
                     <select name="language_id" id="language_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                         @foreach($languages as $language)
-                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                            <option value="{{ $language->id }}" {{ $defaultLanguageId == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -72,7 +72,8 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
                         {{ __('Tags') }}
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tags" type="text" name="tags">
+                    <select id="tags" name="tags[]" class="select2 form-control w-full" multiple="multiple">
+                    </select>
                 </div>
             </div>
 
@@ -104,10 +105,27 @@
 @endsection
 
 @push('scripts')
+
+<!-- jQuery and Select2 initialization -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#category_id, #country_id, #language_id').select2();
+
+
+        $('#tags').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        createTag: function (params) {
+            return {
+            id: params.term,
+            text: params.term,
+            newOption: true
+            };
+        }
+        });
     });
 </script>
 @endpush

@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/valyuta/{date}',[ApiController::class,"fetchAndConvertData"]);
 
-Route::post('/webhook', [WebhookController::class, 'handleWebhook']);
+Route::post('/webhook/news', [WebhookController::class, 'handleWebhook']);
 

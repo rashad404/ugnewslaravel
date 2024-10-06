@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +34,7 @@ class RegisterController extends Controller
         ]);
 
         // Create and save the user
-        User::create([
+        $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -43,6 +44,9 @@ class RegisterController extends Controller
             'birth_date' => "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}",
             'password' => Hash::make($request->password),
         ]);
+
+        // Automatically log in the user
+        Auth::login($user);
 
         return redirect()->route('user.dashboard')->with('success', 'Account created successfully. Please log in.');
     }

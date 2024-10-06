@@ -41,8 +41,6 @@ class WebhookController extends Controller
         }
 
         $channelInfo = Channel::find($request->channel);
-        $data['country_id'] = $channelInfo->country_id;
-        $data['language_id'] = $channelInfo->language_id;
 
         try {
             // Create a new news article from the webhook data
@@ -65,6 +63,8 @@ class WebhookController extends Controller
             $news->user_id = $userId;
             $news->slug = Str::slug($request->title);
             $news->uniqueness = $this->generateUniqueness();
+            $news->country_id = $channelInfo->country_id;
+            $news->language_id = $channelInfo->language_id;
 
             $news->save();
 

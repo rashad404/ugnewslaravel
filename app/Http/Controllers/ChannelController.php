@@ -62,8 +62,10 @@ class ChannelController extends Controller
         $channel = Channel::create($data);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('channels', 'public');
-            $channel->image = $imagePath;
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('channels', $filename, 'public');
+            $channel->image = $path;
             $channel->save();
         }
 
@@ -104,11 +106,15 @@ class ChannelController extends Controller
         $channel->update($data);
 
         if ($request->hasFile('image')) {
+            // Delete old image
             if ($channel->image) {
                 Storage::disk('public')->delete($channel->image);
             }
-            $imagePath = $request->file('image')->store('channels', 'public');
-            $channel->image = $imagePath;
+
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('channels', $filename, 'public');
+            $channel->image = $path;
             $channel->save();
         }
 

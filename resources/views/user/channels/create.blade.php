@@ -16,13 +16,12 @@
         <form action="{{ route('user.channels.store') }}" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Image Field -->
-                <div class="col-span-1">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
-                        {{ __('Channel Image') }}
-                    </label>
-                    <input type="file" name="image" id="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
+                <!-- Image Upload Component -->
+                <input type="file" name="image" ref="fileInput" class="hidden">
+                <image-upload-component
+                    :remove-label="{{ json_encode(__('Remove Image')) }}"
+                    :choose-file-label="{{ json_encode(__('Choose an Image')) }}"
+                ></image-upload-component>
 
                 <!-- Name Field -->
                 <div class="col-span-1">

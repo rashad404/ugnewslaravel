@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'gender' => $request->gender,
             'country_code' => $request->country_code,
             'phone' => $request->phone,
-            'birth_date' => "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}",
+            'birthday' => "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}",
             'password' => Hash::make($request->password),
         ]);
 

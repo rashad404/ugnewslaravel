@@ -12,16 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,12 +39,6 @@ class User extends Authenticatable
         'score' => 'integer',
         'balance' => 'decimal:2',
     ];
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-        $this->attributes['password_hash'] = bcrypt($value);
-    }
 
     public function news()
     {

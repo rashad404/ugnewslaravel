@@ -20,14 +20,11 @@ class WebhookController extends Controller
             'text' => 'required|string',
             'tags' => 'required|string|max:255',
             'image' => 'string|max:255',
-            'thumb' => 'string|max:255',
-            'cat' => 'required|integer',
+            'category' => 'required|integer',
             'channel' => 'required|integer',
-            'country' => 'required|integer',
             'city' => 'required|integer',
             'language' => 'required|integer',
             'publish_time' => 'required|integer',
-            'source' => 'string|max:100',
             'api_key' => 'required|string'
         ]);
 
@@ -51,11 +48,9 @@ class WebhookController extends Controller
             $news->text = $request->text;
             $news->tags = $request->tags;
             $news->image = $request->image ?? 'defaults/news.jpg';
-            $news->thumb = $request->thumb ?? 'defaults/news.jpg';
             $news->position = 0; // Default value
-            $news->category_id = $request->cat;
+            $news->category_id = $request->category;
             $news->channel_id = $request->channel;
-            $news->country_id = $request->country;
             $news->city_id = $request->city;
             $news->language_id = $request->language;
             $news->status = 1; // Assuming 1 means published
@@ -66,7 +61,6 @@ class WebhookController extends Controller
             $news->dislikes = 0;
             $news->user_id = $userId;
             $news->slug = Str::slug($request->title);
-            $news->source = $request->source ?? '';
             $news->uniqueness = $this->generateUniqueness();
 
             $news->save();

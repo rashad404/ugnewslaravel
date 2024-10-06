@@ -3,7 +3,6 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
-ini_set('session.cookie_domain', '.ug.news');
 define('LARAVEL_START', microtime(true));
 
 /*

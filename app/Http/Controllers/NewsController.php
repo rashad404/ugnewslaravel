@@ -11,7 +11,6 @@ use App\Models\Country;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Services\LanguageService;
-use Illuminate\Support\Facades\Session;
 
 class NewsController extends Controller
 {
@@ -24,7 +23,6 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        dd(session()->all());
         $query = News::query();
 
         if ($request->has('search')) {
@@ -190,7 +188,7 @@ class NewsController extends Controller
         }
     
         $data['slug'] = $channelInfo->name_url . '/' . $this->generateSafeSlug($request->title);
-
+        
         $news->update($data);
     
         return redirect()->route('user.news.index')->with('success', __('News item has been updated successfully'));

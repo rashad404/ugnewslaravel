@@ -53,11 +53,11 @@ class WebhookController extends Controller
             $news->image = $request->image ?? 'defaults/news.jpg';
             $news->thumb = $request->thumb ?? 'defaults/news.jpg';
             $news->position = 0; // Default value
-            $news->cat = $request->cat;
-            $news->channel = $request->channel;
-            $news->country = $request->country;
-            $news->city = $request->city;
-            $news->language = $request->language;
+            $news->category_id = $request->cat;
+            $news->channel_id = $request->channel;
+            $news->country_id = $request->country;
+            $news->city_id = $request->city;
+            $news->language_id = $request->language;
             $news->status = 1; // Assuming 1 means published
             $news->time = time();
             $news->publish_time = $request->publish_time;

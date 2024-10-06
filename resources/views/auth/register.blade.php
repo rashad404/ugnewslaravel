@@ -2,7 +2,7 @@
 
 @section('content')
 <main class="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-xl mx-auto">
         <div class="bg-white shadow rounded-lg p-8">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Registration</h2>
             

@@ -20,7 +20,7 @@
           :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
           H1
         </button>
-
+        
         <!-- More Button -->
         <button type="button" @click="showMore = !showMore">
           {{ showMore ? 'Less' : 'More' }}
@@ -29,15 +29,15 @@
 
       <!-- Hidden buttons: Toggle with More -->
       <div v-if="showMore" class="tiptap-button-group mt-2">
-        <button type="button" @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
-          Strike
-        </button>
         <button type="button" @click="editor.chain().focus().toggleCode().run()" :disabled="!editor.can().chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">
           Code
         </button>
         <button type="button" @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
           Code Block
         </button> 
+        <button type="button" @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
+          Strike
+        </button>
         <button type="button" @click="editor.chain().focus().unsetAllMarks().run()">
           Clear marks
         </button>

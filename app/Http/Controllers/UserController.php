@@ -30,7 +30,7 @@ class UserController extends Controller
             'gender' => 'required|in:0,1,2',
             'country_code' => 'required|string',
             'phone' => 'required|string',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Manually update fields instead of using fill()
@@ -41,11 +41,11 @@ class UserController extends Controller
         $user->country_code = $validatedData['country_code'];
         $user->phone = $validatedData['country_code'] . $validatedData['phone'];
 
-        if ($request->hasFile('profile_photo')) {
-            if ($user->profile_photo_path) {
-                Storage::disk('public')->delete($user->profile_photo_path);
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
             }
-            $user->profile_photo_path = $request->file('profile_photo')->store('users', 'public');
+            $user->image = $request->file('image')->store('users', 'public');
         }
 
         $user->save();

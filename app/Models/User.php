@@ -43,7 +43,6 @@ class User extends Authenticatable
         'birthday' => 'date',
         'time' => 'datetime',
         'reg_time' => 'datetime',
-        'gender' => 'boolean',
         'status' => 'boolean',
         'block' => 'boolean',
         'score' => 'integer',

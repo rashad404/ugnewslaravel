@@ -75,7 +75,7 @@ class WebhookController extends Controller
             return response()->json(['message' => 'Article created successfully', 'id' => $news->id], 201);
         } catch (\Exception $e) {
             Log::error('Error processing webhook: ' . $e->getMessage());
-            return response()->json(['error' => 'Internal server error'], 500);
+            return response()->json(['error' => $e->getMessage().'Internal server error'], 500);
         }
     }
 

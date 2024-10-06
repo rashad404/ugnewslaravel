@@ -1,9 +1,7 @@
-<aside id="sidebar" class="bg-white w-64 min-h-screen fixed left-0 top-0  z-20
+<aside id="sidebar" class="bg-white w-64 min-h-screen fixed left-0 top-0 z-20
 transform transition-transform duration-200 ease-in-out -translate-x-full
 md:translate-x-0
 ">
-
-
     <div class="h-full flex flex-col">
         <div class="flex items-center justify-between h-16 px-4">
             <!-- Logo on the left -->
@@ -11,14 +9,13 @@ md:translate-x-0
 
             <!-- Sidebar menu button on the right -->
             <button id="sidebar-toggle-mobile"
-                class=" z-50 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                class="z-50 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
         </div>
-
 
         {{-- LEFT Navigation --}}
         <nav class="mt-5 flex-1">
@@ -42,8 +39,8 @@ md:translate-x-0
                 </svg>
                 Your News
             </a>
-            <a href="{{ route('channels.index') }}"
-                class="flex items-center px-6 py-2 mt-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('channels.*') ? 'bg-gray-100 text-gray-900' : '' }}">
+            <a href="{{ route('user.channels.index') }}"
+                class="flex items-center px-6 py-2 mt-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 {{ request()->routeIs('user.channels.*') ? 'bg-gray-100 text-gray-900' : '' }}">
                 <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

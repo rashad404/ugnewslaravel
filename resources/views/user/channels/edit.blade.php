@@ -1,0 +1,122 @@
+@extends('user.layouts.app')
+
+@section('content')
+<div class="container mx-auto">
+    @php
+    $breadcrumbs = [
+        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
+        ['title' => 'Channels', 'url' => route('user.channels.index')],
+        ['title' => 'Edit', 'url' => '#']
+    ];
+    @endphp
+
+    <h1 class="text-2xl font-bold mb-4">{{ __('Edit Channel') }}</h1>
+
+    <div id="app">
+        <form action="{{ route('user.channels.update', $channel) }}" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            @csrf
+            @method('PUT')
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Image Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                        {{ __('Channel Image') }}
+                    </label>
+                    <input type="file" name="image" id="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @if($channel->image)
+                        <img src="{{ Storage::url($channel->image) }}" alt="{{ $channel->name }}" class="mt-2 w-32 h-32 object-cover">
+                    @endif
+                </div>
+
+                <!-- Name Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                        {{ __('Name') }} <span class="text-red-500">*</span>
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" name="name" value="{{ $channel->name }}" required>
+                </div>
+
+                <!-- Category Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="category_id">
+                        {{ __('Category') }}
+                    </label>
+                    <select name="category_id" id="category_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ $channel->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Country Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="country_id">
+                        {{ __('Country') }}
+                    </label>
+                    <select name="country_id" id="country_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}" {{ $channel->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Language Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="language_id">
+                        {{ __('Language') }}
+                    </label>
+                    <select name="language_id" id="language_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach($languages as $language)
+                            <option value="{{ $language->id }}" {{ $channel->language_id == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Tags Field -->
+                <div class="col-span-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
+                        {{ __('Tags') }}
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tags" type="text" name="tags" value="{{ $channel->tags }}">
+                </div>
+            </div>
+
+            <!-- About Field -->
+            <div class="mb-4 mt-8">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="text">
+                    {{ __('About') }}
+                </label>
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="text" name="text" rows="5">{{ $channel->text }}</textarea>
+            </div>
+
+            <!-- Status Field -->
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox" name="status" value="1" {{ $channel->status ? 'checked' : '' }}>
+                    <span class="ml-2">{{ __('Active') }}</span>
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex items-center justify-between mt-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    {{ __('Update Channel') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#category_id, #country_id, #language_id').select2();
+    });
+</script>
+@endpush
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush

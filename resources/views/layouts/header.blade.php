@@ -73,7 +73,7 @@
                 </a>
             @endforeach
             @auth
-                <a href="https://new.ug.news/user/profile" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                <a href="{{ route('user.profile')}}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                     {{ __('Profile') }}
                 </a>
                 <form method="POST" action="{{ route('logout') }}">

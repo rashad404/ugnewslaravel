@@ -133,7 +133,7 @@
                     data.channels.forEach(channel => {
                         html += `
                             <a href="/channel/${channel.id}" class="block px-4 py-2 hover:bg-gray-100 flex items-center">
-                                <img src="${channel.image}" alt="${channel.name}" class="w-8 h-8 rounded-full mr-2">
+                                <img src="storage/${channel.image}" alt="${channel.name}" class="w-8 h-8 rounded-full mr-2">
                                 <span>${channel.name}</span>
                                 <span class="ml-auto text-sm text-gray-500">${channel.subscribers} abunə</span>
                             </a>

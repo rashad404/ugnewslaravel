@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rating.channels');
 Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');
+Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
 Route::get('test2', [LoginController::class, 'showLoginForm'])->name('create.channel');
 Route::get('test24', [LoginController::class, 'showLoginForm'])->name('channel.show');

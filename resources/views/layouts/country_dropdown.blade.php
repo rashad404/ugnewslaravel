@@ -38,7 +38,7 @@
                 searchQuery: '',
                 loadCountries() {
                     if (this.countries.length === 0) {
-                        fetch('{{ route('api.countries', [], true) }}')
+                        fetch('/api/countries')
                             .then(response => response.json())
                             .then(data => {
                                 this.countries = data;

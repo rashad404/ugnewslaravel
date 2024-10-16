@@ -158,32 +158,5 @@
         });
         </script>
     
-    <script>
-        function countryDropdown() {
-            return {
-                open: false,
-                countries: [],
-                searchQuery: '',
-                loadCountries() {
-                    if (this.countries.length === 0) {
-                        fetch('{{ route('api.countries') }}')
-                            .then(response => response.json())
-                            .then(data => {
-                                this.countries = data;
-                            })
-                            .catch(error => console.error('Error fetching countries:', error));
-                    }
-                },
-                filteredCountries() {
-                    if (this.searchQuery === '') {
-                        return this.countries;
-                    }
-                    return this.countries.filter(country => 
-                        country.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                        country.code.toLowerCase().includes(this.searchQuery.toLowerCase())
-                    );
-                }
-            };
-        }
-    </script>
+
     @endpush

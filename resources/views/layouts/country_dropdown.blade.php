@@ -18,7 +18,7 @@
         <template x-if="filteredCountries().length > 0">
             <div>
                 <template x-for="country in filteredCountries()" :key="country.id">
-                    <a :href="'/set/region/' + country.id" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" x-text="country.name"></a>
+                    <a :href="'/set/country/' + country.id" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" x-text="country.name"></a>
                 </template>
             </div>
         </template>

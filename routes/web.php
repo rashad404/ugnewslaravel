@@ -11,8 +11,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Site\RatingController;
+use App\Http\Controllers\Site\SettingsController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\UserController;
+
+
+Route::get('/set/country/{countryId}', [SettingsController::class, 'setCountry'])->name('set.country');
 
 Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rating.channels');
 Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');

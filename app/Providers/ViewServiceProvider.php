@@ -29,6 +29,12 @@ class ViewServiceProvider extends ServiceProvider
     {
 
         View::composer('*', function ($view) {
+            $data = [
+                'title' => '', 
+                'description' => '', 
+                'keywords' => '',
+                'meta_img' => '',
+            ];
             $menus = Menu::all();
 
             $countryId = Cookie::get('country', config('app.default_country'));
@@ -39,6 +45,7 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('countryCode', $countryCode);
             $view->with('menus', $menus);
             $view->with('locale', $locale);
+            $view->with('data', $data);
         });
 
     }

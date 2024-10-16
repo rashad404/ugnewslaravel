@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ App::getLocale() }}" class="h-full bg-gray-100">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <base href="{{config('app.url')}}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $data['title'] }}</title>
+    <meta name="description" content="{{ $data['description'] }}">
+    <meta name="keywords" content="{{ $data['keywords'] }}">
+    <meta property="og:title" content="{{ $data['title'] }}">
+    <meta property="og:description" content="{{ $data['description'] }}">
+    
+    @if ($data['meta_img'])
+    <meta property="og:image" content="{{ asset('images/' . $data['meta_img']) }}">
+
+    @endif
+    <meta property="og:url" content="https://{{ $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] }}">
+    <meta property="og:site_name" content="{{config('app.name')}}">
+    <link rel="icon" href="{{ asset('images/favicon/favicon-32x32.png') }}" type="image/png">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 

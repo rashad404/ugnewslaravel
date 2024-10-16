@@ -9,4 +9,11 @@ class Category extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    protected $guarded = [];
+    
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
 }

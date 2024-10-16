@@ -10,9 +10,18 @@ use App\Http\Controllers\DefaultSettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('test1', [LoginController::class, 'showLoginForm'])->name('rating.news');
+Route::get('test2', [LoginController::class, 'showLoginForm'])->name('create.channel');
+Route::get('test3', [LoginController::class, 'showLoginForm'])->name('ajax.search');
+Route::get('test4', [LoginController::class, 'showLoginForm'])->name('rating.channels');
+
+Route::get('/', [SiteController::class, 'index'])->name('site.index');
+Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+Route::post('/contact', [SiteController::class, 'submitContact'])->name('site.contact.submit');
+
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
@@ -67,4 +76,5 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
+    
 });

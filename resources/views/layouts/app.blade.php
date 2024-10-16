@@ -18,10 +18,12 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body class="font-sans antialiased bg-gray-100">
-    <div class="min-h-screen flex flex-col justify-center items-center">
+    <div class="min-h-screen flex flex-col">
         
+        @include('layouts.header')
+            
         <!-- Logo Header -->
-        <header class="w-full bg-white shadow-sm">
+        {{-- <header class="w-full bg-white shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-center h-16">
                     <a href="{{ route('user.dashboard') }}" class="flex items-center">
@@ -29,7 +31,7 @@
                     </a>
                 </div>
             </div>
-        </header>
+        </header> --}}
 
         <!-- Page Content -->
         <main class="flex-1 w-full">
@@ -37,6 +39,9 @@
                 @yield('content')
             </div>
         </main>
+
+        @include('layouts.footer')
+        @stack('scripts')
     </div>
 </body>
 </html>

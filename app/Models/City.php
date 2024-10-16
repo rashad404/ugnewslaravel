@@ -2,13 +2,51 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cookie;
 
 class City extends Model
 {
-    use HasFactory;
-    public $timestamps = false;
+    protected $table = 'cities';
+
+    public $timestamps = false;  // Since the table doesn't have timestamp columns
+
     protected $guarded = [];
 
+    public static function getList($limit = 100)
+    {
+        $region = Cookie::get('set_region', config('app.default_country'));
+        return self::where('country_id', $region)
+                   ->where('status', 1)
+                   ->orderBy('name', 'asc')
+                   ->limit($limit)
+                   ->get();
+    }
+
+    public static function getMainCities()
+    {
+        $region = Cookie::get('set_region', config('app.default_country'));
+        return self::where('country_id', $region)
+                   ->where('status', 1)
+                   ->orderBy('id', 'asc')
+                   ->limit(6)  // Assuming the first 6 cities are "main" cities
+                   ->get();
+    }
+
+    public static function getSecondaryCities()
+    {
+        $region = Cookie::get('set_region', config('app.default_country'));
+        return self::where('country_id', $region)
+                   ->where('status', 1)
+                   ->orderBy('id', 'asc')
+                   ->skip(6)  // Skip the first 6 "main" cities
+                   ->take(100)  // Get the next 100 cities as "secondary"
+                   ->get();
+    }
+
+    public static function getName($id)
+    {
+        $city = self::find($id);
+        return $city ? $city->name : '';
+    }
 }

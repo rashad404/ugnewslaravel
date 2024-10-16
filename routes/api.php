@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
@@ -24,3 +26,5 @@ Route::get('/valyuta/{date}',[ApiController::class,"fetchAndConvertData"]);
 
 Route::post('/webhook/news', [WebhookController::class, 'handleWebhook']);
 
+Route::get('/countries', [CountryController::class, 'index'])->name('api.countries');
+Route::get('/search', [SearchController::class, 'search'])->name('api.search');

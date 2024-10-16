@@ -72,4 +72,18 @@ class News extends Model
         $category = Category::find($id);
         return $category ? $category->name : '';
     }
+
+    /**
+     * Get the top news based on views.
+     *
+     * @param int $limit
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTopNews($limit = 10)
+    {
+        return self::where('status', 1)  // Ensure only active news
+                   ->orderBy('view', 'desc')  // Order by view count in descending order
+                   ->limit($limit)  // Limit the number of results
+                   ->get(['id', 'title', 'slug', 'image', 'view']);  // Fetch specific columns
+    }
 }

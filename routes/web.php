@@ -10,13 +10,17 @@ use App\Http\Controllers\DefaultSettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Site\RatingController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\UserController;
 
-Route::get('test1', [LoginController::class, 'showLoginForm'])->name('rating.news');
+Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rating.channels');
+Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');
+
 Route::get('test2', [LoginController::class, 'showLoginForm'])->name('create.channel');
+Route::get('test24', [LoginController::class, 'showLoginForm'])->name('channel.show');
+
 Route::get('test3', [LoginController::class, 'showLoginForm'])->name('ajax.search');
-Route::get('test4', [LoginController::class, 'showLoginForm'])->name('rating.channels');
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');

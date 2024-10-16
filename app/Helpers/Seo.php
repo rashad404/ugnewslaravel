@@ -1,7 +1,7 @@
 <?php
 namespace App\Helpers;
 
-class SeoModel {
+class Seo {
 
     public static $add_text;
     

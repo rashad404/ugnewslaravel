@@ -24,7 +24,7 @@ class SearchController extends Controller
                 $q->where('title', 'like', "%{$query}%")
                   ->orWhere('text', 'like', "%{$query}%");
             })
-            ->orderBy('publish_time', 'desc')
+            ->orderBy('publish_time', 'DESC')->orderBy('id', 'DESC')
             ->limit(5)
             ->get();
 

@@ -20,7 +20,7 @@ class SiteController extends Controller
         $region = session('region', 16); // Default to 16 if not set
 
         $channelList = Channel::getTopChannels(10); // Adjust the number as needed
-        $newsList = News::where("status", 1)->paginate(15);
+        $newsList = News::where("status", 1)->orderBy('publish_time', 'DESC')->orderBy('id', 'DESC')->paginate(15);
         
         $cityList1 = City::getMainCities();
         $cityList2 = City::getSecondaryCities();

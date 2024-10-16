@@ -4,20 +4,14 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use App\Models\Currency;
 use App\Models\NamazTimes;
 use App\Models\Channel;
 use App\Models\News;
 use App\Models\City;
-use App\Models\Ads;
 use App\Helpers\Seo;
 use App\Models\Ad;
 use App\Models\Category;
-use App\Models\Registration;
-use App\Models\Login;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class SiteController extends Controller
 {

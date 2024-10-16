@@ -1,22 +1,25 @@
 <?php
 
-use App\Http\Controllers\AdController;
-use App\Http\Controllers\ApiKeyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ChannelController;
-use App\Http\Controllers\DefaultSettingController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DocumentationController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\User\AdController;
+use App\Http\Controllers\User\ApiKeyController;
+use App\Http\Controllers\User\ChannelController;
+use App\Http\Controllers\User\DefaultSettingController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\DocumentationController;
+use App\Http\Controllers\User\NewsController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Site\ChannelController as SiteChannelController;
 use App\Http\Controllers\Site\RatingController;
-use App\Http\Controllers\Site\SettingsController;
+use App\Http\Controllers\Site\SettingController;
 use App\Http\Controllers\Site\SiteController;
-use App\Http\Controllers\UserController;
 
 
-Route::get('/set/country/{countryId}', [SettingsController::class, 'setCountry'])->name('set.country');
+Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
+Route::get('/channel/{url}', [SiteChannelController::class, 'inner'])->name('channel.inner');
+
 
 Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rating.channels');
 Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');

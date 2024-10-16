@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 
-class SettingsController extends Controller
+class SettingController extends Controller
 {
     public function setCountry($countryId)
     {

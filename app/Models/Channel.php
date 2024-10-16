@@ -19,6 +19,11 @@ class Channel extends Model
     {
         return $this->hasMany(Subscriber::class);
     }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public static function getTopChannels($limit = 10)
     {

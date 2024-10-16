@@ -22,12 +22,6 @@ class SettingsController extends Controller
         $minutes = 60 * 24 * 30; // 30 days
         Cookie::queue(Cookie::make('country', $countryId, $minutes));
 
-        // Determine the language based on countryId
-        $language = ($countryId == 16) ? 'az' : 'en';
-
-        // Set the locale in the session
-        Session::put('locale', $language);
-
         // Optionally, return a success message or redirect to the previous page
         return redirect()->back()->with('success', 'Country has been updated to ' . $country->name);
     }

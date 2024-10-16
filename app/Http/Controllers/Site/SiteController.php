@@ -23,6 +23,9 @@ class SiteController extends Controller
 {
     public function index()
     {
+
+
+        echo (app()->getLocale());
         $usdRate = Currency::getUsdRate();
         $bakuWeatherInfo = $this->getWeatherInfo();
         $todayNamaz = NamazTimes::getTodayTimes();

@@ -23,7 +23,7 @@ class AdController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:20',
+            'title' => 'required|max:30',
             'text' => 'nullable|max:50',
             'link' => 'required|url|max:250',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',

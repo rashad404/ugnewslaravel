@@ -283,6 +283,15 @@
     "You have :count recent news articles.": "Sizin :count son xəbər məqaləniz var.",
     "View all news": "Bütün xəbərləri görün",
     "You have :count channels.": "Sizin :count kanalınız var.",
-    "Manage channels": "Kanalları idarə et"
+    "Manage channels": "Kanalları idarə et",
+    "Content Management": "Məzmun İdarəetməsi",
+    "Settings": "Parametrlər",
+    "API Keys": "API Açarları",
+    "Webhook API Docs": "Webhook API Sənədləri",
+    "Default Settings": "Standart Parametrlər",
+    "Advertising": "Reklam",
+    "Your Ads": "Sizin Reklamlar",
+    "Account": "Hesab",
+    "Sign out": "Çıxış"
   }
   

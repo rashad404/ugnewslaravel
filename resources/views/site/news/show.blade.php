@@ -134,7 +134,7 @@
                             <a href="{{ route('ad.click', $ad->id) }}" target="_blank" class="mt-2 flex items-center group">
                                 <img src="{{ asset('storage/' . $ad->image) }}" alt="" class="w-16 h-16 object-cover rounded-md mr-4">
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">{{ Str::limit($ad->title, 20) }}</h3>
+                                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">{{ Str::limit($ad->title, 30) }}</h3>
                                     <p class="text-sm text-gray-600">{{ Str::limit($ad->text, 50) }}</p>
                                 </div>
                             </a>

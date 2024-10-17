@@ -85,5 +85,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
     
-    Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');
 });
+Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');

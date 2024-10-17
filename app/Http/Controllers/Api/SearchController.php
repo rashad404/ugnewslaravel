@@ -32,6 +32,6 @@ class SearchController extends Controller
         return response()->json([
             'channels' => $channels,
             'news' => $news
-        ])->withCookie(cookie()->forget('country'));
+        ]);
     }
 }

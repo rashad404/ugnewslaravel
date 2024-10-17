@@ -267,6 +267,13 @@
     "TestimonialName1": "Əli Məmmədov",
     "TestimonialTitle1": "Texnologiya Bloggeri",
     "Ad": "Reklam",
-    "Created by": "Tərtib edən:"
+    "Created by": "Tərtib edən:",
+    "First Name": "Ad",
+    "Last Name": "Soyad",
+    "Email": "E-poçt",
+
+    "Phone Number": "Telefon Nömrəsi",
+    "Birth Month": "Doğum Ayı",
+    "If you have an account, then": "Hesabınız varsa, "
   }
   

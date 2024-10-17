@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Sms;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         // Get country list and other required data
-        $countryList = ['1' => 'USA', '44' => 'UK', '91' => 'India']; // Example country list
+        $countryList = Sms::getCountryList(); // Example country list
         return view('auth.register', compact('countryList'));
     }
 

@@ -156,6 +156,6 @@ class SiteController extends Controller
     private function getWeatherInfo()
     {
         // Placeholder for weather API integration
-        return '25°C';
+        return '25';
     }
 }

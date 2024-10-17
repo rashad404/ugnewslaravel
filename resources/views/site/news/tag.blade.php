@@ -17,4 +17,4 @@
             @include('site.news.include')
         </div>
     </div>
-    @endsection
+@endsection

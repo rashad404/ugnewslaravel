@@ -1,5 +1,3 @@
-{{-- resources/views/news_include.blade.php --}}
-
 @php
 use App\Helpers\Format;
 @endphp

@@ -31,7 +31,7 @@
 </div>
 
 <div class="mt-8">
-    @include('site.news_include')
+    @include('site.news.include')
 </div>
 
 <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">

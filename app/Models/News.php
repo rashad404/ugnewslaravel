@@ -38,13 +38,14 @@ class News extends Model
     public static function getSimilarNews($id, $limit = 6)
     {
         $news = self::find($id);
-        return self::whereRaw("MATCH(title, text) AGAINST(? IN NATURAL LANGUAGE MODE)", [$news->title])
+        $result =  self::whereRaw("MATCH(title, text) AGAINST(? IN NATURAL LANGUAGE MODE)", [$news->title])
                    ->where('id', '!=', $id)
                    ->where('status', 1)
-                   ->where('country_id', Cookie::get('set_region', config('app.default_country')))
+                   ->where('country_id', Cookie::get('country', config('app.default_country')))
                    ->orderByRaw('MATCH(title, text) AGAINST(? IN NATURAL LANGUAGE MODE) DESC', [$news->title])
                    ->limit($limit)
                    ->get();
+        return $result;
     }
 
     public function scopeByCategory($query, $categoryId)

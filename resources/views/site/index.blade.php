@@ -3,7 +3,7 @@
 @section('content')
 @php
 use App\Models\Currency;
-use App\Models\NamazTimes;
+use App\Models\NamazTime;
 use App\Helpers\Format;
 
 // Prepare the info list dynamically
@@ -73,7 +73,7 @@ $tag_list = ($region == 16)
 
 <!-- Latest News -->
 <div class="mt-8">
-    @include('site.news_include')
+    @include('site.news.include')
 </div>
 
 <!-- Local News (Compact) -->

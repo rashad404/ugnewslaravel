@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NamazTimes extends Model
+class NamazTime extends Model
 {
     protected $table = 'namaz_times';
 

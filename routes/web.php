@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Site\AjaxController;
 use App\Http\Controllers\User\AdController;
 use App\Http\Controllers\User\ApiKeyController;
 use App\Http\Controllers\User\ChannelController;
@@ -12,10 +13,14 @@ use App\Http\Controllers\User\DocumentationController;
 use App\Http\Controllers\User\NewsController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Site\ChannelController as SiteChannelController;
+use App\Http\Controllers\Site\NewsController as SiteNewsController;
+use App\Http\Controllers\Site\AdController as SiteAdController;
+use App\Http\Controllers\Site\CurrencyController;
+use App\Http\Controllers\Site\NamazTimeController;
 use App\Http\Controllers\Site\RatingController;
 use App\Http\Controllers\Site\SettingController;
 use App\Http\Controllers\Site\SiteController;
-
+use App\Http\Controllers\Site\WeatherController;
 
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
 Route::get('/channel/create', [SiteChannelController::class, 'create'])->name('channel.create');
@@ -86,4 +91,24 @@ Route::middleware(['auth'])->group(function () {
 
     
 });
+Route::get('/valyuta', [CurrencyController::class, 'index'])->name('currency.index');
+Route::get('/namaz-vaxti', [NamazTimeController::class, 'index'])->name('namaz-time.index');
+
+Route::get('/hava-haqqinda', [WeatherController::class, 'index'])->name('weather.index');
+Route::get('/hava-haqqinda/{slug}', [WeatherController::class, 'city'])->name('weather.city');
+
+Route::post('/ajax/subscribe/{id}', [AjaxController::class, 'subscribe'])->name('ajax.subscribe');
+Route::post('/ajax/un_subscribe/{id}', [AjaxController::class, 'unSubscribe'])->name('ajax.unsubscribe');
+Route::post('/ajax/like/{id}', [AjaxController::class, 'like'])->name('ajax.like');
+Route::post('/ajax/remove_like/{id}', [AjaxController::class, 'removeLike'])->name('ajax.remove_like');
+Route::post('/ajax/dislike/{id}', [AjaxController::class, 'dislike'])->name('ajax.dislike');
+Route::post('/ajax/remove_dislike/{id}', [AjaxController::class, 'removeDislike'])->name('ajax.remove_dislike');
+
+
+Route::get('/ad/click/{id}', [SiteAdController::class, 'click'])->name('ad.click');
+Route::get('/tags/{tag}', [SiteNewsController::class, 'tag'])->name('news.tag');
+
+Route::get('/{channel}/{slug}', [SiteNewsController::class, 'show'])->name('news.show');
+
+
 Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');

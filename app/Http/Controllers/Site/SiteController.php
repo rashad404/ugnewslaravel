@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Currency;
-use App\Models\NamazTimes;
+use App\Models\NamazTime;
 use App\Models\Channel;
 use App\Models\News;
 use App\Models\City;
@@ -19,7 +19,7 @@ class SiteController extends Controller
     {
         $usdRate = Currency::getUsdRate();
         $bakuWeatherInfo = $this->getWeatherInfo();
-        $todayNamaz = NamazTimes::getTodayTimes();
+        $todayNamaz = NamazTime::getTodayTimes();
         $region = session('region', 16);
 
         $channelList = Channel::getTopChannels(10);

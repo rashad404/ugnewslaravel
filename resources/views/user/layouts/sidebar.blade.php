@@ -5,7 +5,9 @@ md:translate-x-0
     <div class="h-full flex flex-col">
         <div class="flex items-center justify-between h-16 px-4">
             <!-- Logo on the left -->
-            <a href="/"><img class="h-8 w-auto" src="{{ asset('images/ug_news.svg') }}" alt="{{ config('app.name', 'Laravel') }}"></a>
+            <a href="{{ route('site.index') }}">
+                <img class="h-12 w-auto" src="{{ asset('images/ug_news.svg') }}" alt="{{ config('app.name', 'Laravel') }}">
+            </a>
 
             <!-- Sidebar menu button on the right -->
             <button id="sidebar-toggle-mobile"

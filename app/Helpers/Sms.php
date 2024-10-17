@@ -9,8 +9,8 @@ class Sms{
     }
     public static function getCountryList(){
         $array = [
-            994=>'Azerbaijan',
-            1=>'United States'
+            994 => 'AZ',
+            1 => 'USA'
         ];
         return $array;
     }

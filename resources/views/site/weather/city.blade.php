@@ -6,15 +6,15 @@
         <div class="container mx-auto px-4">
             <!-- Page Title -->
             <div class="text-center mb-10">
-                <h1 class="text-5xl font-extrabold text-gray-800">{{ $weather->city_name }} {{ __('Weather App') }}</h1>
-                <p class="text-lg text-gray-600 mt-2">{{ date('d-m-Y') }} | {{ __('Weather Forecast for') }} {{ $weather->city_name }}</p>
+                <h1 class="text-5xl font-extrabold text-gray-800">{{ __($weather->city_name) }} {{ __('Weather App') }}</h1>
+                <p class="text-lg text-gray-600 mt-2">{{ date('d-m-Y') }} | {{ __('Weather Forecast for') }} {{ __($weather->city_name) }}</p>
             </div>
 
             <!-- Current Weather Card -->
             <div class="mb-10">
                 <div class="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 p-6 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center">
                     <div>
-                        <h2 class="text-3xl font-bold text-blue-900 mb-4">{{ $weather->city_name }} {{ __('Current Weather') }}</h2>
+                        <h2 class="text-3xl font-bold text-blue-900 mb-4">{{ __($weather->city_name) }} {{ __('Current Weather') }}</h2>
                         <ul class="text-gray-800 space-y-2">
                             <li><strong>{{ __('Temperature') }}:</strong> {{ round($weather->temp) }} °C</li>
                             <li><strong>{{ __('Feels Like') }}:</strong> {{ round($weather->feels_like) }} °C</li>
@@ -49,7 +49,7 @@
                             <tr class="hover:bg-gray-100 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/hava-haqqinda', $weather->slug) }}" class="text-blue-500 hover:underline">
-                                        {{ $weather->city_name }}
+                                        {{ __($weather->city_name) }}
                                     </a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ round($weather->temp) }} °C</td>

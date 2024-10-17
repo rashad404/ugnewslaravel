@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Helpers\Seo;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use App\Models\News;
@@ -17,7 +18,8 @@ class ChannelController extends Controller
     public function create()
     {
         // Render the view with the data
-        return view('site.channel.create');
+        $data = Seo::create_channel();
+        return view('site.channel.create', $data);
     }
 
     public function inner($url)
@@ -34,10 +36,10 @@ class ChannelController extends Controller
         }
 
         // Set meta data
-        $data['meta_img'] = $data['item']->image;
-        $data['title'] = $data['item']->name;
-        $data['keywords'] = $data['item']->name;
-        $data['description'] = $data['item']->name;
+        $data['metaImg'] = $data['item']->image;
+        $data['metaTitle'] = $data['item']->name;
+        $data['metaKeywords'] = $data['item']->name;
+        $data['metaDescription'] = $data['item']->name;
 
         // Pagination setup for related news
         $data['newsList'] = News::where('channel_id', $data['item']->id)

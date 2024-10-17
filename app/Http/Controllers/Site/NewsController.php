@@ -48,9 +48,17 @@ class NewsController extends Controller
         // Get similar news
         $similar_news = News::getSimilarNews($item->id);
 
+        $metaTitle = $item->title;
+        $metaKeywords = $item->title;
+        $metaDescription = $item->title;
+
         // Get a random ad
         $ad = Ad::inRandomOrder()->first();
-        return view('site.news.show', compact('item', 'channel_info', 'subscribe_check', 'like_check', 'dislike_check', 'similar_news', 'ad'));
+        return view('site.news.show', compact(
+            'item', 'channel_info', 'subscribe_check', 'like_check', 
+            'dislike_check', 'similar_news', 'ad',
+            'metaTitle', 'metaKeywords', 'metaDescription'
+        ));
     }
 
     private function checkSubscription($channel_id)

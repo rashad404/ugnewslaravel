@@ -42,13 +42,7 @@ class Seo {
         $array['metaImg'] = 'logo/logo-fb.png';
         return $array;
     }
-    public static function namaz(){
-        $array['metaTitle'] = self::$add_prefix.' Namaz vaxtı, Bakı Namaz vaxtı';
-        $array['metaKeywords'] = self::$add_prefix.' namaz vaxti, namaz vaxtlari, bugun namaz, subh, zohr,esr,şam,xuften namazi vaxti, namaz teqvimi';
-        $array['metaDescription'] = self::$add_prefix.'Namaz vaxtları, Aylıq namaz təqvimi';
-        $array['metaImg'] = 'logo/logo-fb.png';
-        return $array;
-    }
+
     public static function city($name=''){
         $array['metaTitle'] = $name.' xəbərləri, '.$name.' son xəbərlər';
         $array['metaKeywords'] = $name.' xəbərləri, '.$name.' son xəbərlər';

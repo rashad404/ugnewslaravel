@@ -22,8 +22,8 @@ use App\Helpers\Format;
                         </div>
                     @endif
                     <div class="p-4 flex-grow">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-3">{{ Format::listTitle($list['title'], 100) }} <span class="text-red-600">{{ $list['title_extra'] }}</span></h3>
-                        <p class="text-gray-600 text-sm line-clamp-3">{{ Format::listText($list['text'], 150) }}</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-3">{{ Format::listTitle(html_entity_decode($list['title']), 100) }} <span class="text-red-600">{{ $list['title_extra'] }}</span></h3>
+                        <p class="text-gray-600 text-sm line-clamp-3">{{ Format::listText(html_entity_decode($list['text']), 150) }}</p>
                     </div>
                 </a>
 

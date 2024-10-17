@@ -4,9 +4,9 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Channels', 'url' => route('user.channels.index')],
-        ['title' => 'Create', 'url' => '#']
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Channels'), 'url' => route('user.channels.index')],
+        ['title' => __('Create'), 'url' => '#']
     ];
     @endphp
 
@@ -114,17 +114,16 @@
     $(document).ready(function() {
         $('#category_id, #country_id, #language_id').select2();
 
-
         $('#tags').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
-        createTag: function (params) {
-            return {
-            id: params.term,
-            text: params.term,
-            newOption: true
-            };
-        }
+            tags: true,
+            tokenSeparators: [',', ' '],
+            createTag: function (params) {
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                };
+            }
         });
     });
 </script>

@@ -4,8 +4,8 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Default Settings', 'url' => '#'],
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Default Settings'), 'url' => '#'],
     ];
     @endphp
 
@@ -78,7 +78,7 @@
     <script>
     $(document).ready(function() {
         $('#channel_id, #country_id, #language_id').select2({
-            placeholder: "Select an option",
+            placeholder: "{{ __('Select an option') }}",
             allowClear: true
         });
     });

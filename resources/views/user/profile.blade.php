@@ -5,8 +5,8 @@
 use Carbon\Carbon;
 
 $breadcrumbs = [
-    ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-    ['title' => 'Profile', 'url' => '#']
+    ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+    ['title' => __('Profile'), 'url' => '#']
 ];
 @endphp
 
@@ -23,8 +23,8 @@ $breadcrumbs = [
                 <div id="app" class="max-w-96">
                     <input type="file" name="image" ref="fileInput" class="hidden">
                     <image-upload-component
-                        :remove-label="{{ json_encode(('Remove Image')) }}"
-                        :choose-file-label="{{ json_encode(('Choose an Image')) }}"
+                        :remove-label="{{ json_encode(__('Remove Image')) }}"
+                        :choose-file-label="{{ json_encode(__('Choose an Image')) }}"
                         :current-image="{{ json_encode($user->image ? asset('storage/' . $user->image) : null) }}"
                         image-class="rounded-full object-cover w-full h-full"
                     ></image-upload-component>

@@ -4,16 +4,16 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Ads', 'url' => '#']
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Ads'), 'url' => '#']
     ];
     @endphp
 
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">Ads</h1>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">{{ __('Ads') }}</h1>
 
     <div class="mb-6 flex justify-end">
         <a href="{{ route('user.ads.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-            Create Ad
+            {{ __('Create Ad') }}
         </a>
     </div>
 
@@ -21,12 +21,12 @@
         <table class="min-w-full">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clicks</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Image') }}</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Title') }}</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Clicks') }}</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Views') }}</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Status') }}</th>
+                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -40,7 +40,7 @@
                     <td class="py-4 px-4">{{ $ad->view }}</td>
                     <td class="py-4 px-4">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $ad->status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ $ad->status ? 'Active' : 'Inactive' }}
+                            {{ $ad->status ? __('Active') : __('Inactive') }}
                         </span>
                     </td>
                     <td class="py-4 px-4">
@@ -53,7 +53,7 @@
                             <form action="{{ route('user.ads.destroy', $ad) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure?')">
+                                <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('{{ __('Are you sure?') }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                     </svg>

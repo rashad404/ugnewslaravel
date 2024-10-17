@@ -4,8 +4,8 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'News', 'url' => route('user.news.index')],
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('News'), 'url' => route('user.news.index')],
         ['title' => $news->title, 'url' => '#']
     ];
     @endphp
@@ -23,7 +23,7 @@
             <dl>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Content
+                        {{ __('Content') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {!! nl2br(e($news->text)) !!}
@@ -31,7 +31,7 @@
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Tags
+                        {{ __('Tags') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->tags }}
@@ -39,7 +39,7 @@
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Category
+                        {{ __('Category') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->catName }}
@@ -47,7 +47,7 @@
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Channel
+                        {{ __('Channel') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->channelName }}
@@ -55,7 +55,7 @@
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Location
+                        {{ __('Location') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->country }} - {{ $news->city }}
@@ -63,7 +63,7 @@
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Language
+                        {{ __('Language') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->language }}
@@ -71,15 +71,15 @@
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Status
+                        {{ __('Status') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $news->status ? 'Active' : 'Inactive' }}
+                        {{ $news->status ? __('Active') : __('Inactive') }}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Publish Time
+                        {{ __('Publish Time') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $news->publish_time }}
@@ -88,7 +88,7 @@
                 @if($news->image)
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Image
+                        {{ __('Image') }}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="max-w-full h-auto">
@@ -101,10 +101,10 @@
     
     <div class="mt-4 flex justify-between">
         <a href="{{ route('user.news.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-            Back to List
+            {{ __('Back to List') }}
         </a>
         <a href="{{ route('user.news.edit', $news->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Edit
+            {{ __('Edit') }}
         </a>
     </div>
 </div>

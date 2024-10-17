@@ -4,9 +4,9 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Ads', 'url' => route('user.ads.index')],
-        ['title' => 'Edit', 'url' => '#']
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Ads'), 'url' => route('user.ads.index')],
+        ['title' => __('Edit'), 'url' => '#']
     ];
     @endphp
 
@@ -54,8 +54,8 @@
                             {{ __('Status') }}
                         </label>
                         <select name="status" id="status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="1" {{ $ad->status ? 'selected' : '' }}>Active</option>
-                            <option value="0" {{ !$ad->status ? 'selected' : '' }}>Inactive</option>
+                            <option value="1" {{ $ad->status ? 'selected' : '' }}>{{ __('Active') }}</option>
+                            <option value="0" {{ !$ad->status ? 'selected' : '' }}>{{ __('Inactive') }}</option>
                         </select>
                     </div>
                 </div>

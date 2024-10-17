@@ -4,9 +4,9 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-    ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-    ['title' => 'News', 'url' => route('user.news.index')],
-    ['title' => 'Create', 'url' => '#']
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('News'), 'url' => route('user.news.index')],
+        ['title' => __('Create'), 'url' => '#']
     ];
     @endphp
 
@@ -58,22 +58,21 @@
                     </select>
                 </div>
 
-<!-- Publish Time Field -->
-<div class="col-span-1 relative">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="publish_time">
-        {{ __('Publish Time') }}
-    </label>
-    <div class="relative">
-        <input type="datetime-local" name="publish_time" id="publish_time"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10">
-        <button type="button" id="clear-date" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-            </svg>
-        </button>
-    </div>
-</div>
-
+                <!-- Publish Time Field -->
+                <div class="col-span-1 relative">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="publish_time">
+                        {{ __('Publish Time') }}
+                    </label>
+                    <div class="relative">
+                        <input type="datetime-local" name="publish_time" id="publish_time"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10">
+                        <button type="button" id="clear-date" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
                 <!-- Title Extra Field -->
                 <div class="col-span-1">
@@ -93,9 +92,7 @@
                     <select name="channel_id" id="channel_id" class="select2 form-control w-full" required>
                         <option value="">{{ __('Select a channel') }}</option>
                         @foreach($channels as $channel)
-                        <option value="{{ $channel->id }}" {{ $defaultChannelId == $channel->id ? 'selected' : '' }}>
-                            {{ $channel->name }}
-                        </option>
+                        <option value="{{ $channel->id }}">{{ $channel->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -144,7 +141,7 @@
 <script>
     $(document).ready(function() {
         $('#category_id, #city_id, #channel_id').select2({
-            placeholder: "Select an option",
+            placeholder: "{{ __('Select an option') }}",
             allowClear: true
         });
 
@@ -161,14 +158,4 @@
         });
     });
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.getElementById('publish_time');
-        const resetButton = document.getElementById('clear-date');
-    
-        resetButton.addEventListener('click', function() {
-            dateInput.value = '';
-        });
-    });
-    </script>
 @endpush

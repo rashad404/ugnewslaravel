@@ -4,9 +4,9 @@
 
 @php
     $breadcrumbs = [
-    ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-    ['title' => 'API Keys', 'url' => route('user.api-keys.index')],
-    ['title' => 'Edit', 'url' => '#']
+    ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+    ['title' => __('API Keys'), 'url' => route('user.api-keys.index')],
+    ['title' => __('Edit'), 'url' => '#']
 ];
 @endphp
 

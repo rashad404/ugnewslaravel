@@ -4,8 +4,8 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Channels', 'url' => route('user.channels.index')],
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Channels'), 'url' => route('user.channels.index')],
         ['title' => $channel->name, 'url' => '#']
     ];
     @endphp

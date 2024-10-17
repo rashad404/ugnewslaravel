@@ -4,8 +4,8 @@
 
 @php
     $breadcrumbs = [
-    ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-    ['title' => 'API Keys', 'url' => route('user.api-keys.index')],
+    ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+    ['title' => __('API Keys'), 'url' => route('user.api-keys.index')],
     ['title' => $apiKey->name, 'url' => '#']
 ];
 @endphp
@@ -38,7 +38,7 @@
 
     <div class="mt-4 flex space-x-3">
         <a href="{{ route('user.api-keys.edit', $apiKey) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">{{ __('Edit') }}</a>
-        <form action="{{ route('user.api-keys.destroy', $apiKey) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this API key?');">
+        <form action="{{ route('user.api-keys.destroy', $apiKey) }}" method="POST" onsubmit="return confirm('{{ __('Are you sure you want to delete this API key?') }}');">
             @csrf
             @method('DELETE')
             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">{{ __('Delete') }}</button>

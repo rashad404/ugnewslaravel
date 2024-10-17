@@ -4,9 +4,9 @@
 <div class="container mx-auto">
     @php
     $breadcrumbs = [
-        ['title' => 'Dashboard', 'url' => route('user.dashboard')],
-        ['title' => 'Channels', 'url' => route('user.channels.index')],
-        ['title' => 'Edit', 'url' => '#']
+        ['title' => __('Dashboard'), 'url' => route('user.dashboard')],
+        ['title' => __('Channels'), 'url' => route('user.channels.index')],
+        ['title' => __('Edit'), 'url' => '#']
     ];
     @endphp
 
@@ -69,7 +69,6 @@
                     </select>
                 </div>
 
-
                 <!-- Tags Field -->
                 <div class="col-span-1">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
@@ -79,7 +78,7 @@
                         @if ($channel->tags != null)
                             @foreach(explode(',', $channel->tags) as $tag)
                             <option value="{{ $tag }}" selected>{{ $tag }}</option>
-                        @endforeach
+                            @endforeach
                         @endif
                     </select>
                 </div>
@@ -126,9 +125,9 @@
             tokenSeparators: [',', ' '],
             createTag: function (params) {
                 return {
-                id: params.term,
-                text: params.term,
-                newOption: true
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
                 };
             }
         });
@@ -139,4 +138,3 @@
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
-

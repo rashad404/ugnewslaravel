@@ -18,14 +18,14 @@ use App\Http\Controllers\Site\SiteController;
 
 
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
-Route::get('/channel/{url}', [SiteChannelController::class, 'inner'])->name('channel.inner');
+Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.inner');
+Route::get('/channel/create', [SiteChannelController::class, 'create'])->name('channel.create');
 
 
 Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rating.channels');
 Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');
 Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
-Route::get('test2', [LoginController::class, 'showLoginForm'])->name('create.channel');
 Route::get('test24', [LoginController::class, 'showLoginForm'])->name('channel.show');
 
 Route::get('test3', [LoginController::class, 'showLoginForm'])->name('ajax.search');

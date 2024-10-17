@@ -10,20 +10,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\Sms;
-use Helpers\Sms as HelpersSms;
 
 class ChannelController extends Controller
 {
+
+    public function create()
+    {
+        // Render the view with the data
+        return view('site.channel.create');
+    }
+
     public function inner($url)
     {
-        // Default language logic
-        $data['def_language'] = session('locale', config('app.locale'));
-
         // Fetch logged-in user ID
         $data['userId'] = Auth::id(); 
 
         // Get the channel by URL (decoded)
-        $data['item'] = Channel::where('url', urldecode($url))->first();
+        $data['item'] = Channel::where('name_url', urldecode($url))->first();
 
         // If the channel doesn't exist, return an error or 404
         if (!$data['item']) {
@@ -37,16 +40,17 @@ class ChannelController extends Controller
         $data['description'] = $data['item']->name;
 
         // Pagination setup for related news
-        $data['list'] = News::where('channel_id', $data['item']->id)
+        $data['newsList'] = News::where('channel_id', $data['item']->id)
                             ->paginate(24);
 
         // Set region from cookie or default
         $data['region'] = Cookie::get('set_region', config('app.default_country'));
 
         // Load country list
-        $data['countryList'] = HelpersSms::getCountryList();
+        $data['countryList'] = Sms::getCountryList();
+        $data['subscribe_check'] = 1;
 
         // Render the view with the data
-        return view('site.channels.inner', $data);
+        return view('site.channel.show', $data);
     }
 }

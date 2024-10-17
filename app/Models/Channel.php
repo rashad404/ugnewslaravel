@@ -19,7 +19,7 @@ class Channel extends Model
     {
         return $this->hasMany(Subscriber::class);
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -50,6 +50,6 @@ class Channel extends Model
                    })
                    ->orderBy('id', 'desc')
                    ->limit($limit)
-                   ->get(['id', 'name', 'image', 'subscribers']);
+                   ->get(['id', 'name', 'name_url', 'image', 'subscribers']);
     }
 }

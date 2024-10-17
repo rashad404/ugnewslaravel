@@ -13,13 +13,14 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('q');
-        $country = Cookie::get('country', config('app.default_country'));
+        $countryId = $request->input('countryId');
+
 
         $channels = Channel::searchChannels($query, 5);
 
         $news = News::where('status', 1)
-            ->where('country_id', $country)
-            ->where('publish_time', '<=', now())
+            ->where('country_id', $countryId)
+            ->where('publish_time', '<=', time())
             ->where(function ($q) use ($query) {
                 $q->where('title', 'like', "%{$query}%")
                   ->orWhere('text', 'like', "%{$query}%");
@@ -31,6 +32,6 @@ class SearchController extends Controller
         return response()->json([
             'channels' => $channels,
             'news' => $news
-        ]);
+        ])->withCookie(cookie()->forget('country'));
     }
 }

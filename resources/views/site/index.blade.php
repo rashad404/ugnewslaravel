@@ -50,7 +50,7 @@ $tag_list = ($region == 16)
         </div>
         <div class="flex overflow-x-auto pb-2 -mx-4 sm:mx-0">
             <div class="flex-none px-4 sm:px-0 mr-4 lg:mr-16">
-                <a href="{{ route('create.channel') }}" class="block w-20 text-center">
+                <a href="{{ route('channel.create') }}" class="block w-20 text-center">
                     <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-2 shadow">
                         <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

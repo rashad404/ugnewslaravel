@@ -4,14 +4,14 @@
     <base href="{{config('app.url')}}" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $data['title'] }}</title>
-    <meta name="description" content="{{ $data['description'] }}">
-    <meta name="keywords" content="{{ $data['keywords'] }}">
-    <meta property="og:title" content="{{ $data['title'] }}">
-    <meta property="og:description" content="{{ $data['description'] }}">
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="{{ $metaKeywords }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
     
-    @if ($data['meta_img'])
-    <meta property="og:image" content="{{ asset('images/' . $data['meta_img']) }}">
+    @if ($metaImg)
+    <meta property="og:image" content="{{ asset('images/' . $metaImg) }}">
 
     @endif
     <meta property="og:url" content="https://{{ $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] }}">

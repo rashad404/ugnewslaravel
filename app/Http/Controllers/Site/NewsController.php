@@ -15,18 +15,21 @@ class NewsController extends Controller
     {
         $tag = Format::deUrlText($tag);
 
-        $newsList = News::where('status', 1)
+        $data['newsList'] = News::where('status', 1)
             ->where('publish_time', '<=', time())
             ->byTag($tag)
             ->orderBy('publish_time', 'DESC')
             ->orderBy('id', 'DESC')
             ->paginate(10);
 
-        $cat_name = $tag;
-        return view('site.news.tag', compact(
-            'newsList',
-            'cat_name',
-        ));
+        $data['cat_name'] = $tag;
+
+        $data['metaTitle'] = "{$tag} Xəbərləri, {$tag} xeberleri";
+        $data['metaKeywords'] = "{$tag} Xəbərləri, {$tag} xeberleri";
+        $data['metaDescription'] = "{$tag} Xəbərləri, {$tag} xeberleri";
+
+
+        return view('site.news.tag', $data);
     }
 
     public function show($channel, $slug)

@@ -17,30 +17,24 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $usdRate = Currency::getUsdRate();
-        $bakuWeatherInfo = $this->getWeatherInfo();
-        $todayNamaz = NamazTime::getTodayTimes();
-        $region = session('region', 16);
 
-        $channelList = Channel::getTopChannels(10);
-        $newsList = News::where("status", 1)
+        $data = Seo::index();
+        $data['usdRate'] = Currency::getUsdRate();
+        $data['bakuWeatherInfo'] = $this->getWeatherInfo();
+        $data['todayNamaz'] = NamazTime::getTodayTimes();
+        $data['region'] = session('region', 16);
+
+        $data['channelList'] = Channel::getTopChannels(10);
+        $data['newsList'] = News::where("status", 1)
                         ->orderBy('publish_time', 'DESC')
                         ->orderBy('id', 'DESC')
                         ->paginate(15);
 
-        $cityList1 = City::getMainCities();
-        $cityList2 = City::getSecondaryCities();
+        $data['cityList1'] = City::getMainCities();
+        $data['cityList2'] = City::getSecondaryCities();
 
-        return view('site.index', compact(
-            'usdRate',
-            'bakuWeatherInfo',
-            'todayNamaz',
-            'region',
-            'channelList',
-            'newsList',
-            'cityList1',
-            'cityList2'
-        ));
+
+        return view('site.index', $data);
     }
 
     public function contact()
@@ -74,9 +68,9 @@ class SiteController extends Controller
                 ->paginate(24);
             $data['cat_name'] = News::getCatName($categoryId);
 
-            $data['title'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
-            $data['keywords'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
-            $data['description'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
+            $data['metaTitle'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
+            $data['metaKeywords'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
+            $data['metaDescription'] = __($data['cat_name']) . ' Xəbərləri, ' . __($data['cat_name']) . ' xeberleri';
 
             return view('site.cat', $data);
         } else {
@@ -84,14 +78,6 @@ class SiteController extends Controller
         }
     }
 
-    public function tagCat($id, $name = '')
-    {
-        $data = Seo::general();
-        $data['list'] = News::getListByTagCat($id)->paginate(24);
-        $data['cat_name'] = News::getTagName($id);
-
-        return view('site.tag_cat', $data);
-    }
 
     public function tags($name)
     {

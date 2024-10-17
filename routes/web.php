@@ -18,7 +18,6 @@ use App\Http\Controllers\Site\SiteController;
 
 
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
-Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.inner');
 Route::get('/channel/create', [SiteChannelController::class, 'create'])->name('channel.create');
 
 
@@ -26,17 +25,14 @@ Route::get('/rating/channels', [RatingController::class, 'channels'])->name('rat
 Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news');
 Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
-Route::get('test24', [LoginController::class, 'showLoginForm'])->name('channel.show');
-
-Route::get('test3', [LoginController::class, 'showLoginForm'])->name('ajax.search');
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
 Route::post('/contact', [SiteController::class, 'submitContact'])->name('site.contact.submit');
 
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register'])->name('register.post');
@@ -89,4 +85,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
     
+    Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');
 });

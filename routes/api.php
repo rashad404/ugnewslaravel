@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\SearchController;
-use App\Http\Controllers\ApiController;
-use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

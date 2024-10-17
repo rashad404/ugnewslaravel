@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileSearchInput.addEventListener('input', function() {
         const inputVal = this.value;
         if (inputVal.length >= 1) {
-            fetch("{{ route('ajax.search') }}/" + encodeURIComponent(inputVal), {
+            fetch("'ajax/search'/" + encodeURIComponent(inputVal), {
                 method: "GET",
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',

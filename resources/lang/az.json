@@ -276,6 +276,13 @@
     "Birth Month": "Doğum Ayı",
     "If you have an account, then": "Hesabınız varsa, ",
     "E-Mail Address": "E-Poçt Ünvanı",
-    "Don't have an account?": "Hesabınız yoxdur?"
+    "Don't have an account?": "Hesabınız yoxdur?",
+    "Welcome to your dashboard!": "İdarə Panelinizə Xoş Gəlmisiniz!",
+    "Here you can manage your news, channels, and settings.": "Burada xəbərləriniz, kanallarınız və parametrlərinizi idarə edə bilərsiniz.",
+    "Create News": "Xəbər Yarat",
+    "You have :count recent news articles.": "Sizin :count son xəbər məqaləniz var.",
+    "View all news": "Bütün xəbərləri görün",
+    "You have :count channels.": "Sizin :count kanalınız var.",
+    "Manage channels": "Kanalları idarə et"
   }
   

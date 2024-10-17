@@ -172,24 +172,6 @@
     </div>
 </div>
 
-@auth
-    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-8 max-w-md w-full m-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-900" id="umodal_title">{{ __('Login') }}</h2>
-                <button class="text-gray-400 hover:text-gray-500 focus:outline-none" onclick="closeLoginModal()">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <hr class="mb-4" />
-            <div id="loginModalContent">
-                @include('auth.login')
-            </div>
-        </div>
-    </div>
-@endauth
 
 @endsection
 

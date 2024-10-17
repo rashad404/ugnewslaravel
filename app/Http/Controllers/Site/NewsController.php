@@ -50,14 +50,14 @@ class NewsController extends Controller
 
         // Get a random ad
         $ad = Ad::inRandomOrder()->first();
-
         return view('site.news.show', compact('item', 'channel_info', 'subscribe_check', 'like_check', 'dislike_check', 'similar_news', 'ad'));
     }
 
     private function checkSubscription($channel_id)
     {
         if (Auth::check()) {
-            return Auth::user()->subscriptions()->where('channel_id', $channel_id)->exists();
+            return true;
+            // return Auth::user()->subscriptions()->where('channel_id', $channel_id)->exists();
         }
         return false;
     }
@@ -65,7 +65,8 @@ class NewsController extends Controller
     private function checkLike($news_id)
     {
         if (Auth::check()) {
-            return Auth::user()->likes()->where('news_id', $news_id)->where('liked', 1)->exists();
+            return true;
+            // return Auth::user()->likes()->where('news_id', $news_id)->where('liked', 1)->exists();
         }
         return false;
     }
@@ -73,7 +74,8 @@ class NewsController extends Controller
     private function checkDislike($news_id)
     {
         if (Auth::check()) {
-            return Auth::user()->likes()->where('news_id', $news_id)->where('disliked', 1)->exists();
+            return true;
+            // return Auth::user()->likes()->where('news_id', $news_id)->where('disliked', 1)->exists();
         }
         return false;
     }

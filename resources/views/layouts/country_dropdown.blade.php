@@ -1,4 +1,4 @@
-<div x-data="countryDropdown()" x-cloak class="ml-3 relative">
+<div x-data="countryDropdown()" class="ml-3 relative">
     <div>
         <button @click="open = !open; if (open) loadCountries()" type="button" class="flex items-center text-base font-medium text-gray-500 hover:text-gray-900" id="region-menu" aria-expanded="false" aria-haspopup="true">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
@@ -10,7 +10,7 @@
             </svg>
         </button>
     </div>
-    <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="z-50 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="region-menu" style="max-height: 300px; overflow-y: auto;">
+    <div x-show="open" x-cloak @click.away="open = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="z-50 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="region-menu" style="max-height: 300px; overflow-y: auto;">
         <div class="px-4 py-2 text-xs text-gray-500">{{ __('Select Region') }}:</div>
         <div class="px-4 py-2">
             <input type="text" x-model="searchQuery" @input="searchCountries" placeholder="{{ __('Search') }}..." class="block w-full px-2 py-1 text-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">

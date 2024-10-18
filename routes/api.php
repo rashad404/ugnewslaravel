@@ -29,6 +29,7 @@ Route::put('/webhook/news/{id}', [WebhookController::class, 'updateNews']);
 Route::delete('/webhook/news/{id}', [WebhookController::class, 'deleteNews']);
 Route::get('/webhook/categories', [WebhookController::class, 'getCategories']);
 Route::get('/webhook/cities', [WebhookController::class, 'getCities']);
+Route::get('/webhook/news/{id}', [WebhookController::class, 'getNews']);
 
 
 Route::get('/countries', [CountryController::class, 'index'])->name('api.countries');

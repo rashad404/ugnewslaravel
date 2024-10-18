@@ -227,4 +227,38 @@ class WebhookController extends Controller
         return response()->json($cities);
     }
 
+    public function getNews($id)
+    {
+        // Find the news by ID
+        $news = News::find($id);
+
+        // If news article is not found, return an error response
+        if (!$news) {
+            return response()->json(['error' => 'News not found'], 404);
+        }
+
+        // Return the news data as JSON
+        return response()->json([
+            'id' => $news->id,
+            'title' => $news->title,
+            'title_extra' => $news->title_extra,
+            'text' => $news->text,
+            'tags' => $news->tags,
+            'image' => $news->image,
+            'category_id' => $news->category_id,
+            'channel_id' => $news->channel_id,
+            'city_id' => $news->city_id,
+            'status' => $news->status,
+            'publish_time' => $news->publish_time,
+            'view' => $news->view,
+            'likes' => $news->likes,
+            'dislikes' => $news->dislikes,
+            'user_id' => $news->user_id,
+            'slug' => $news->slug,
+            'country_id' => $news->country_id,
+            'language_id' => $news->language_id,
+        ]);
+    }
+
+
 }

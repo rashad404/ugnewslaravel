@@ -404,7 +404,10 @@
     "Updated News Title": "Yenilənmiş Xəbər Başlığı",
     "This is the updated content of the news article.": "Bu, xəbər məqaləsinin yenilənmiş məzmunudur.",
     "Delete News API": "Xəbərləri Silmə API-si",
-    "Article deleted successfully": "Məqalə uğurla silindi"
+    "Article deleted successfully": "Məqalə uğurla silindi",
+    "Get News API": "Xəbərləri Alma API-si",
+    "Get Categories API": "Kateqoriyaları Alma API-si",
+    "Get Cities API": "Şəhərləri Alma API-si"
 
   }
   

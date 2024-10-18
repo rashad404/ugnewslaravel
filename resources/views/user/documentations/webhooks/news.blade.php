@@ -181,5 +181,90 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
             </code></pre>
         </div>
     </div>
+
+    <!-- Get News API -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
+        <h2 class="text-2xl font-semibold mb-4">{{ __('Get News API') }}</h2>
+        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
+        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
+
+        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+            <pre><code class="language-json">
+{
+    "id": "12345",
+    "title": "News Title",
+    "title_extra": "Optional Extra Title",
+    "text": "This is the content of the news article.",
+    "tags": "breaking, world",
+    "image": "images/image-name.jpg",
+    "category_id": 1,
+    "channel_id": 2,
+    "city_id": 1,
+    "status": 1,
+    "publish_time": 1696602000,
+    "view": 1,
+    "likes": 0,
+    "dislikes": 0,
+    "user_id": 12,
+    "slug": "news-title",
+    "country_id": 1,
+    "language_id": 1
+}
+            </code></pre>
+        </div>
+
+        <p><strong>{{ __('Error Responses:') }}</strong></p>
+        <ul class="list-disc pl-6 mb-4">
+            <li><code>404</code> - {{ __('News not found') }}</li>
+            <li><code>500</code> - {{ __('Internal server error') }}</li>
+        </ul>
+    </div>
+
+    <!-- Get Categories API -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
+        <h2 class="text-2xl font-semibold mb-4">{{ __('Get Categories API') }}</h2>
+        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/categories</code></p>
+        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
+
+        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+            <pre><code class="language-json">
+[
+    {
+        "id": 1,
+        "name": "Politics"
+    },
+    {
+        "id": 2,
+        "name": "Sports"
+    }
+]
+            </code></pre>
+        </div>
+    </div>
+
+    <!-- Get Cities API -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
+        <h2 class="text-2xl font-semibold mb-4">{{ __('Get Cities API') }}</h2>
+        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/cities</code></p>
+        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
+
+        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+            <pre><code class="language-json">
+[
+    {
+        "id": 1,
+        "name": "New York"
+    },
+    {
+        "id": 2,
+        "name": "Los Angeles"
+    }
+]
+            </code></pre>
+        </div>
+    </div>
 </div>
 @endsection

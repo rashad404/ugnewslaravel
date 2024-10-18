@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://new.ug.news'),
+    'url' => env('APP_URL', 'https://ug.news'),
 
     'asset_url' => env('ASSET_URL', null),
 

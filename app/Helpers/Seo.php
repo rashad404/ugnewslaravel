@@ -4,28 +4,26 @@ namespace App\Helpers;
 class Seo {
 
     public static $add_text;
-    
     public static $add_prefix;
+    public static $host;
 
     public static function init() {
         self::$add_text = ' | ' . config('app.name');
         self::$add_prefix = config('app.name') . ' | ';
+        self::$host = $_SERVER['HTTP_HOST'];
     }
 
-    public static function general(){
-        $array['metaTitle'] = self::$add_prefix.' Xəbər Sosial Şəbəkəsi';
-        $array['metaKeywords'] = self::$add_prefix.' xəbərlər, xeberler, en son xeber, bugun xeber, son deqiqe xeberleri, namaz, valyuta';
-        $array['metaDescription'] = config('app.name') . ' Xəbər Sosial Şəbəkəsidir. Ən son xəbərlər fərqli formatda';
+    public static function general() {
+        $array['metaTitle'] = self::$add_prefix.' Son Xeberler';
+        $array['metaKeywords'] = self::$add_prefix.' son xeberler, xeberler, son deqiqe xeberleri, namaz vaxti, valyuta';
+        $array['metaDescription'] = 'Son xeberler, namaz vaxtlari, valyuta';
         $array['metaImg'] = 'logo/logo-fb.png';
         return $array;
     }
-    public static function index(){
-        $array['metaTitle'] = self::$add_prefix.' Xəbər Sosial Şəbəkəsi';
-        $array['metaKeywords'] = self::$add_prefix.' xəbərlər, xeberler, en son xeber, bugun xeber, son deqiqe xeberleri, namaz, valyuta';
-        $array['metaDescription'] = config('app.name') . ' Xəbər Sosial Şəbəkəsidir. Ən son xəbərlər fərqli formatda';
-        $array['metaImg'] = 'logo/logo-fb.png';
-        return $array;
+    public static function index() {
+        return self::general();
     }
+    
     public static function create_channel(){
         $array['metaTitle'] = self::$add_prefix.'Xəbər Kanalı yarat, xəbər saytı, internetden pul qazan';
         $array['metaKeywords'] = self::$add_prefix.'Xəbər Kanalı yarat, xəbər saytı, internetden pul qazan';

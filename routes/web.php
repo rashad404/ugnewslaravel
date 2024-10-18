@@ -23,6 +23,7 @@ use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\WeatherController;
 
+$host = $_SERVER['HTTP_HOST'];
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
 Route::get('/channel/create', [SiteChannelController::class, 'create'])->name('channel.create');
 
@@ -32,7 +33,12 @@ Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news
 Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
 
-Route::get('/', [SiteController::class, 'index'])->name('site.index');
+if ($host == "bugun.az") {
+    Route::get('/', [CurrencyController::class, 'index'])->name('site.index');    
+} else {
+    Route::get('/', [SiteController::class, 'index'])->name('site.index');
+}
+
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
 Route::post('/contact', [SiteController::class, 'submitContact'])->name('site.contact.submit');
 

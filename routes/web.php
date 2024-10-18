@@ -35,6 +35,8 @@ Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
 if ($host == "valyuta.org") {
     Route::get('/', [CurrencyController::class, 'index'])->name('site.index');    
+} elseif ($host == "havahaqqinda.com") {
+    Route::get('/', [WeatherController::class, 'index'])->name('site.index');    
 } else {
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
 }

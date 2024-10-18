@@ -21,7 +21,7 @@ class WebhookController extends Controller
         // Validate the incoming webhook payload
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'title_extra' => 'string|max:255',
+            'title_extra' => 'nullable|string|max:255',
             'text' => 'required|string',
             'tags' => 'required|string|max:255',
             'image' => 'string|max:255',

@@ -18,17 +18,17 @@
         </a>
     </div>
 
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
-        <!-- Webhook Endpoint -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Create News API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>POST</code></p>
-        <p class="mb-4"><strong>{{ __('Content-Type:') }}</strong> <code>application/json</code></p>
+    <div id="api-docs">
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('create-news')">{{ __('Create News API') }}</h2>
+            <div id="create-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>POST</code></p>
+                <p class="mb-4"><strong>{{ __('Content-Type:') }}</strong> <code>application/json</code></p>
 
-        <!-- Request Payload -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Request Payload') }}</h2>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Request Payload') }}</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "title": "string, required",
     "title_extra": "string, optional",
@@ -41,33 +41,30 @@
     "publish_time": "integer (Unix timestamp), optional",
     "api_key": "string, required"
 }
-            </code></pre>
-        </div>
+                    </code></pre>
+                </div>
 
-        <!-- Success Response -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Response') }}</h2>
-        <p><strong>{{ __('Success Response') }}  (201):</strong></p>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Response') }}</h3>
+                <p><strong>{{ __('Success Response') }}  (201):</strong></p>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "message": "{{ __('Article created successfully') }}",
     "id": "12345"
 }
-            </code></pre>
-        </div>
+                    </code></pre>
+                </div>
 
-        <!-- Error Responses -->
-        <p><strong>{{ __('Error Responses:') }}</strong></p>
-        <ul class="list-disc pl-6 mb-4">
-            <li><code>400</code> - {{ __('Invalid payload') }}</li>
-            <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
-            <li><code>500</code> - {{ __('Internal server error') }}</li>
-        </ul>
+                <p><strong>{{ __('Error Responses:') }}</strong></p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><code>400</code> - {{ __('Invalid payload') }}</li>
+                    <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
+                    <li><code>500</code> - {{ __('Internal server error') }}</li>
+                </ul>
 
-        <!-- Example Request -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Example Request') }}</h2>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-bash">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Example Request') }}</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-bash">
 curl -X POST https://ug.news/api/webhook/news \
 -H "Content-Type: application/json" \
 -d '{
@@ -81,26 +78,26 @@ curl -X POST https://ug.news/api/webhook/news \
   "publish_time": 1696602000,
   "api_key": "your-api-key"
 }'
-            </code></pre>
+                    </code></pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-4">{{ __('Notes') }}</h3>
+                <ul class="list-disc pl-6">
+                    <li>{{ __('The api_key must be valid for the request to succeed.') }}</li>
+                    <li>{{ __('If no image is provided, a default image will be used.') }}</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Notes -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Notes') }}</h2>
-        <ul class="list-disc pl-6">
-            <li>{{ __('The api_key must be valid for the request to succeed.') }}</li>
-            <li>{{ __('If no image is provided, a default image will be used.') }}</li>
-        </ul>
-    </div>
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('update-news')">{{ __('Update News API') }}</h2>
+            <div id="update-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>PUT</code></p>
 
-    <!-- Update News API -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Update News API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>PUT</code></p>
-
-        <h3 class="text-xl font-semibold mb-4">{{ __('Request Payload') }}</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Request Payload') }}</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "title": "string, optional",
     "title_extra": "string, optional",
@@ -113,30 +110,30 @@ curl -X POST https://ug.news/api/webhook/news \
     "publish_time": "integer (Unix timestamp), optional",
     "api_key": "string, required"
 }
-            </code></pre>
-        </div>
+                    </code></pre>
+                </div>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "message": "{{ __('Article updated successfully') }}",
     "id": "12345"
 }
-            </code></pre>
-        </div>
+                    </code></pre>
+                </div>
 
-        <p><strong>{{ __('Error Responses:') }}</strong></p>
-        <ul class="list-disc pl-6 mb-4">
-            <li><code>400</code> - {{ __('Invalid payload') }}</li>
-            <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
-            <li><code>404</code> - {{ __('News not found') }}</li>
-            <li><code>500</code> - {{ __('Internal server error') }}</li>
-        </ul>
+                <p><strong>{{ __('Error Responses:') }}</strong></p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><code>400</code> - {{ __('Invalid payload') }}</li>
+                    <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
+                    <li><code>404</code> - {{ __('News not found') }}</li>
+                    <li><code>500</code> - {{ __('Internal server error') }}</li>
+                </ul>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Example Request') }}</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-bash">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Example Request') }}</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-bash">
 curl -X PUT https://ug.news/api/webhook/news/12345 \
 -H "Content-Type: application/json" \
 -d '{
@@ -144,53 +141,55 @@ curl -X PUT https://ug.news/api/webhook/news/12345 \
   "text": "{{ __('This is the updated content of the news article.') }}",
   "api_key": "your-api-key"
 }'
-            </code></pre>
+                    </code></pre>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Delete News API -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Delete News API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>DELETE</code></p>
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('delete-news')">{{ __('Delete News API') }}</h2>
+            <div id="delete-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>DELETE</code></p>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "message": "{{ __('Article deleted successfully') }}"
 }
-            </code></pre>
-        </div>
+                    </code></pre>
+                </div>
 
-        <p><strong>{{ __('Error Responses:') }}</strong></p>
-        <ul class="list-disc pl-6 mb-4">
-            <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
-            <li><code>404</code> - {{ __('News not found') }}</li>
-            <li><code>500</code> - {{ __('Internal server error') }}</li>
-        </ul>
+                <p><strong>{{ __('Error Responses:') }}</strong></p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><code>401</code> - {{ __('Unauthorized (invalid API key)') }}</li>
+                    <li><code>404</code> - {{ __('News not found') }}</li>
+                    <li><code>500</code> - {{ __('Internal server error') }}</li>
+                </ul>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Example Request') }}</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-bash">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Example Request') }}</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-bash">
 curl -X DELETE https://ug.news/api/webhook/news/12345 \
 -H "Content-Type: application/json" \
 -d '{
   "api_key": "your-api-key"
 }'
-            </code></pre>
+                    </code></pre>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Get News API -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Get News API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-news')">{{ __('Get News API') }}</h2>
+            <div id="get-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 {
     "id": "12345",
     "title": "News Title",
@@ -211,25 +210,26 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
     "country_id": 1,
     "language_id": 1
 }
-            </code></pre>
+                    </code></pre>
+                </div>
+
+                <p><strong>{{ __('Error Responses:') }}</strong></p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><code>404</code> - {{ __('News not found') }}</li>
+                    <li><code>500</code> - {{ __('Internal server error') }}</li>
+                </ul>
+            </div>
         </div>
 
-        <p><strong>{{ __('Error Responses:') }}</strong></p>
-        <ul class="list-disc pl-6 mb-4">
-            <li><code>404</code> - {{ __('News not found') }}</li>
-            <li><code>500</code> - {{ __('Internal server error') }}</li>
-        </ul>
-    </div>
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-categories')">{{ __('Get Categories API') }}</h2>
+            <div id="get-categories" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/categories</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
 
-    <!-- Get Categories API -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Get Categories API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/categories</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
-
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 [
     {
         "id": 1,
@@ -240,19 +240,20 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
         "name": "Sports"
     }
 ]
-            </code></pre>
+                    </code></pre>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Get Cities API -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Get Cities API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/cities</code></p>
-        <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
+        <div class="api-section mb-4">
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-cities')">{{ __('Get Cities API') }}</h2>
+            <div id="get-cities" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/cities</code></p>
+                <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
-        <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
-            <pre><code class="language-json">
+                <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
+                <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
+                    <pre><code class="language-json">
 [
     {
         "id": 1,
@@ -263,8 +264,17 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
         "name": "Los Angeles"
     }
 ]
-            </code></pre>
+                    </code></pre>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('hidden');
+}
+</script>
 @endsection

@@ -33,7 +33,7 @@ Route::get('/rating/news', [RatingController::class, 'news'])->name('rating.news
 Route::get('/cat/{slug}', [SiteController::class, 'cat'])->name('cat');
 
 
-if ($host == "bugun.az") {
+if ($host == "valyuta.org") {
     Route::get('/', [CurrencyController::class, 'index'])->name('site.index');    
 } else {
     Route::get('/', [SiteController::class, 'index'])->name('site.index');

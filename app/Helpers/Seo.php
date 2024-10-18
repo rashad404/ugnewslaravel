@@ -66,9 +66,9 @@ class Seo {
     }
     
     public static function weather() {
-        $array['metaTitle'] = 'Hava, hava proqnozu, hava haqqinda, bakida hava, baki hava';
-        $array['metaKeywords'] = 'hava, hava proqnozu, hava haqqinda, bakida hava, baki hava';
-        $array['metaDescription'] = 'Hava proqnozu və hava haqqında ən son məlumatlar. Bakıda hava və Bakı hava şəraiti gündəlik yenilənir.';
+        $array['metaTitle'] = 'Hava haqqinda, hava proqnozu, hava, bakida hava, baki hava';
+        $array['metaKeywords'] = 'hava haqqinda, hava proqnozu, hava, bakida hava, baki hava';
+        $array['metaDescription'] = 'Hava haqqında və hava proqnozu. Bakıda hava və Bakı hava şəraiti gündəlik yenilənir.';
         $array['metaImg'] = 'logo/logo-fb.png'; // Path to a relevant image for sharing
         return $array;
     }

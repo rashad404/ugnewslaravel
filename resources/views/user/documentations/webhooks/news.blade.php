@@ -224,7 +224,7 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
     <!-- Get Categories API -->
     <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Get Categories API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/categories</code></p>
+        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/categories</code></p>
         <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
 
         <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
@@ -247,7 +247,7 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
     <!-- Get Cities API -->
     <div class="bg-white shadow-md rounded-lg overflow-hidden p-6 mt-8">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Get Cities API') }}</h2>
-        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/cities</code></p>
+        <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/cities</code></p>
         <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
 
         <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>

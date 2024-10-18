@@ -66,9 +66,9 @@ class Seo {
     }
     
     public static function weather() {
-        $array['metaTitle'] = 'Hava proqnozu, ' . date('d.m.Y') . ' üçün hava məlumatı';
-        $array['metaKeywords'] = 'hava proqnozu, bugünkü hava, sabahki hava, Bakı hava proqnozu, Gəncə hava proqnozu, Şəki hava proqnozu, Lənkəran hava proqnozu';
-        $array['metaDescription'] = 'Hava proqnozu, bugünkü və sabahki hava məlumatı. Bakı, Gəncə, Şəki, Lənkəran və digər şəhərlər üçün cari hava şəraiti və proqnozlar.';
+        $array['metaTitle'] = 'Hava, hava proqnozu, hava haqqinda, bakida hava, baki hava';
+        $array['metaKeywords'] = 'hava, hava proqnozu, hava haqqinda, bakida hava, baki hava';
+        $array['metaDescription'] = 'Hava proqnozu və hava haqqında ən son məlumatlar. Bakıda hava və Bakı hava şəraiti gündəlik yenilənir.';
         $array['metaImg'] = 'logo/logo-fb.png'; // Path to a relevant image for sharing
         return $array;
     }

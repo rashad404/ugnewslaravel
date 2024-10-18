@@ -26,7 +26,8 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        $query = News::query();
+        $user = auth()->user();
+        $query = News::where('user_id', $user->id);
 
         if ($request->has('search')) {
             $searchTerm = $request->search;

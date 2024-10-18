@@ -20,6 +20,7 @@ use App\Http\Controllers\Site\NamazTimeController;
 use App\Http\Controllers\Site\RatingController;
 use App\Http\Controllers\Site\SettingController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\WeatherController;
 
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
@@ -43,6 +44,8 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register'])->name('register.post');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/sitemap-update', [SitemapController::class, 'update'])->name('sitemap.update');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard12', [DashboardController::class, 'index'])->name('user.channels.create');

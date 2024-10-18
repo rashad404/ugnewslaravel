@@ -30,8 +30,8 @@ class SiteController extends Controller
                         ->orderBy('id', 'DESC')
                         ->paginate(15);
 
-        $data['cityList1'] = City::getMainCities();
-        $data['cityList2'] = City::getSecondaryCities();
+        $data['cityList1'] = City::getMainCities()->toArray();
+        $data['cityList2'] = City::getSecondaryCities()->toArray();
 
 
         return view('site.index', $data);
@@ -97,10 +97,17 @@ class SiteController extends Controller
     {
         $cityName = City::getName($id);
         $data = Seo::city($cityName);
-        $data['list'] = News::getListByCity($id)->paginate(24);
+
+        $data['newsList'] = News::where('status', 1)
+            ->where('publish_time', '<=', time())
+            ->byCity($id)
+            ->orderBy('publish_time', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+            
         $data['name'] = $cityName;
 
-        return view('site.city', $data);
+        return view('site.news.city', $data);
     }
 
     public function newsInner($slug_part_1, $slug_part_2)

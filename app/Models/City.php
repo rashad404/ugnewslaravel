@@ -25,8 +25,8 @@ class City extends Model
 
     public static function getMainCities()
     {
-        $region = Cookie::get('set_region', config('app.default_country'));
-        return self::where('country_id', $region)
+        $countryId = Cookie::get('country', config('app.default_country'));
+        return self::where('country_id', $countryId)
                    ->where('status', 1)
                    ->orderBy('id', 'asc')
                    ->limit(6)  // Assuming the first 6 cities are "main" cities
@@ -35,8 +35,9 @@ class City extends Model
 
     public static function getSecondaryCities()
     {
-        $region = Cookie::get('set_region', config('app.default_country'));
-        return self::where('country_id', $region)
+        $countryId = Cookie::get('country', config('app.default_country'));
+
+        return self::where('country_id', $countryId)
                    ->where('status', 1)
                    ->orderBy('id', 'asc')
                    ->skip(6)  // Skip the first 6 "main" cities

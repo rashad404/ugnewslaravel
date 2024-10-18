@@ -97,6 +97,8 @@ Route::get('/namaz-vaxti', [NamazTimeController::class, 'index'])->name('namaz-t
 Route::get('/hava-haqqinda', [WeatherController::class, 'index'])->name('weather.index');
 Route::get('/hava-haqqinda/{slug}', [WeatherController::class, 'city'])->name('weather.city');
 
+Route::get('/city/{id}/{slug}', [SiteController::class, 'city'])->name('site.city');
+
 Route::post('/ajax/subscribe/{id}', [AjaxController::class, 'subscribe'])->name('ajax.subscribe');
 Route::post('/ajax/un_subscribe/{id}', [AjaxController::class, 'unSubscribe'])->name('ajax.unsubscribe');
 Route::post('/ajax/like/{id}', [AjaxController::class, 'like'])->name('ajax.like');

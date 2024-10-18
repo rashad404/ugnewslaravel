@@ -50,7 +50,7 @@ class Sitemap
 
             $this->generateSitemapFile($chunk, $filePath);
             $sitemaps[] = [
-                'loc'     => $this->website . '/sitemaps/' . $sitemapFilename,
+                'loc'     => $this->website . '/storage/sitemaps/' . $sitemapFilename,
                 'lastmod' => Carbon::now()->toW3cString(),
             ];
         }

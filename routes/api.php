@@ -27,6 +27,8 @@ Route::get('/valyuta/{date}',[ApiController::class,"fetchAndConvertData"]);
 Route::post('/webhook/news', [WebhookController::class, 'handleWebhook']);
 Route::put('/webhook/news/{id}', [WebhookController::class, 'updateNews']);
 Route::delete('/webhook/news/{id}', [WebhookController::class, 'deleteNews']);
+Route::get('/webhook/categories', [WebhookController::class, 'getCategories']);
+Route::get('/webhook/cities', [WebhookController::class, 'getCities']);
 
 
 Route::get('/countries', [CountryController::class, 'index'])->name('api.countries');

@@ -15,8 +15,8 @@ class City extends Model
 
     public static function getList($limit = 100)
     {
-        $region = Cookie::get('set_region', config('app.default_country'));
-        return self::where('country_id', $region)
+        $countryId = Cookie::get('country', config('app.default_country'));
+        return self::where('country_id', $countryId)
                    ->where('status', 1)
                    ->orderBy('name', 'asc')
                    ->limit($limit)

@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\ApiKey;
+use App\Models\Category;
 use App\Models\Channel;
+use App\Models\City;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -207,4 +209,22 @@ class WebhookController extends Controller
         }
         return $slug;
     }
+
+    protected function getCategories()
+    {
+        $categories = Category::where('status', 1)
+                            ->orderBy('position', 'asc')
+                            ->get(['id', 'name', 'position']);
+
+        return response()->json($categories);
+    }
+
+    protected function getCities()
+    {
+        $cities = City::where('status', 1)
+            ->get(['id', 'name']);
+
+        return response()->json($cities);
+    }
+
 }

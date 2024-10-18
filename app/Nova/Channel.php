@@ -43,6 +43,7 @@ class Channel extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Subscribers')->sortable(),
             Text::make('Name'),
             Text::make('Name URL'),
             Text::make('Name Code')->hideFromIndex(),
@@ -55,7 +56,6 @@ class Channel extends Resource
             Text::make('Status'),
             Text::make('Time'),
             Text::make('View'),
-            Text::make('Subscribers'),
         ];
     }
 

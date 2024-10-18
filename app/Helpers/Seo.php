@@ -50,9 +50,9 @@ class Seo {
     }
 
     public static function currencies() {
-        $array['metaTitle'] = ' Valyuta məzənnələri, Dollar məzənnəsi, Avro məzənnəsi';
-        $array['metaKeywords'] = ' valyuta məzənnələri, dolların məzənnəsi, avronun məzənnəsi, xarici valyutalar, manat qarşısında valyutalar, bugünkü valyuta məzənnələri';
-        $array['metaDescription'] = ' Valyuta məzənnələri, bugünkü valyuta dəyişmələri, Azərbaycan manatına qarşı xarici valyutaların məzənnələri.';
+        $array['metaTitle'] = ' Valyuta,  Valyuta məzənnəsi';
+        $array['metaKeywords'] = 'valyuta, valyuta məzənnəsi, valyuta mezennesi,valyuta kurs, valyuta tl azn, dollarin mezennesi, dollar valyuta';
+        $array['metaDescription'] = 'Valyuta və valyuta məzənnəsi, valyuta kurs, valyuta tl azn, dollarin mezennesi, dollar valyuta';
         $array['metaImg'] = 'logo/logo-fb.png';
         return $array;
     }

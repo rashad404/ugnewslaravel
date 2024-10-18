@@ -25,6 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/valyuta/{date}',[ApiController::class,"fetchAndConvertData"]);
 
 Route::post('/webhook/news', [WebhookController::class, 'handleWebhook']);
+Route::put('/webhook/news/{id}', [WebhookController::class, 'updateNews']);
+Route::delete('/webhook/news/{id}', [WebhookController::class, 'deleteNews']);
+
 
 Route::get('/countries', [CountryController::class, 'index'])->name('api.countries');
 Route::get('/search', [SearchController::class, 'search'])->name('api.search');

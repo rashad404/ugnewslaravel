@@ -94,6 +94,91 @@ class WebhookController extends Controller
     }
 
 
+    public function updateNews(Request $request, $id)
+    {
+        // Validate the incoming data
+        $validator = Validator::make($request->all(), [
+            'title' => 'nullable|string|max:255',
+            'title_extra' => 'nullable|string|max:255',
+            'text' => 'nullable|string',
+            'tags' => 'nullable|string|max:255',
+            'image' => 'nullable|string|max:255',
+            'category' => 'nullable|integer',
+            'channel' => 'nullable|integer',
+            'city' => 'nullable|integer',
+            'publish_time' => 'nullable|integer',
+            'api_key' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            Log::error('Update validation failed: ' . $validator->errors());
+            return response()->json(['error' => 'Invalid payload'], 400);
+        }
+
+        // Verify API key
+        $userId = $this->verifyApiKey($request->api_key);
+        if (!$userId) {
+            Log::warning('Invalid API key used in update');
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Find the news by ID
+        $news = News::find($id);
+        if (!$news) {
+            return response()->json(['error' => 'News not found'], 404);
+        }
+
+        // Update fields if they are provided
+        $news->title = $request->title ?? $news->title;
+        $news->title_extra = $request->title_extra ?? $news->title_extra;
+        $news->text = $request->text ?? $news->text;
+        $news->tags = $request->tags ?? $news->tags;
+        
+        // Handle image update if provided
+        if ($request->image) {
+            $imageUrl = $request->image;
+            $imageContents = Http::get($imageUrl)->body();
+            $imageName = basename($imageUrl);
+            $imagePath = 'images/' . $imageName;
+            Storage::disk('public')->put($imagePath, $imageContents);
+            $news->image = $imagePath;
+        }
+
+        $news->category_id = $request->category ?? $news->category_id;
+        $news->channel_id = $request->channel ?? $news->channel_id;
+        $news->city_id = $request->city ?? $news->city_id;
+        $news->publish_time = $request->publish_time ?? $news->publish_time;
+
+        $news->save();
+
+        Log::info('News article updated: ' . $news->id);
+        return response()->json(['message' => 'Article updated successfully', 'id' => $news->id], 200);
+    }
+
+
+    public function deleteNews(Request $request, $id)
+    {
+        // Validate API key
+        $userId = $this->verifyApiKey($request->api_key);
+        if (!$userId) {
+            Log::warning('Invalid API key used in delete');
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Find the news by ID
+        $news = News::find($id);
+        if (!$news) {
+            return response()->json(['error' => 'News not found'], 404);
+        }
+
+        // Delete the news
+        $news->delete();
+
+        Log::info('News article deleted: ' . $news->id);
+        return response()->json(['message' => 'Article deleted successfully'], 200);
+    }
+
+
     private function verifyApiKey($apiKey)
     {
         $apiKeyRecord = ApiKey::where('api_key', $apiKey)

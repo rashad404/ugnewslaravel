@@ -46,7 +46,7 @@
 
         <!-- Success Response -->
         <h2 class="text-2xl font-semibold mb-4">{{ __('Response') }}</h2>
-        <p><strong>{{ __('Success Response (201):') }}</strong></p>
+        <p><strong>{{ __('Success Response') }}  (201):</strong></p>
         <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
             <pre><code class="language-json">
 {
@@ -116,7 +116,7 @@ curl -X POST https://ug.news/api/webhook/news \
             </code></pre>
         </div>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response (200):') }}</h3>
+        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
         <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
             <pre><code class="language-json">
 {
@@ -154,7 +154,7 @@ curl -X PUT https://ug.news/api/webhook/news/12345 \
         <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
         <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>DELETE</code></p>
 
-        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response (200):') }}</h3>
+        <h3 class="text-xl font-semibold mb-4">{{ __('Success Response') }} (200):</h3>
         <div class="bg-gray-100 p-4 rounded mb-4 shadow-inner">
             <pre><code class="language-json">
 {

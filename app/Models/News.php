@@ -10,6 +10,7 @@ class News extends Model
     protected $table = 'news';
 
     protected $guarded = [];
+    public $timestamps = false;
 
     public function category()
     {

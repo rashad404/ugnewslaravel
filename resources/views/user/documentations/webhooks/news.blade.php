@@ -15,15 +15,18 @@
     <div class="mb-6 flex justify-end">
         <a href="{{ route('user.api-keys.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
             {{ __('Create API Key') }}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
         </a>
     </div>
 
     <div id="api-docs">
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('create-news')">{{ __('Create News API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('create-news')">
+                {{ __('Create News API') }}
+                <svg id="icon-create-news" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
+            
             <div id="create-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>POST</code></p>
@@ -93,7 +96,12 @@ curl -X POST https://ug.news/api/webhook/news \
         </div>
 
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('update-news')">{{ __('Update News API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('update-news')">
+                {{ __('Update News API') }}
+                <svg id="icon-update-news" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
             <div id="update-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>PUT</code></p>
@@ -150,7 +158,12 @@ curl -X PUT https://ug.news/api/webhook/news/12345 \
         </div>
 
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('delete-news')">{{ __('Delete News API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('delete-news')">
+                {{ __('Delete News API') }}
+                <svg id="icon-delete-news" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
             <div id="delete-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>DELETE</code></p>
@@ -185,7 +198,12 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
         </div>
 
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-news')">{{ __('Get News API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('get-news')">
+                {{ __('Get News API') }}
+                <svg id="icon-get-news" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
             <div id="get-news" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news/{id}</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
@@ -225,7 +243,12 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
         </div>
 
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-categories')">{{ __('Get Categories API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('get-categories')">
+                {{ __('Get Categories API') }}
+                <svg id="icon-get-categories" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
             <div id="get-categories" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/categories</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
@@ -249,7 +272,12 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
         </div>
 
         <div class="api-section mb-4">
-            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded" onclick="toggleSection('get-cities')">{{ __('Get Cities API') }}</h2>
+            <h2 class="text-2xl font-semibold mb-2 cursor-pointer bg-gray-200 p-4 rounded flex justify-between items-center" onclick="toggleSection('get-cities')">
+                {{ __('Get Cities API') }}
+                <svg id="icon-get-cities" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h2>
             <div id="get-cities" class="api-content hidden bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/cities</code></p>
                 <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>GET</code></p>
@@ -278,6 +306,10 @@ curl -X DELETE https://ug.news/api/webhook/news/12345 \
 function toggleSection(sectionId) {
     const section = document.getElementById(sectionId);
     section.classList.toggle('hidden');
+    
+    const icon = document.getElementById(`icon-${sectionId}`);
+    icon.classList.toggle('transform');
+    icon.classList.toggle('rotate-180');
 }
 </script>
 @endsection

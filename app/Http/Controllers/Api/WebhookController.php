@@ -11,6 +11,8 @@ use App\Models\Channel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class WebhookController extends Controller
 {
@@ -51,7 +53,20 @@ class WebhookController extends Controller
             $news->title_extra = $request->title_extra ?? '';
             $news->text = $request->text;
             $news->tags = $request->tags;
-            $news->image = $request->image ?? 'defaults/news.jpg';
+            
+            // Handle the image URL download and save to storage
+            if ($request->image) {
+                $imageUrl = $request->image;
+                $imageContents = Http::get($imageUrl)->body(); // Download the image
+                $imageName = basename($imageUrl); // Extract the image name from URL
+                $imagePath = 'images/' . $imageName; // Define where to store the image
+                
+                Storage::disk('public')->put($imagePath, $imageContents); // Save to storage
+                $news->image = $imagePath; // Store the local path in the database
+            } else {
+                $news->image = 'defaults/news.jpg'; // Default image
+            }
+
             $news->position = 0; // Default value
             $news->category_id = $request->category;
             $news->channel_id = $request->channel;
@@ -74,9 +89,10 @@ class WebhookController extends Controller
             return response()->json(['message' => 'Article created successfully', 'id' => $news->id], 201);
         } catch (\Exception $e) {
             Log::error('Error processing webhook: ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage().'Internal server error'], 500);
+            return response()->json(['error' => $e->getMessage() . 'Internal server error'], 500);
         }
     }
+
 
     private function verifyApiKey($apiKey)
     {

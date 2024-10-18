@@ -46,7 +46,7 @@ class Sitemap
         for ($i = 0; $i < $sitemapCount; $i++) {
             $chunk = array_slice($allLinks, $i * $this->limit, $this->limit);
             $sitemapFilename = 'sitemap' . ($i + 1) . '.xml';
-            $filePath = 'sitemaps/' . $sitemapFilename;
+            $filePath = 'public/sitemaps/' . $sitemapFilename;
 
             $this->generateSitemapFile($chunk, $filePath);
             $sitemaps[] = [
@@ -223,7 +223,7 @@ class Sitemap
             $sitemapindex->appendChild($sitemapElement);
         }
 
-        $filePath = 'sitemaps/sitemap_index.xml';
+        $filePath = 'public/sitemaps/sitemap_index.xml';
         $this->saveXmlFile($dom, $filePath);
     }
 

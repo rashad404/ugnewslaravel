@@ -20,7 +20,7 @@
 
     <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
         <!-- Webhook Endpoint -->
-        <h2 class="text-2xl font-semibold mb-4">{{ __('Webhook Endpoint') }}</h2>
+        <h2 class="text-2xl font-semibold mb-4">{{ __('Create News API') }}</h2>
         <p class="mb-4"><strong>{{ __('URL:') }}</strong> <code>https://ug.news/api/webhook/news</code></p>
         <p class="mb-4"><strong>{{ __('Method:') }}</strong> <code>POST</code></p>
         <p class="mb-4"><strong>{{ __('Content-Type:') }}</strong> <code>application/json</code></p>

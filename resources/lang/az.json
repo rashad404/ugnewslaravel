@@ -387,7 +387,7 @@
 
     "Webhook Docs": "Webhook Sənədləri",
     "Webhook API Documentation": "Webhook API Sənədləşməsi",
-    "Webhook Endpoint": "Webhook web ünvanı",
+    "Create News API": "Xəbər yarat API",
     "URL": "URL",
     "Method": "Metod",
     "Content-Type": "Məzmun Növü",
@@ -398,16 +398,16 @@
     "breaking, world": "son dəqiqə, dünya",
     "The api_key must be valid for the request to succeed.": "Sorğunun uğurlu olması üçün api_key etibarlı olmalıdır.",
     "If no image is provided, a default image will be used.": "Şəkil təqdim edilməzsə, standart şəkil istifadə ediləcək.",
-    "Update News API": "Xəbərləri Yeniləmə API-si",
+    "Update News API": "Xəbərləri Yeniləmə API",
     "Article updated successfully": "Məqalə uğurla yeniləndi",
     "News not found": "Xəbər tapılmadı",
     "Updated News Title": "Yenilənmiş Xəbər Başlığı",
     "This is the updated content of the news article.": "Bu, xəbər məqaləsinin yenilənmiş məzmunudur.",
-    "Delete News API": "Xəbərləri Silmə API-si",
+    "Delete News API": "Xəbərləri Silmə API",
     "Article deleted successfully": "Məqalə uğurla silindi",
-    "Get News API": "Xəbər məlumatı API-si",
-    "Get Categories API": "Kateqoriya siyahısı API-si",
-    "Get Cities API": "Şəhər siyahısı API-si"
+    "Get News API": "Xəbər məlumatı API",
+    "Get Categories API": "Kateqoriya siyahısı API",
+    "Get Cities API": "Şəhər siyahısı API"
 
   }
   

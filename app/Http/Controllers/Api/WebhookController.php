@@ -214,7 +214,7 @@ class WebhookController extends Controller
     {
         $categories = Category::where('status', 1)
                             ->orderBy('position', 'asc')
-                            ->get(['id', 'name', 'position']);
+                            ->get(['id', 'name']);
 
         return response()->json($categories);
     }

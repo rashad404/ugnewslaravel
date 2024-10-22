@@ -48,7 +48,7 @@ class NewsController extends Controller
         // Get similar news
         $similar_news = News::getSimilarNews($item->id);
 
-        $metaTitle = $item->title;
+        $metaTitle = $item->title . ' - ' . $item->title_extra;
         $metaKeywords = $item->title;
         $metaDescription = $item->title;
         $metaImg = secure_asset('storage/' . $item->image);

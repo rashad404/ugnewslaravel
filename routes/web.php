@@ -23,7 +23,8 @@ use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\WeatherController;
 
-$host = $_SERVER['HTTP_HOST'];
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'ug.news';
+
 Route::get('/set/country/{countryId}', [SettingController::class, 'setCountry'])->name('set.country');
 Route::get('/channel/create', [SiteChannelController::class, 'create'])->name('channel.create');
 

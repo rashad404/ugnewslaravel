@@ -40,7 +40,7 @@ class NewsController extends Controller
         // Increment view count
         $item->increment('view');
 
-        $channel_info = Channel::find($item->channel_id);
+        $channel_info = Channel::find($item->channel_id);//test
         $subscribe_check = $this->checkSubscription($item->channel_id);
         $like_check = $this->checkLike($item->id);
         $dislike_check = $this->checkDislike($item->id);

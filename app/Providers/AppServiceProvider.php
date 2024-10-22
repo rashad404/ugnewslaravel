@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\LanguageService;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Paginator::defaultView('pagination::tailwind');
+        
+        Paginator::defaultSimpleView('pagination::semantic-ui');
+
     }
 }

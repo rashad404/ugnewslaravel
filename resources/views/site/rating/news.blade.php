@@ -37,7 +37,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <a href="{{ url($news->slug) }}" class="text-sm text-gray-900 hover:text-blue-600 transition duration-150 ease-in-out">
-                                    {{ Str::limit($news->title, 60) }}
+                                    {{ Str::limit(html_entity_decode($news->title), 60) }}
                                 </a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

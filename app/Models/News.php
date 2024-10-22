@@ -76,16 +76,15 @@ class News extends Model
     }
 
     /**
-     * Get the top news based on views.
+     * Get the top news based on views with pagination.
      *
-     * @param int $limit
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param int $perPage
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getTopNews($limit = 10)
+    public static function getTopNews($perPage = 10)
     {
-        return self::where('status', 1)  // Ensure only active news
-                   ->orderBy('view', 'desc')  // Order by view count in descending order
-                   ->limit($limit)  // Limit the number of results
-                   ->get(['id', 'title', 'slug', 'image', 'view']);  // Fetch specific columns
+        return self::where('status', 1)
+            ->orderBy('view', 'desc')
+            ->paginate($perPage, ['id', 'title', 'slug', 'image', 'view']);
     }
 }

@@ -163,28 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileSearchResults.innerHTML = '';
     });
 
-    mobileSearchInput.addEventListener('input', function() {
-        const inputVal = this.value;
-        if (inputVal.length >= 1) {
-            fetch("'ajax/search'/" + encodeURIComponent(inputVal), {
-                method: "GET",
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.text())
-            .then(data => {
-                mobileSearchResults.innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                mobileSearchResults.innerHTML = 'An error occurred while searching.';
-            });
-        } else {
-            mobileSearchResults.innerHTML = '';
-        }
-    });
 });
 </script>
 @endpush

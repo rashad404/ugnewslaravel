@@ -97,89 +97,129 @@
     
     @push('scripts')
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const headerSearchInput = document.getElementById('header_search_input');
-    const headerSearchDropDown = document.getElementById('headerSearchDropDown');
-
-    if (headerSearchInput) {
-        headerSearchInput.addEventListener('input', function() {
-            performSearch(this.value);
-        });
-    }
-
-    function performSearch(inputVal) {
-        if (inputVal.length >= 2) {
-            fetch(`/api/search?q=${encodeURIComponent(inputVal)}&countryId={{ $countryId }}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (headerSearchDropDown) {
-                        headerSearchDropDown.innerHTML = renderSearchResults(data);
-                        headerSearchDropDown.style.display = 'block';
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            if (headerSearchDropDown) {
-                headerSearchDropDown.style.display = 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all search elements
+        const headerSearchInput = document.getElementById('header_search_input');
+        const headerSearchDropDown = document.getElementById('headerSearchDropDown');
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        const mobileSearchResults = document.getElementById('mobileSearchResults');
+        const mobileSearchOverlay = document.getElementById('mobileSearchOverlay');
+        const closeMobileSearch = document.getElementById('closeMobileSearch');
+    
+        // Setup mobile search overlay
+        if (closeMobileSearch) {
+            closeMobileSearch.addEventListener('click', function() {
+                mobileSearchOverlay.classList.add('hidden');
+                mobileSearchInput.value = ''; // Clear input on close
+                mobileSearchResults.innerHTML = ''; // Clear results
+            });
+        }
+    
+        // Function to handle search input
+        function setupSearchInput(input, resultsContainer, isMobile = false) {
+            if (input) {
+                input.addEventListener('input', function() {
+                    performSearch(this.value, resultsContainer, isMobile);
+                });
+    
+                if (!isMobile) {
+                    // Only add click-outside listener for desktop dropdown
+                    document.addEventListener('click', function(event) {
+                        if (!input.contains(event.target) && !resultsContainer.contains(event.target)) {
+                            resultsContainer.style.display = 'none';
+                        }
+                    });
+                }
             }
         }
-    }
-
-    function renderSearchResults(data) {
-        let html = '<div class="px-4 py-2 font-semibold text-gray-700">Xəbərlər Kanalları</div>';
-
-        if (data.channels && data.channels.length > 0) {
-            data.channels.forEach(channel => {
-                html += `
-                    <a href="/${channel.name_url}" class="px-4 py-2 flex items-center hover:bg-gray-50 transition duration-150 ease-in-out">
-                        <img src="storage/${channel.image}" alt="${channel.name}" class="h-10 w-10 rounded-full object-cover">
-
-                        <div class="ml-3 flex-grow">
-                            <p class="text-sm font-medium text-gray-900">${channel.name}</p>
-                            <p class="text-sm text-gray-500">${channel.subscribers} {{__('subscribers')}}</p>
-                        </div>
-                    </a>
-
-                `;
-            });
-        }
-        
-        
-        if (data.news && data.news.length > 0) {
-            html += '<div class="px-4 py-2 font-semibold text-gray-700">Xəbərlər</div>';
-            data.news.forEach(newsItem => {
-                const publishTime = new Date(newsItem.publish_time * 1000);
-
-                // Format the date as MM-DD-YYYY HH:MM
-                const month = ('0' + (publishTime.getMonth() + 1)).slice(-2); // Months are zero-based
-                const day = ('0' + publishTime.getDate()).slice(-2);
-                const year = publishTime.getFullYear();
-                const hours = ('0' + publishTime.getHours()).slice(-2);
-                const minutes = ('0' + publishTime.getMinutes()).slice(-2);
-
-                const formattedTime = `${month}-${day}-${year} ${hours}:${minutes}`;
-
-                html += `
-                    <a href="/news/${newsItem.id}" class="block px-4 py-2 hover:bg-gray-100">
-                        <div class="flex items-center">
-                            <img src="storage/${newsItem.image}" alt="${newsItem.title}" class="w-20 h-16 h-15 object-cover mr-3">
-                            <div>
-                                <div class="font-medium">${newsItem.title}</div>
-                                <div class="text-sm text-gray-500">${formattedTime}</div>
-                            </div>
-                        </div>
-                    </a>
-                `;
-            });
-
-        } else {
-            html += '<div class="px-4 py-2 text-gray-500">No results found</div>';
-        }
-
-        return html;
-    }
-});
-        </script>
     
-
+        // Setup both search inputs
+        setupSearchInput(headerSearchInput, headerSearchDropDown);
+        setupSearchInput(mobileSearchInput, mobileSearchResults, true);
+    
+        function performSearch(inputVal, resultsContainer, isMobile = false) {
+            if (inputVal.length >= 2) {
+                fetch(`/api/search?q=${encodeURIComponent(inputVal)}&countryId={{ $countryId }}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (resultsContainer) {
+                            resultsContainer.innerHTML = renderSearchResults(data, isMobile);
+                            if (!isMobile) {
+                                resultsContainer.style.display = 'block';
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                if (resultsContainer) {
+                    if (!isMobile) {
+                        resultsContainer.style.display = 'none';
+                    }
+                    resultsContainer.innerHTML = '';
+                }
+            }
+        }
+    
+        function renderSearchResults(data, isMobile = false) {
+            let html = '';
+            
+            // Channels section
+            if (data.channels && data.channels.length > 0) {
+                html += `<div class="font-semibold text-gray-700 ${isMobile ? 'mb-2' : 'px-4 py-2'}">Xəbərlər Kanalları</div>`;
+                
+                data.channels.forEach(channel => {
+                    html += `
+                        <a href="/${channel.name_url}" class="${isMobile ? 'mb-4' : 'px-4 py-2'} flex items-center hover:bg-gray-50 transition duration-150 ease-in-out">
+                            <img src="storage/${channel.image}" alt="${channel.name}" class="h-10 w-10 rounded-full object-cover">
+                            <div class="ml-3 flex-grow">
+                                <p class="text-sm font-medium text-gray-900">${channel.name}</p>
+                                <p class="text-sm text-gray-500">${channel.subscribers} {{__('subscribers')}}</p>
+                            </div>
+                        </a>
+                    `;
+                });
+            }
+            
+            // News section
+            if (data.news && data.news.length > 0) {
+                html += `<div class="font-semibold text-gray-700 ${isMobile ? 'mt-4 mb-2' : 'px-4 py-2'}">Xəbərlər</div>`;
+                
+                data.news.forEach(newsItem => {
+                    const publishTime = new Date(newsItem.publish_time * 1000);
+                    const formattedTime = formatDateTime(publishTime);
+    
+                    html += `
+                        <a href="/${newsItem.slug}" class="${isMobile ? 'mb-4' : 'px-4 py-2'} block hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <img src="storage/${newsItem.image}" alt="${newsItem.title}" class="w-20 h-16 object-cover mr-3">
+                                <div>
+                                    <div class="font-medium">${newsItem.title}</div>
+                                    <div class="text-sm text-gray-500">${formattedTime}</div>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+            }
+    
+            if (!data.channels?.length && !data.news?.length) {
+                html += `<div class="${isMobile ? 'text-center mt-4' : 'px-4 py-2'} text-gray-500">No results found</div>`;
+            }
+    
+            return html;
+        }
+    
+        function formatDateTime(date) {
+            const pad = (num) => String(num).padStart(2, '0');
+            
+            const month = pad(date.getMonth() + 1);
+            const day = pad(date.getDate());
+            const year = date.getFullYear();
+            const hours = pad(date.getHours());
+            const minutes = pad(date.getMinutes());
+    
+            return `${month}-${day}-${year} ${hours}:${minutes}`;
+        }
+    });
+    </script>
     @endpush

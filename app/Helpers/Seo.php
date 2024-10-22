@@ -17,7 +17,7 @@ class Seo {
         $array['metaTitle'] = self::$add_prefix.' Son Xeberler, Xeberler';
         $array['metaKeywords'] = self::$add_prefix.' son xeberler, xeberler, son deqiqe xeberleri, namaz vaxti, valyuta';
         $array['metaDescription'] = 'Son xeberler, namaz vaxtlari, valyuta';
-        $array['metaImg'] = 'logo/logo-fb.png';
+        $array['metaImg'] = 'images/logo/logo-fb.png';
         return $array;
     }
     public static function index() {

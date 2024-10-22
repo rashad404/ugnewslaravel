@@ -11,8 +11,7 @@
     <meta property="og:description" content="{{ $metaDescription }}">
     
     @if ($metaImg)
-    <meta property="og:image" content="{{ asset('images/' . $metaImg) }}">
-
+        <meta property="og:image" content="{{ asset('images/' . $metaImg) }}">
     @endif
     <meta property="og:url" content="https://{{ $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] }}">
     <meta property="og:site_name" content="{{config('app.name')}}">

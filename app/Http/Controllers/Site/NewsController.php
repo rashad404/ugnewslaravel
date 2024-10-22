@@ -38,7 +38,7 @@ class NewsController extends Controller
         $item = News::where('slug', $fullSlug)->firstOrFail();
         
         // Increment view count
-        // $item->increment('view');
+        $item->increment('view');
 
         $channel_info = Channel::find($item->channel_id);
         $subscribe_check = $this->checkSubscription($item->channel_id);

@@ -1,0 +1,75 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Use the custom Dockerfile to install pdo_mysql
+    container_name: ugnews_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  web:
+    image: nginx:alpine
+    container_name: ugnews_web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
+    container_name: ugnews_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ugnews
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ugnews_phpmyadmin
+    platform: linux/amd64
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+      # Add PHPMyAdmin specific configs
+      UPLOAD_LIMIT: 500M
+      MAX_EXECUTION_TIME: 600
+      MEMORY_LIMIT: 512M
+      # Optional: Adding more PHP settings for PHPMyAdmin
+      PMA_ARBITRARY: 1
+      PMA_ABSOLUTE_URI: http://localhost:8081/
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

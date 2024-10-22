@@ -17,17 +17,9 @@ class RatingController extends Controller
     public function channels()
     {
         $data = Seo::general();
-        $data['userId'] = Auth::id(); // Use Laravel's Auth system for user ID
+        $data['userId'] = Auth::id();
 
-        $channels = Channel::getTopChannels();
-        $pagination = new LengthAwarePaginator(
-            $channels,
-            Channel::count(),
-            10
-        );
-
-        $data['list'] = $pagination->items();
-        $data['pagination'] = $pagination;
+        $data['list'] = Channel::getTopChannels(10);
 
         return view('site.rating.channels', $data);
     }
@@ -36,11 +28,7 @@ class RatingController extends Controller
     {
         $data = Seo::general();
         $data['userId'] = Auth::id(); 
-    
-        // Paginate the news with 10 items per page
-        $page = request()->get('page', 1); // Current page
-        $perPage = 10; // Items per page
-        $data['list'] = News::getTopNews(10); // 10 items per page
+        $data['list'] = News::getTopNews(10);
 
     
         return view('site.rating.news', $data);

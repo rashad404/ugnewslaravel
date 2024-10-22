@@ -26,12 +26,17 @@ class Channel extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public static function getTopChannels($limit = 10)
+    /**
+     * Get the top news based on views with pagination.
+     *
+     * @param int $perPage
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getTopChannels($perPage = 10)
     {
         return self::where('status', 1)
-                   ->orderBy('subscribers', 'desc')
-                   ->limit($limit)
-                   ->get();
+            ->orderBy('subscribers', 'desc')
+            ->paginate($perPage, ['id', 'name', 'name_url', 'image', 'subscribers']);
     }
 
     public static function getPopularChannels($limit = 10)

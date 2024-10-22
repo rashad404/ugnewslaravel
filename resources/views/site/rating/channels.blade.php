@@ -26,7 +26,7 @@
                                     };
                                 @endphp
                                 <span class="{{ $bgColor }} text-white text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                    {{ $index + 1 }}
+                                    {{ $list->firstItem() + $index }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -52,6 +52,6 @@
     </div>
 
     <div class="mt-6 flex justify-center">
-        {{ $pagination->links() }}
+        {{ $list->links() }}
     </div>
 @endsection

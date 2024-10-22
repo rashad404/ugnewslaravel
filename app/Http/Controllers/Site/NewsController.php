@@ -51,6 +51,8 @@ class NewsController extends Controller
         $metaTitle = $item->title;
         $metaKeywords = $item->title;
         $metaDescription = $item->title;
+        $metaImg = $metaImg = asset('storage/' . $item->image);
+
 
         // Get a random ad
         $ad = Ad::inRandomOrder()->first();

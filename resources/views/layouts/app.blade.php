@@ -17,7 +17,8 @@
     <meta property="og:site_name" content="{{config('app.name')}}">
     <link rel="icon" href="{{ asset('images/favicon/favicon-32x32.png') }}" type="image/png">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <style>[x-cloak] { display: none !important; }</style>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

@@ -8,7 +8,10 @@
             <h1 class="text-3xl font-bold text-white mb-2">{{ $item->name }}</h1>
             <p class="text-sm text-gray-300 mb-2">{{ url('/' . strtolower($item->name_url)) }}</p>
             <div class="flex items-center justify-between">
-                <span class="text-white">{{ number_format($item->subscribers) }} {{ __('subscribers') }}</span>
+                <span class="text-white">{{ number_format($item->subscribers) }}
+                    {{ __('subscribers') }}<br/>
+                    {{ number_format($item->view) }} {{ __('views') }}
+                </span>
                 <button 
                     id="subscribe_button" 
                     data-channel-id="{{ $item->id }}" 

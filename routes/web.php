@@ -126,7 +126,7 @@ Route::get('/tags/{tag}', [SiteNewsController::class, 'tag'])->name('news.tag');
 Route::get('/{channel}/{slug}', [SiteNewsController::class, 'show'])->name('news.show');
 
 
-Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');
+Route::get('/{url}', [SiteChannelController::class, 'show'])->name('channel.show');
 
 Route::middleware('auth')->group(function () {
     Route::post('/subscribers/{channel}', [SubscriberController::class, 'toggle'])

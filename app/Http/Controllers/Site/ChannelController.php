@@ -22,7 +22,7 @@ class ChannelController extends Controller
         return view('site.channel.create', $data);
     }
 
-    public function inner($url)
+    public function show($url)
     {
         // Fetch logged-in user ID
         $data['userId'] = Auth::id(); 
@@ -42,7 +42,7 @@ class ChannelController extends Controller
         $data['metaDescription'] = $data['item']->name;
 
         // Pagination setup for related news
-        $data['newsList'] = News::where('channel_id', $data['item']->id)
+        $data['newsList'] = News::where('channel_id', $data['item']->id)->orderBy('id', 'desc')
                             ->paginate(24);
 
         // Set region from cookie or default

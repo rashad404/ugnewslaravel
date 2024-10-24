@@ -35,8 +35,8 @@ class Channel extends Model
     public static function getTopChannels($perPage = 10)
     {
         return self::where('status', 1)
-            ->orderBy('subscribers', 'desc')
-            ->paginate($perPage, ['id', 'name', 'name_url', 'image', 'subscribers']);
+            ->orderBy('view', 'desc')
+            ->paginate($perPage, ['id', 'name', 'name_url', 'image', 'subscribers', 'view']);
     }
 
     public static function getPopularChannels($limit = 10)

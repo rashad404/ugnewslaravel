@@ -83,7 +83,7 @@ class News extends Model
      */
     public static function getTopNews($perPage = 10)
     {
-        return self::where('status', 1)
+        return self::where('status', 1)->where('time', '>=', time() -86400*7)
             ->orderBy('view', 'desc')
             ->paginate($perPage, ['id', 'title', 'slug', 'image', 'view']);
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ad;
 use App\Models\Channel;
 use App\Models\News;
+use App\Models\NewsReaction;
 use App\Models\UniqueView;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,9 +49,31 @@ class NewsController extends Controller
         $item = News::find($item->id);
 
         $channel_info = Channel::find($item->channel_id);
-        $subscribe_check = $data['subscribe_check'] = Auth::check() ? Auth::user()->isSubscribedTo($channel_info) : false;
-        $like_check = $this->checkLike($item->id);
-        $dislike_check = $this->checkDislike($item->id);
+        // $subscribe_check = $data['subscribe_check'] = Auth::check() ? Auth::user()->isSubscribedTo($channel_info) : false;
+        
+        // Get user's reaction status if logged in
+        $userReaction = null;
+        $like_check = false;
+        $dislike_check = false;
+
+        if (auth()->check()) {
+            $userReaction = NewsReaction::where('news_id', $item->id)
+                ->where('user_id', auth()->id())
+                ->first();
+                
+            if ($userReaction) {
+                $like_check = $userReaction->likes;
+                $dislike_check = $userReaction->dislikes;
+            }
+        }
+
+        // Get subscriber status if logged in
+        $subscribe_check = false;
+        if (auth()->check()) {
+            $subscribe_check = $channel_info->subscribers()
+                ->where('user_id', auth()->id())
+                ->exists();
+        }
 
         // Get similar news
         $similar_news = News::getSimilarNews($item->id);

@@ -87,4 +87,14 @@ class News extends Model
             ->orderBy('view', 'desc')
             ->paginate($perPage, ['id', 'title', 'slug', 'image', 'view']);
     }
+
+    public function reactions()
+    {
+        return $this->hasMany(NewsReaction::class);
+    }
+
+    public function userReaction()
+    {
+        return $this->hasOne(NewsReaction::class)->where('user_id', auth()->id());
+    }
 }

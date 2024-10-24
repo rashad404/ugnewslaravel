@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\NewsReaction;
 use Illuminate\Http\Request;
 
 class NewsReactionController extends Controller
@@ -11,38 +12,67 @@ class NewsReactionController extends Controller
     public function toggleReaction(News $news, string $type)
     {
         $user = auth()->user();
-        $reactionType = $type === 'like' ? 'likes' : 'dislikes';
-        $oppositeType = $type === 'like' ? 'dislikes' : 'likes';
+        $currentTime = time();
         
-        // Check if user has already reacted
-        $existingReaction = $user->newsReactions()
+        // Get existing reaction (if any)
+        $reaction = NewsReaction::where('user_id', $user->id)
             ->where('news_id', $news->id)
-            ->where($reactionType, true)
             ->first();
             
-        // Remove opposite reaction if exists
-        $user->newsReactions()
-            ->where('news_id', $news->id)
-            ->where($oppositeType, true)
-            ->delete();
-            
-        if ($existingReaction) {
-            $existingReaction->delete();
-            $news->decrement($reactionType);
-            $count = $news->$reactionType;
-        } else {
-            $user->newsReactions()->create([
+        if (!$reaction) {
+            // No existing reaction - create new one
+            NewsReaction::create([
+                'user_id' => $user->id,
                 'news_id' => $news->id,
-                $reactionType => true
+                'likes' => ($type === 'like'),
+                'dislikes' => ($type === 'dislike'),
+                'time' => $currentTime
             ]);
-            $news->increment($reactionType);
-            $count = $news->$reactionType;
+            
+            $news->increment($type . 's');
+            $count = $news[$type.'s'];
+            $message = 'added';
+        } else {
+            if ($reaction->{$type.'s'}) {
+                // Clicking same reaction - remove it
+                $reaction->delete();
+                $news->decrement($type . 's');
+                $count = $news[$type.'s'];
+                $message = 'removed';
+            } else {
+                // Clicking different reaction - remove old, add new
+                $oppositeType = $type === 'like' ? 'dislikes' : 'likes';
+                
+                // If there was an opposite reaction, decrement it
+                if ($reaction->$oppositeType) {
+                    $news->decrement($oppositeType);
+                }
+                
+                // Delete old reaction
+                $reaction->delete();
+                
+                // Create new reaction
+                NewsReaction::create([
+                    'user_id' => $user->id,
+                    'news_id' => $news->id,
+                    'likes' => ($type === 'like'),
+                    'dislikes' => ($type === 'dislike'),
+                    'time' => $currentTime
+                ]);
+                
+                $news->increment($type . 's');
+                $count = $news[$type.'s'];
+                $message = 'changed';
+            }
         }
         
         if (request()->ajax()) {
             return response()->json([
                 'success' => true,
-                'count' => $count
+                'message' => $message,
+                'count' => $count,
+                'likes' => $news->likes,
+                'dislikes' => $news->dislikes
             ]);
         }
         

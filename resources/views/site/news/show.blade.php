@@ -69,26 +69,28 @@
                     </button>
                 </div>
                 <div class="flex space-x-2">
+
                     <button 
-                        data-reaction-button="like"
-                        data-news-id="{{ $item->id }}" 
-                        class="{{ Auth::check() ? '' : 'umodal_toggle' }} like {{ $like_check ? 'liked' : '' }} px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center"
-                    >
-                        <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                        </svg>
-                        <span data-reaction-count="like">{{ $item->likes }}</span>
-                    </button>
-                    <button 
-                        data-reaction-button="dislike"
-                        data-news-id="{{ $item->id }}" 
-                        class="{{ Auth::check() ? '' : 'umodal_toggle' }} dislike {{ $dislike_check ? 'disliked' : '' }} px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 flex items-center"
-                    >
-                        <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
-                        </svg>
-                        <span data-reaction-count="dislike">{{ $item->dislikes }}</span>
-                    </button>
+    data-reaction-button="like"
+    data-news-id="{{ $item->id }}" 
+    class="{{ Auth::check() ? '' : 'umodal_toggle' }} like {{ $like_check ? 'liked' : '' }} px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center"
+>
+    <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+    </svg>
+    <span data-reaction-count="like">{{ $item->likes }}</span>
+</button>
+
+<button 
+    data-reaction-button="dislike"
+    data-news-id="{{ $item->id }}" 
+    class="{{ Auth::check() ? '' : 'umodal_toggle' }} dislike {{ $dislike_check ? 'disliked' : '' }} px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center"
+>
+    <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
+    </svg>
+    <span data-reaction-count="dislike">{{ $item->dislikes }}</span>
+</button>
                 </div>
             </footer>
         </article>
@@ -105,7 +107,9 @@
                     Twitter
                 </a>
                 <a href="https://wa.me/?text={{ urlencode($item->title . ' ' . url()->current()) }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center" target="_blank" rel="noopener">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.8842.804-5.166 6.666-6.666 9.886a9.94 9.94 0 01-1.378 5.031c-.5.812-1.185 1.527-1.996 2.114a9.89 9.89 0 01-5.169 2.268 9.86 9.86 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884" /></svg>
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.464 0 4.784.96 6.524 2.703a9.182 9.182 0 012.704 6.525c0 5.45-4.437 9.884-9.885 9.884"></path>
+                    </svg>
                     WhatsApp
                 </a>
                 <a href="mailto:?subject={{ urlencode($item->title) }}&body={{ url()->current() }}" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center">
@@ -226,4 +230,49 @@
         });
     });
 </script>
+@endpush
+
+@push('styles')
+<style>
+    /* Default state */
+    [data-reaction-button] {
+        transition: all 0.2s ease;
+    }
+    
+    /* Like button states */
+    .like.liked {
+        background-color: #ecfdf5 !important; /* Light green background */
+        color: #059669 !important; /* Green text */
+        border: 1px solid #059669;
+    }
+    
+    .like:not(.liked):hover {
+        background-color: #f3f4f6;
+        color: #059669;
+    }
+    
+    /* Dislike button states */
+    .dislike.disliked {
+        background-color: #fef2f2 !important; /* Light red background */
+        color: #dc2626 !important; /* Red text */
+        border: 1px solid #dc2626;
+    }
+    
+    .dislike:not(.disliked):hover {
+        background-color: #f3f4f6;
+        color: #dc2626;
+    }
+    
+    /* Animation for click */
+    .liked, .disliked {
+        transform: scale(1.05);
+    }
+    
+    /* Count style */
+    [data-reaction-count] {
+        font-weight: 500;
+        min-width: 1rem;
+        text-align: center;
+    }
+    </style>
 @endpush

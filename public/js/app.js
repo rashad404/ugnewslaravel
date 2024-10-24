@@ -25393,11 +25393,12 @@ var NewsReactionHandler = /*#__PURE__*/function () {
   return _createClass(NewsReactionHandler, [{
     key: "initializeReactions",
     value: function initializeReactions() {
+      var _this = this;
       var reactionButtons = document.querySelectorAll('[data-reaction-button]');
       reactionButtons.forEach(function (button) {
         button.addEventListener('click', /*#__PURE__*/function () {
           var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-            var newsId, reactionType, isActive, response, data, countSpan;
+            var newsId, reactionType, response, data;
             return _regeneratorRuntime().wrap(function _callee$(_context) {
               while (1) switch (_context.prev = _context.next) {
                 case 0:
@@ -25411,9 +25412,8 @@ var NewsReactionHandler = /*#__PURE__*/function () {
                 case 4:
                   newsId = button.dataset.newsId;
                   reactionType = button.dataset.reactionButton;
-                  isActive = button.classList.contains("".concat(reactionType, "d"));
-                  _context.prev = 7;
-                  _context.next = 10;
+                  _context.prev = 6;
+                  _context.next = 9;
                   return fetch("/reactions/".concat(newsId, "/").concat(reactionType), {
                     method: 'POST',
                     headers: {
@@ -25422,31 +25422,24 @@ var NewsReactionHandler = /*#__PURE__*/function () {
                       'X-Requested-With': 'XMLHttpRequest'
                     }
                   });
-                case 10:
+                case 9:
                   response = _context.sent;
-                  _context.next = 13;
+                  _context.next = 12;
                   return response.json();
-                case 13:
+                case 12:
                   data = _context.sent;
-                  // Update button state
-                  button.classList.toggle("".concat(reactionType, "d"));
-
-                  // Update count
-                  countSpan = button.querySelector("[data-reaction-count=\"".concat(reactionType, "\"]"));
-                  if (countSpan) {
-                    countSpan.textContent = data.count;
-                  }
-                  _context.next = 22;
+                  _this.updateReactionUI(button, reactionType, data);
+                  _context.next = 19;
                   break;
-                case 19:
-                  _context.prev = 19;
-                  _context.t0 = _context["catch"](7);
+                case 16:
+                  _context.prev = 16;
+                  _context.t0 = _context["catch"](6);
                   console.error('Error:', _context.t0);
-                case 22:
+                case 19:
                 case "end":
                   return _context.stop();
               }
-            }, _callee, null, [[7, 19]]);
+            }, _callee, null, [[6, 16]]);
           }));
           return function (_x) {
             return _ref.apply(this, arguments);
@@ -25455,13 +25448,42 @@ var NewsReactionHandler = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "updateReactionUI",
+    value: function updateReactionUI(button, reactionType, data) {
+      var oppositeType = reactionType === 'like' ? 'dislike' : 'like';
+      var oppositeButton = document.querySelector("[data-reaction-button=\"".concat(oppositeType, "\"]"));
+
+      // Update clicked button
+      if (data.message === 'removed') {
+        button.classList.remove("".concat(reactionType, "d"));
+      } else {
+        button.classList.add("".concat(reactionType, "d"));
+      }
+
+      // Update count for clicked button
+      var countSpan = button.querySelector("[data-reaction-count=\"".concat(reactionType, "\"]"));
+      if (countSpan) {
+        countSpan.textContent = data.count;
+      }
+
+      // Update opposite button if it exists
+      if (oppositeButton && (data.message === 'changed' || data.message === 'added')) {
+        oppositeButton.classList.remove("".concat(oppositeType, "d"));
+        var oppositeCount = oppositeButton.querySelector("[data-reaction-count=\"".concat(oppositeType, "\"]"));
+        if (oppositeCount) {
+          oppositeCount.textContent = data["".concat(oppositeType, "s")];
+        }
+      }
+    }
+  }, {
     key: "initializeSubscription",
     value: function initializeSubscription() {
+      var _this2 = this;
       var subscribeButtons = document.querySelectorAll('[data-subscription-button]');
       subscribeButtons.forEach(function (button) {
         button.addEventListener('click', /*#__PURE__*/function () {
           var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-            var channelId, response, data, textSpan, svg, subscriberCount;
+            var channelId, response, data;
             return _regeneratorRuntime().wrap(function _callee2$(_context2) {
               while (1) switch (_context2.prev = _context2.next) {
                 case 0:
@@ -25490,39 +25512,48 @@ var NewsReactionHandler = /*#__PURE__*/function () {
                   return response.json();
                 case 11:
                   data = _context2.sent;
-                  // Update button state
-                  button.classList.toggle('subscribed');
-
-                  // Update button text
-                  textSpan = button.querySelector('span');
-                  textSpan.textContent = data.message;
-
-                  // Update button icon
-                  svg = button.querySelector('svg');
-                  svg.innerHTML = data.isSubscribed ? "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0\" />" : "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.143 17.082a24.248 24.248 0 0 0 3.844.148m-3.844-.148a23.856 23.856 0 0 1-5.455-1.31 8.964 8.964 0 0 0 2.3-5.542m3.155 6.852a3 3 0 0 0 5.667 1.97m1.965-2.277L21 21m-4.225-4.225a23.81 23.81 0 0 0 3.536-1.003A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6.53 6.53m10.245 10.245L6.53 6.53M3 3l3.53 3.53\" />";
-
-                  // Update subscriber count
-                  subscriberCount = document.getElementById('subscriberCount');
-                  if (subscriberCount) {
-                    subscriberCount.textContent = new Intl.NumberFormat().format(data.subscriberCount);
-                  }
-                  _context2.next = 24;
+                  _this2.updateSubscriptionUI(button, data);
+                  _context2.next = 18;
                   break;
-                case 21:
-                  _context2.prev = 21;
+                case 15:
+                  _context2.prev = 15;
                   _context2.t0 = _context2["catch"](5);
                   console.error('Error:', _context2.t0);
-                case 24:
+                case 18:
                 case "end":
                   return _context2.stop();
               }
-            }, _callee2, null, [[5, 21]]);
+            }, _callee2, null, [[5, 15]]);
           }));
           return function (_x2) {
             return _ref2.apply(this, arguments);
           };
         }());
       });
+    }
+  }, {
+    key: "updateSubscriptionUI",
+    value: function updateSubscriptionUI(button, data) {
+      // Update button state
+      button.classList.toggle('subscribed');
+
+      // Update button text
+      var textSpan = button.querySelector('span');
+      if (textSpan) {
+        textSpan.textContent = data.message;
+      }
+
+      // Update button icon
+      var svg = button.querySelector('svg');
+      if (svg) {
+        svg.innerHTML = data.isSubscribed ? "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.143 17.082a24.248 24.248 0 0 0 3.844.148m-3.844-.148a23.856 23.856 0 0 1-5.455-1.31 8.964 8.964 0 0 0 2.3-5.542m3.155 6.852a3 3 0 0 0 5.667 1.97m1.965-2.277L21 21m-4.225-4.225a23.81 23.81 0 0 0 3.536-1.003A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6.53 6.53m10.245 10.245L6.53 6.53M3 3l3.53 3.53\" />" : "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0\" />";
+      }
+
+      // Update subscriber count
+      var subscriberCount = document.getElementById('subscriberCount');
+      if (subscriberCount && typeof data.subscriberCount !== 'undefined') {
+        subscriberCount.textContent = new Intl.NumberFormat().format(data.subscriberCount);
+      }
     }
   }]);
 }();

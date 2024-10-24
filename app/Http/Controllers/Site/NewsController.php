@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ad;
 use App\Models\Channel;
 use App\Models\News;
+use App\Models\UniqueView;
 use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
@@ -35,10 +36,15 @@ class NewsController extends Controller
     public function show($channel, $slug)
     {
         $fullSlug = $channel . '/' . $slug;
+
         $item = News::where('slug', $fullSlug)->firstOrFail();
         
+        
         // Increment view count
-        $item->increment('view');
+        UniqueView::calculateUniqueView($item->id);
+
+        // Refresh the item
+        $item = News::find($item->id);
 
         $channel_info = Channel::find($item->channel_id);
         $subscribe_check = $this->checkSubscription($item->channel_id);

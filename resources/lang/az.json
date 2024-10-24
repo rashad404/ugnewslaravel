@@ -407,7 +407,10 @@
     "Article deleted successfully": "Məqalə uğurla silindi",
     "Get News API": "Xəbər məlumatı API",
     "Get Categories API": "Kateqoriya siyahısı API",
-    "Get Cities API": "Şəhər siyahısı API"
+    "Get Cities API": "Şəhər siyahısı API",
+
+    "Rank": "Sıra",
+    "Top Channels": "Ən Yaxşı Kanallar"
 
   }
   

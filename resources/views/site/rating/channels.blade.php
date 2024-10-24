@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@php
+    use App\Helpers\Format;
+@endphp
 @section('content')
     <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ __('Top Channels') }}</h1>
 
@@ -8,8 +10,8 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rank</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Channel ID') }}</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Rank') }}</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Channel') }}  ID</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Subscribers') }}</th>
                     </tr>
                 </thead>
@@ -35,7 +37,7 @@
                                         <img class="h-10 w-10 rounded-full mr-3" src="{{ asset('storage/' . $channel->image) }}" alt="{{ $channel->name }}">
                                     @endif
                                     <div class="text-sm font-medium text-gray-900">
-                                        <a href="{{ route('channel.show', $channel->id) }}" class="hover:text-blue-600">
+                                        <a href="{{ Format::urlTextChannel($channel->name_url) }}" class="hover:text-blue-600">
                                             {{ Str::limit($channel->name, 30) }}
                                         </a>
                                     </div>

@@ -49,6 +49,10 @@ class RegisterController extends Controller
         // Automatically log in the user
         Auth::login($user);
 
+        if ($request->redirectUrl) {
+            return redirect()->intended($request->redirectUrl);
+        }
+        
         return redirect()->route('user.dashboard')->with('success', 'Account created successfully. Please log in.');
     }
 }

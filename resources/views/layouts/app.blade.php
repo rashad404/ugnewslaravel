@@ -15,6 +15,7 @@
     @endif
     <meta property="og:url" content="https://{{ $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] }}">
     <meta property="og:site_name" content="{{config('app.name')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/favicon/favicon-32x32.png') }}" type="image/png">
 
 

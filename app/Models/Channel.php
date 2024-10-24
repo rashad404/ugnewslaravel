@@ -16,11 +16,6 @@ class Channel extends Model
         return $this->hasMany(News::class);
     }
 
-    public function subscribers()
-    {
-        return $this->hasMany(Subscriber::class);
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -58,4 +53,16 @@ class Channel extends Model
                    ->limit($limit)
                    ->get(['id', 'name', 'name_url', 'image', 'subscribers']);
     }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, 'subscribers')
+                    ->withTimestamps();
+    }
+
+
+    // public function subscribers()
+    // {
+    //     return $this->hasMany(Subscriber::class);
+    // }
 }

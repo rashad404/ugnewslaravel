@@ -50,7 +50,7 @@ class ChannelController extends Controller
 
         // Load country list
         $data['countryList'] = Sms::getCountryList();
-        $data['subscribe_check'] = 1;
+        $data['subscribe_check'] = Auth::check() ? Auth::user()->isSubscribedTo($data['item']) : false;
 
         // Render the view with the data
         return view('site.channel.show', $data);

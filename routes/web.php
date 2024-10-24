@@ -22,6 +22,7 @@ use App\Http\Controllers\Site\SettingController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\WeatherController;
+use App\Http\Controllers\Site\SubscriberController;
 
 $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'ug.news';
 
@@ -126,3 +127,8 @@ Route::get('/{channel}/{slug}', [SiteNewsController::class, 'show'])->name('news
 
 
 Route::get('/{url}', [SiteChannelController::class, 'inner'])->name('channel.show');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/subscribers/{channel}', [SubscriberController::class, 'toggle'])
+        ->name('subscribers.toggle');
+});

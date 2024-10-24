@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Helpers\Format;
+use App\Helpers\Sms;
 use App\Http\Controllers\Controller;
 use App\Models\Ad;
 use App\Models\Channel;
@@ -47,7 +48,7 @@ class NewsController extends Controller
         $item = News::find($item->id);
 
         $channel_info = Channel::find($item->channel_id);
-        $subscribe_check = $this->checkSubscription($item->channel_id);
+        $subscribe_check = $data['subscribe_check'] = Auth::check() ? Auth::user()->isSubscribedTo($channel_info) : false;
         $like_check = $this->checkLike($item->id);
         $dislike_check = $this->checkDislike($item->id);
 
@@ -62,10 +63,12 @@ class NewsController extends Controller
 
         // Get a random ad
         $ad = Ad::inRandomOrder()->first();
+        $countryList = Sms::getCountryList();
+
         return view('site.news.show', compact(
             'item', 'channel_info', 'subscribe_check', 'like_check', 
             'dislike_check', 'similar_news', 'ad',
-            'metaTitle', 'metaKeywords', 'metaDescription', 'metaImg'
+            'metaTitle', 'metaKeywords', 'metaDescription', 'metaImg', 'countryList'
         ));
     }
 

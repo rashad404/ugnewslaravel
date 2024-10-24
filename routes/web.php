@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\NewsController as SiteNewsController;
 use App\Http\Controllers\Site\AdController as SiteAdController;
 use App\Http\Controllers\Site\CurrencyController;
 use App\Http\Controllers\Site\NamazTimeController;
+use App\Http\Controllers\Site\NewsReactionController;
 use App\Http\Controllers\Site\RatingController;
 use App\Http\Controllers\Site\SettingController;
 use App\Http\Controllers\Site\SiteController;
@@ -131,4 +132,9 @@ Route::get('/{url}', [SiteChannelController::class, 'show'])->name('channel.show
 Route::middleware('auth')->group(function () {
     Route::post('/subscribers/{channel}', [SubscriberController::class, 'toggle'])
         ->name('subscribers.toggle');
+    
+    Route::post('/reactions/{news}/{type}', [NewsReactionController::class, 'toggleReaction'])
+        ->name('news.reaction.toggle')
+        ->where('type', 'like|dislike');
 });
+

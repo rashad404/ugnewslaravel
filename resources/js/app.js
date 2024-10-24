@@ -4,10 +4,10 @@ require('./sidebar');
 import { createApp } from 'vue';
 import TextEditorComponent from './components/TextEditorComponent.vue';
 import ImageUploadComponent from './components/ImageUploadComponent.vue';
-import { initializeSubscription } from './subscription';
+import { NewsReactionHandler } from './newsReactions';
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeSubscription();
+    new NewsReactionHandler();
 });
 
 createApp({
